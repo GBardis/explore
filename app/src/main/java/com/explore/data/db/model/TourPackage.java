@@ -12,7 +12,7 @@ public class TourPackage {
     @PrimaryKey
     public final int id;
 
-    public enum Category {
+    public enum Region {
         CRETE("Crete"),
         PELOPONNESE("Peloponnese"),
         MACEDONIA("Mecodonia"),
