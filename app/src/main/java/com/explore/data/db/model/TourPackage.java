@@ -10,7 +10,7 @@ import lombok.Setter;
 public class TourPackage {
     @Getter
     @PrimaryKey
-    public final int id;
+    public final String id;
 
     public enum Region {
         CRETE("Crete"),
@@ -48,7 +48,7 @@ public class TourPackage {
     @Setter
     private String regionColor;
 
-    public TourPackage(int id, String name, Double rating, String ratingColor, String regionColor) {
+    public TourPackage(String id, String name, Double rating, String ratingColor, String regionColor) {
         this.id = id;
         this.setName(name);
         this.setRating(rating);

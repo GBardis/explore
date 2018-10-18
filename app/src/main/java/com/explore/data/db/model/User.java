@@ -11,7 +11,7 @@ public class User {
 
     @PrimaryKey
     @Getter
-    public final int id;
+    public final String id;
     @Getter
     @Setter
     private String userName;
@@ -32,13 +32,13 @@ public class User {
     private String address;
     @Getter
     @Setter
-    private Integer age;
+    private int age;
     @Getter
     @Setter
     private String teamColor;
 
-    public User(int id, String userName, String password, String firstName, String lastName,
-                String email, String address, Integer age, String teamColor) {
+    public User(String id, String userName, String password, String firstName, String lastName,
+                String email, String address, int age, String teamColor) {
         this.id = id;
         this.setUserName(userName);
         this.setPassword(password);
