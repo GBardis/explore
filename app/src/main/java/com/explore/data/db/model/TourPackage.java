@@ -25,7 +25,7 @@ public class TourPackage {
 
         private final String text;
 
-        Category(final String text) {
+        Region(final String text) {
             this.text = text;
         }
 
