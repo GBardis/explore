@@ -1,4 +1,4 @@
-package com.explore.rest;
+package com.explore.data.rest;
 
 import java.util.concurrent.TimeUnit;
 
