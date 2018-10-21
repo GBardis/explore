@@ -37,3 +37,16 @@ Use this as reference for the elements you want to name
 For example, if you want to add an `@id` to a `TextView` control inside the `UserProfileFragment`  
 which is used to show the User's `firstName` attribute, using the convention above you should have  
 `@id/text_user_profile_first_name`  
+
+
+### Commit message convention proposal
+
+Commit messages are essentially a topic, so it's better if they are capitalized and do *not* contain  
+a period (.)
+
+e.g: `Fix button behaviour`
+
+A commit message should answer the question  _If applied, this commit will_ `<your subject line here>`  
+e.g.: _If applied, this commit will_ `Fix button behaviour`
+    
+ 
