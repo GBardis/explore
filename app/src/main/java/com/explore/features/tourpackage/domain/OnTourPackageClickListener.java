@@ -1,8 +1,6 @@
 package com.explore.features.tourpackage.domain;
 
-import com.explore.data.db.model.TourPackage;
+public interface OnTourPackageClickListener {
 
-public interface OnTourPackageListener {
-
-    void onTourPackageClicked(TourPackage tourPackage);
+    void onTourPackageClicked(TourPackageUI tourPackageUI);
 }
