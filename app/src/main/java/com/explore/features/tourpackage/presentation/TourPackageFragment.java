@@ -1,4 +1,4 @@
-package com.explore.features.tourpackage;
+package com.explore.features.tourpackage.presentation;
 
 
 import android.os.Bundle;
@@ -8,11 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.explore.R;
+import com.explore.features.tourpackage.domain.TourPackageView;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TourPackageFragment extends Fragment {
+public class TourPackageFragment extends Fragment implements TourPackageView {
 
 
     public TourPackageFragment() {
