@@ -1,4 +1,4 @@
-package com.explore.features.tour;
+package com.explore.features.tour.presentation;
 
 
 import android.os.Bundle;
@@ -8,11 +8,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.explore.R;
+import com.explore.data.db.model.Tour;
+import com.explore.data.db.model.TourPackage;
+import com.explore.features.tour.domain.TourView;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TourFragment extends Fragment {
+public class TourFragment extends Fragment implements TourView {
 
 
     public TourFragment() {
@@ -27,4 +32,8 @@ public class TourFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_tour, container, false);
     }
 
+    @Override
+    public void showTourPackage(ArrayList<Tour> tourArrayList, TourPackage tourPackage) {
+
+    }
 }
