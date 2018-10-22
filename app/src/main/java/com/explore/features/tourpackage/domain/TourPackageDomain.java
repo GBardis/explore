@@ -7,7 +7,6 @@ import lombok.Setter;
 
 public class TourPackageDomain {
     @Getter
-    @Setter
     public final String id;
 
     public enum Region {

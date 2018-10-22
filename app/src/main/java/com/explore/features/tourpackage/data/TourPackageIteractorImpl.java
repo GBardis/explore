@@ -11,9 +11,21 @@ public class TourPackageIteractorImpl implements TourPackageIteractor {
     @Override
     public void getTourPackages(OnTourPackageFinishListener listener) {
         List<TourPackageDomain> tourPackageDomainList = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            tourPackageDomainList.add(new TourPackageDomain(String.valueOf(i), "Name" + i, i * 0.5, "red", "blue"));
-        }
+
+        tourPackageDomainList.add(new TourPackageDomain("", "George", 1 * 0.5, "red", "blue"));
+
+        tourPackageDomainList.add(new TourPackageDomain("1", "Giannhs", 1 * 0.5, "red", "blue"));
+
+        tourPackageDomainList.add(new TourPackageDomain("1", "Geo", 1.1, "red", "blue"));
+
+        tourPackageDomainList.add(new TourPackageDomain("1", "GeorgeBardis", 1.3, "red", "blue"));
+
+        tourPackageDomainList.add(new TourPackageDomain("1", "hahaha", 1.1, "red", "blue"));
+
+        tourPackageDomainList.add(new TourPackageDomain("1", "xoxoxoxox", 1.1, "red", "blue"));
+
+        tourPackageDomainList.add(new TourPackageDomain("1", "hihihihihi", 1.2, "red", "blue"));
+
         listener.onSuccess(tourPackageDomainList);
     }
 

@@ -3,13 +3,21 @@ package com.explore.features.tourpackage.presentation;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.explore.MainActivity;
 import com.explore.R;
 import com.explore.features.tourpackage.domain.OnTourPackageClickListener;
 import com.explore.features.tourpackage.domain.TourPackagePresenter;
@@ -17,20 +25,28 @@ import com.explore.features.tourpackage.domain.TourPackageUI;
 import com.explore.features.tourpackage.domain.TourPackageView;
 
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class TourPackageFragment extends Fragment implements TourPackageView {
+public class TourPackageFragment extends Fragment implements TourPackageView, TourPackagesRvAdapter.TourPackageListener {
     @BindView(R.id.tourpackage_rv)
     RecyclerView tourPackageRv;
-
     TourPackagePresenter tourPackagePresenter;
+    TourPackagesRvAdapter tourPackagesRvAdapter;
+
 
     public TourPackageFragment() {
         // Required empty public constructor
     }
 
+    @Override
+
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -38,6 +54,12 @@ public class TourPackageFragment extends Fragment implements TourPackageView {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_tour_package, container, false);
         ButterKnife.bind(this, v);
+
+        // Setup SupportActionBar
+        Toolbar toolbar = (Toolbar) v.findViewById(R.id.toolbar);
+        ((MainActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
+
+        //Setup LayoutManager
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         tourPackageRv.setLayoutManager(layoutManager);
         tourPackagePresenter = new TourPackagePresenterImpl(this);
@@ -47,12 +69,61 @@ public class TourPackageFragment extends Fragment implements TourPackageView {
 
     @Override
     public void showTourPackages(List<TourPackageUI> tourPackageArrayList) {
-        TourPackagesRvAdapter tourPackagesRvAdapter = new TourPackagesRvAdapter(tourPackageArrayList, new OnTourPackageClickListener() {
+        tourPackagesRvAdapter = new TourPackagesRvAdapter(tourPackageArrayList, new OnTourPackageClickListener() {
             @Override
             public void onTourPackageClicked(TourPackageUI tourPackageUI) {
 
             }
-        }, getActivity());
+        }, getActivity(), this);
         tourPackageRv.setAdapter(tourPackagesRvAdapter);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_tourpackage, menu);
+
+        // Setup menu with actionbar
+        MenuInflater menuInflater = new MenuInflater(getActivity());
+        menuInflater.inflate(R.menu.menu_tourpackage, menu);
+        MenuItem item = menu.findItem(R.id.menu_action_search);
+        SearchView searchView = (SearchView) item.getActionView();
+
+        // listening to search query text change
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // filter recycler view when query submitted
+                tourPackagesRvAdapter.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                // filter recycler view when text is changed
+                tourPackagesRvAdapter.getFilter().filter(query);
+                return false;
+            }
+        });
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.menu_action_search) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onTourPackageFiltered(TourPackageUI tourPackageUI) {
+        Toast.makeText(getContext(), "Selected: " + tourPackageUI.getName(), Toast.LENGTH_LONG).show();
     }
 }
