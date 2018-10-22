@@ -30,7 +30,7 @@ import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class TourPackageFragment extends Fragment implements TourPackageView, TourPackagesRvAdapter.TourPackageListener {
+public class TourPackageFragment extends Fragment implements TourPackageView {
     @BindView(R.id.tourpackage_rv)
     RecyclerView tourPackageRv;
     TourPackagePresenter tourPackagePresenter;
@@ -56,7 +56,7 @@ public class TourPackageFragment extends Fragment implements TourPackageView, To
         ButterKnife.bind(this, v);
 
         // Setup SupportActionBar
-        Toolbar toolbar = (Toolbar) v.findViewById(R.id.toolbar);
+        Toolbar toolbar = v.findViewById(R.id.toolbar);
         ((MainActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
 
         //Setup LayoutManager
@@ -72,9 +72,9 @@ public class TourPackageFragment extends Fragment implements TourPackageView, To
         tourPackagesRvAdapter = new TourPackagesRvAdapter(tourPackageArrayList, new OnTourPackageClickListener() {
             @Override
             public void onTourPackageClicked(TourPackageUI tourPackageUI) {
-
+                Toast.makeText(getContext(), "Selected: " + tourPackageUI.getName(), Toast.LENGTH_LONG).show();
             }
-        }, getActivity(), this);
+        }, getActivity());
         tourPackageRv.setAdapter(tourPackagesRvAdapter);
     }
 
@@ -120,10 +120,5 @@ public class TourPackageFragment extends Fragment implements TourPackageView, To
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onTourPackageFiltered(TourPackageUI tourPackageUI) {
-        Toast.makeText(getContext(), "Selected: " + tourPackageUI.getName(), Toast.LENGTH_LONG).show();
     }
 }
