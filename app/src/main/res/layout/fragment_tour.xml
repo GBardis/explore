@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".features.tour.presentation.TourFragment">
+    tools:context=".features.tour.presentation.TourFragment"
+    android:id="@+id/root_main_activity">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
