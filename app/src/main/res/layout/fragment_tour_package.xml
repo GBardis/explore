@@ -21,12 +21,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <!--<EditText-->
-    <!--android:id="@+id/tour_package_edit_text"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_margin="10dp" />-->
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/tourpackage_rv"
         android:layout_width="match_parent"
