@@ -52,4 +52,4 @@ fastlane/test_output
 fastlane/readme.md
 
 // Remove this before merge all feature branches 
-app/src/main/java/com/explore/MainActivity.java 
+
