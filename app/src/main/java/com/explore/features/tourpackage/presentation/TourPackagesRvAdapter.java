@@ -30,41 +30,29 @@ public class TourPackagesRvAdapter extends RecyclerView.Adapter<TourPackagesRvAd
     private List<TourPackageUI> tourPackageUIFilteredList;
     @Setter
     @Getter
-    private OnTourPackageClickListener listener;
+    private OnTourPackageClickListener onTourPackageClickListener;
     @Getter
     @Setter
     private Context context;
-    @Getter
-    @Setter
-    private TourPackageListener tourPackageListener;
 
-    public TourPackagesRvAdapter(List<TourPackageUI> tourPackageList, OnTourPackageClickListener listener, Context context, TourPackageListener tourPackageListener) {
+    public TourPackagesRvAdapter(List<TourPackageUI> tourPackageList, OnTourPackageClickListener onTourPackageClickListener, Context context) {
         this.setTourPackageList(tourPackageList);
-        this.setListener(listener);
+        this.setOnTourPackageClickListener(onTourPackageClickListener);
         this.setContext(context);
         this.setTourPackageUIFilteredList(tourPackageList);
-        this.setTourPackageListener(tourPackageListener);
     }
 
 
     public class TourPackagesViewHolder extends RecyclerView.ViewHolder {
         TextView mTourPackageName;
         TextView mTourPackageAvgRating;
-        RelativeLayout relativeLayout;
+        RelativeLayout mRelativeLayout;
 
         public TourPackagesViewHolder(@NonNull View itemView) {
             super(itemView);
             mTourPackageName = itemView.findViewById(R.id.text_tourpackage_name);
             mTourPackageAvgRating = itemView.findViewById(R.id.text_tourpackage_avgrating);
-            relativeLayout = itemView.findViewById(R.id.tourpackage_root);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // send selected contact in callback
-                    getTourPackageListener().onTourPackageFiltered(tourPackageUIFilteredList.get(getAdapterPosition()));
-                }
-            });
+            mRelativeLayout = itemView.findViewById(R.id.tourpackage_root);
         }
     }
 
@@ -79,10 +67,16 @@ public class TourPackagesRvAdapter extends RecyclerView.Adapter<TourPackagesRvAd
 
     @Override
     public void onBindViewHolder(@NonNull TourPackagesViewHolder tourPackagesViewHolder, int i) {
-        final int position = i;
-        final TourPackageUI tourPackageUI = getTourPackageList().get(position);
+        final TourPackageUI tourPackageUI = getTourPackageList().get(i);
         tourPackagesViewHolder.mTourPackageName.setText(tourPackageUI.getName());
         tourPackagesViewHolder.mTourPackageAvgRating.setText(String.valueOf(tourPackageUI.getAvgrating()));
+
+        tourPackagesViewHolder.mRelativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onTourPackageClickListener.onTourPackageClicked(tourPackageUI);
+            }
+        });
 
     }
 
@@ -123,10 +117,6 @@ public class TourPackagesRvAdapter extends RecyclerView.Adapter<TourPackagesRvAd
                 notifyDataSetChanged();
             }
         };
-    }
-
-    public interface TourPackageListener {
-        void onTourPackageFiltered(TourPackageUI tourPackageUI);
     }
 }
 
