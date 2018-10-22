@@ -47,7 +47,7 @@ This is stated here as a part of our team's convention
 
 
 __Before you start implementing, also have a quick read through__
-the *actual* [__Android Guidlines__](https://github.com/ribot/android-guidelines/blob/master/project_and_code_guidelines.md)
+a guideline file created by a company and we can actually use [__Android Guidlines__](https://github.com/ribot/android-guidelines/blob/master/project_and_code_guidelines.md)
 
 ***
 
