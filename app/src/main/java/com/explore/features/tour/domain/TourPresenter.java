@@ -7,6 +7,6 @@ import java.util.ArrayList;
 
 public interface TourPresenter {
 
-    void getTourPackage();
+    void getTourPackage(String tourPackageId);
 
 }

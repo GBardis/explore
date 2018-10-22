@@ -11,6 +11,8 @@ import android.widget.Button;
 import com.explore.R;
 import com.explore.data.db.model.Tour;
 import com.explore.data.db.model.TourPackage;
+import com.explore.features.tour.domain.TourDomain;
+import com.explore.features.tour.domain.TourPackageDomain;
 import com.explore.features.tour.domain.TourPresenter;
 import com.explore.features.tour.domain.TourView;
 
@@ -41,14 +43,14 @@ public class TourFragment extends Fragment implements TourView {
             @Override
             public void onClick(View v) {
 
-                tourPresenter.getTourPackage();
+                tourPresenter.getTourPackage("2");
             }
         });
         return v;
     }
 
     @Override
-    public void showTourPackage(ArrayList<Tour> tourArrayList, TourPackage tourPackage) {
+    public void showTourPackage(ArrayList<TourDomain> tourDomainArrayList, TourPackageDomain tourPackageDomain) {
 
     }
 }

@@ -7,5 +7,5 @@ import java.util.ArrayList;
 
 public interface TourView {
 
-    void showTourPackage(ArrayList<Tour> tourArrayList, TourPackage tourPackage);
+    void showTourPackage(ArrayList<TourDomain> tourDomainArrayList, TourPackageDomain tourPackageDomain);
 }
