@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.explore.R;
-import com.explore.data.db.model.Tour;
-import com.explore.data.db.model.TourPackage;
 import com.explore.features.tour.domain.TourDomain;
 import com.explore.features.tour.domain.TourPackageDomain;
 import com.explore.features.tour.domain.TourPresenter;
@@ -24,7 +22,7 @@ import java.util.ArrayList;
 public class TourFragment extends Fragment implements TourView {
 
     Button tourDummyFetchButton;
-    TourPresenter tourPresenter;
+    private TourPresenter mTourPresenter;
 
     public TourFragment() {
         // Required empty public constructor
@@ -38,12 +36,12 @@ public class TourFragment extends Fragment implements TourView {
         View v = inflater.inflate(R.layout.fragment_tour, container, false);
         tourDummyFetchButton = v.findViewById(R.id.button_tour_dummy_fetch);
 
-        tourPresenter = new TourPresenterImpl(this);
+        mTourPresenter = new TourPresenterImpl(this);
         tourDummyFetchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                tourPresenter.getTourPackage("2");
+                mTourPresenter.getTourPackage("2");
             }
         });
         return v;

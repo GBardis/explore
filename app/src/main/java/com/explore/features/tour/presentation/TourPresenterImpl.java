@@ -1,7 +1,5 @@
 package com.explore.features.tour.presentation;
 
-import com.explore.data.db.model.Tour;
-import com.explore.data.db.model.TourPackage;
 import com.explore.features.tour.data.TourInteractorImpl;
 import com.explore.features.tour.domain.TourDomain;
 import com.explore.features.tour.domain.TourInteractor;
@@ -14,7 +12,7 @@ import java.util.ArrayList;
 public class TourPresenterImpl implements TourPresenter,TourInteractor.OnTourPackageFinishListener {
 
     private TourView tourView;
-    private TourInteractor tourInteractor;
+    private TourInteractor mTourInteractor;
 
     public TourPresenterImpl() {
     }
@@ -22,12 +20,12 @@ public class TourPresenterImpl implements TourPresenter,TourInteractor.OnTourPac
     public TourPresenterImpl(TourView tourView) {
 
         this.tourView = tourView;
-        tourInteractor = new TourInteractorImpl();
+        mTourInteractor = new TourInteractorImpl();
     }
 
     @Override
     public void getTourPackage(String tourPackageId) {
-        tourInteractor.getTourPackage(this,tourPackageId);
+        mTourInteractor.getTourPackage(this,tourPackageId);
     }
 
     @Override
