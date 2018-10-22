@@ -35,7 +35,7 @@ public class TourPackagesRvAdapter extends RecyclerView.Adapter<TourPackagesRvAd
     @Setter
     private Context context;
 
-    public TourPackagesRvAdapter(List<TourPackageUI> tourPackageList, OnTourPackageClickListener onTourPackageClickListener, Context context) {
+    TourPackagesRvAdapter(List<TourPackageUI> tourPackageList, OnTourPackageClickListener onTourPackageClickListener, Context context) {
         this.setTourPackageList(tourPackageList);
         this.setOnTourPackageClickListener(onTourPackageClickListener);
         this.setContext(context);
@@ -43,12 +43,12 @@ public class TourPackagesRvAdapter extends RecyclerView.Adapter<TourPackagesRvAd
     }
 
 
-    public class TourPackagesViewHolder extends RecyclerView.ViewHolder {
+    static class TourPackagesViewHolder extends RecyclerView.ViewHolder {
         TextView mTourPackageName;
         TextView mTourPackageAvgRating;
         RelativeLayout mRelativeLayout;
 
-        public TourPackagesViewHolder(@NonNull View itemView) {
+        TourPackagesViewHolder(@NonNull View itemView) {
             super(itemView);
             mTourPackageName = itemView.findViewById(R.id.text_tourpackage_name);
             mTourPackageAvgRating = itemView.findViewById(R.id.text_tourpackage_avgrating);
