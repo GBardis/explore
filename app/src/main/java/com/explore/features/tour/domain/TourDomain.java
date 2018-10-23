@@ -18,11 +18,14 @@ public class TourDomain{
     @Getter
     @Setter
     private String descTextSize;
+    @Getter
+    @Setter
+    private String description;
 
-    public TourDomain(String id, String name, double rating, String descTextSize) {
+    public TourDomain(String id, String name, double rating, String description) {
         this.id = id;
         this.name = name;
         this.rating = rating;
-        this.descTextSize = descTextSize;
+        this.description = description;
     }
 }

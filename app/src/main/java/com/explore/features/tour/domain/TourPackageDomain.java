@@ -25,11 +25,16 @@ public class TourPackageDomain{
     @Setter
     private String area;
 
-    public TourPackageDomain(String id, String name, double rating, String descTextSize, String area) {
+    @Getter
+    @Setter
+    private String description;
+
+
+    public TourPackageDomain(String id, String name, double rating, String area, String description) {
         this.id = id;
         this.name = name;
         this.rating = rating;
-        this.descTextSize = descTextSize;
         this.area = area;
+        this.description = description;
     }
 }

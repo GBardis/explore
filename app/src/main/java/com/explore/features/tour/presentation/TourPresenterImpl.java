@@ -43,7 +43,8 @@ public class TourPresenterImpl implements TourPresenter, TourInteractor.OnTourPa
                 tourUIArrayList,
                 new TourPackageUI(tourPackageDomain.getName(),
                         tourPackageDomain.getArea(),
-                        tourPackageDomain.getRating()));
+                        tourPackageDomain.getRating(),
+                        tourPackageDomain.getDescription()));
     }
 
     @Override

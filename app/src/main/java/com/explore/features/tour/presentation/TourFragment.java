@@ -1,6 +1,7 @@
 package com.explore.features.tour.presentation;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,7 +12,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.explore.MainActivity;
 import com.explore.R;
+import com.explore.features.IsToolbarSetter;
 import com.explore.features.tour.domain.TourPackageUI;
 import com.explore.features.tour.domain.TourPresenter;
 import com.explore.features.tour.domain.TourRvAdapter;
@@ -26,7 +29,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TourFragment extends Fragment implements TourView {
+public class TourFragment extends Fragment implements TourView,IsToolbarSetter{
 
     Button tourDummyFetchButton;
     private TourPresenter mTourPresenter;
@@ -67,8 +70,14 @@ public class TourFragment extends Fragment implements TourView {
 
     @Override
     public void showTourPackage(ArrayList<TourUI> tourUIArrayList, TourPackageUI tourPackageUI) {
+        setToolbarTitle(getActivity(),tourPackageUI.getName());
         mRecyclerView.setAdapter(new TourRvAdapter(tourUIArrayList));
 
-        mTextViewTourPackageName.setText(tourPackageUI.getName());
+        mTextViewDescription.setText(tourPackageUI.getDescription());
+    }
+
+    @Override
+    public void setToolbarTitle(Activity activity, String title) {
+        ((MainActivity)activity).setActivityToolbarTitle(title);
     }
 }

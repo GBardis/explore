@@ -17,4 +17,10 @@ public class MainActivity extends AppCompatActivity {
                 .add(R.id.root_main_activity,new TourFragment())
                 .commit();
     }
+
+    // expose a method which allows any fragment to change
+    // the app toolbar title
+    public void setActivityToolbarTitle(String title) {
+        getSupportActionBar().setTitle(title);
+    }
 }
