@@ -17,6 +17,9 @@ import butterknife.ButterKnife;
 public class TourRvAdapter extends RecyclerView.Adapter<TourRvAdapter.TourViewHolder> {
     private ArrayList<TourUI> mTourUIDataset;
 
+    public TourRvAdapter() {
+    }
+
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder

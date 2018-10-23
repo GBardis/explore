@@ -4,6 +4,7 @@ package com.explore.features.tour.presentation;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -29,7 +30,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TourFragment extends Fragment implements TourView,IsToolbarSetter{
+public class TourFragment extends Fragment implements TourView, IsToolbarSetter {
 
     Button tourDummyFetchButton;
     private TourPresenter mTourPresenter;
@@ -38,8 +39,8 @@ public class TourFragment extends Fragment implements TourView,IsToolbarSetter{
     public RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    @BindView(R.id.text_tour_tourpackage_name)
-    TextView mTextViewTourPackageName;
+    //@BindView(R.id.text_tour_tourpackage_name)
+    //TextView mTextViewTourPackageName;
 
     @BindView(R.id.text_tour_tourpackage_description)
     TextView mTextViewDescription;
@@ -57,20 +58,22 @@ public class TourFragment extends Fragment implements TourView,IsToolbarSetter{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_tour, container, false);
-        ButterKnife.bind(this,v);
+        ButterKnife.bind(this, v);
 
         mTourPresenter = new TourPresenterImpl(this);
         mTourPresenter.getTourPackage("2");
 
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(),
+                DividerItemDecoration.VERTICAL));
 
         return v;
     }
 
     @Override
     public void showTourPackage(ArrayList<TourUI> tourUIArrayList, TourPackageUI tourPackageUI) {
-        setToolbarTitle(getActivity(),tourPackageUI.getName());
+        setToolbarTitle(getActivity(), tourPackageUI.getName());
         mRecyclerView.setAdapter(new TourRvAdapter(tourUIArrayList));
 
         mTextViewDescription.setText(tourPackageUI.getDescription());
@@ -78,6 +81,6 @@ public class TourFragment extends Fragment implements TourView,IsToolbarSetter{
 
     @Override
     public void setToolbarTitle(Activity activity, String title) {
-        ((MainActivity)activity).setActivityToolbarTitle(title);
+        ((MainActivity) activity).setActivityToolbarTitle(title);
     }
 }
