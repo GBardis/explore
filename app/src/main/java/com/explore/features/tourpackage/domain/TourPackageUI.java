@@ -12,7 +12,7 @@ public class TourPackageUI {
     private Double avgrating;
 
     public TourPackageUI(String name, Double avgrating) {
-        this.setName(name);
-        this.setAvgrating(avgrating);
+        this.name = name;
+        this.avgrating = avgrating;
     }
 }

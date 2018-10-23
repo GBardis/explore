@@ -18,6 +18,8 @@ import com.explore.features.tourpackage.domain.TourPackageUI;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -36,23 +38,24 @@ public class TourPackagesRvAdapter extends RecyclerView.Adapter<TourPackagesRvAd
     private Context context;
 
     TourPackagesRvAdapter(List<TourPackageUI> tourPackageList, OnTourPackageClickListener onTourPackageClickListener, Context context) {
-        this.setTourPackageList(tourPackageList);
-        this.setOnTourPackageClickListener(onTourPackageClickListener);
-        this.setContext(context);
-        this.setTourPackageUIFilteredList(tourPackageList);
+        this.tourPackageList = tourPackageList;
+        this.onTourPackageClickListener = onTourPackageClickListener;
+        this.context = context;
+        this.tourPackageUIFilteredList = tourPackageList;
     }
 
 
     static class TourPackagesViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.text_tourpackage_name)
         TextView mTourPackageName;
+        @BindView(R.id.text_tourpackage_avgrating)
         TextView mTourPackageAvgRating;
+        @BindView(R.id.tourpackage_root)
         RelativeLayout mRelativeLayout;
 
-        TourPackagesViewHolder(@NonNull View itemView) {
-            super(itemView);
-            mTourPackageName = itemView.findViewById(R.id.text_tourpackage_name);
-            mTourPackageAvgRating = itemView.findViewById(R.id.text_tourpackage_avgrating);
-            mRelativeLayout = itemView.findViewById(R.id.tourpackage_root);
+        TourPackagesViewHolder(@NonNull View v) {
+            super(v);
+            ButterKnife.bind(this, v);
         }
     }
 
@@ -60,8 +63,7 @@ public class TourPackagesRvAdapter extends RecyclerView.Adapter<TourPackagesRvAd
     @Override
     public TourPackagesViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.view_tour_package_item, viewGroup, false);
-
+                .inflate(R.layout.tour_package_recycler_item, viewGroup, false);
         return new TourPackagesViewHolder(v);
     }
 
@@ -77,7 +79,6 @@ public class TourPackagesRvAdapter extends RecyclerView.Adapter<TourPackagesRvAd
                 onTourPackageClickListener.onTourPackageClicked(tourPackageUI);
             }
         });
-
     }
 
     @Override
@@ -105,7 +106,6 @@ public class TourPackagesRvAdapter extends RecyclerView.Adapter<TourPackagesRvAd
                     }
                     setTourPackageUIFilteredList(filteredList);
                 }
-
                 FilterResults filterResults = new FilterResults();
                 filterResults.values = getTourPackageUIFilteredList();
                 return filterResults;

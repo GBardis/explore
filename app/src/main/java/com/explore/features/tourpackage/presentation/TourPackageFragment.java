@@ -33,6 +33,8 @@ import butterknife.ButterKnife;
 public class TourPackageFragment extends Fragment implements TourPackageView {
     @BindView(R.id.tourpackage_rv)
     RecyclerView tourPackageRv;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     TourPackagePresenter tourPackagePresenter;
     TourPackagesRvAdapter tourPackagesRvAdapter;
 
@@ -56,7 +58,6 @@ public class TourPackageFragment extends Fragment implements TourPackageView {
         ButterKnife.bind(this, v);
 
         // Setup SupportActionBar
-        Toolbar toolbar = v.findViewById(R.id.toolbar);
         ((MainActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
 
         //Setup LayoutManager

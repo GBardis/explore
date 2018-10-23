@@ -9,6 +9,7 @@ public class TourPackageDomain {
     @Getter
     public final String id;
 
+    @Getter
     public enum Region {
         CRETE("Crete"),
         PELOPONNESE("Peloponnese"),
@@ -48,9 +49,9 @@ public class TourPackageDomain {
 
     public TourPackageDomain(String id, String name, Double rating, String ratingColor, String regionColor) {
         this.id = id;
-        this.setName(name);
-        this.setRating(rating);
-        this.setRatingColor(ratingColor);
-        this.setRegionColor(regionColor);
+        this.name = name;
+        this.rating = rating;
+        this.ratingColor = ratingColor;
+        this.regionColor = regionColor;
     }
 }
