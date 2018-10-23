@@ -1,9 +1,28 @@
 package com.explore.features.tour.domain;
 
-import com.explore.data.db.model.Tour;
+import android.arch.persistence.room.PrimaryKey;
 
-public class TourDomain extends Tour {
+import lombok.Getter;
+import lombok.Setter;
+
+public class TourDomain{
+    @Getter
+    @PrimaryKey
+    private final String id;
+    @Getter
+    @Setter
+    private String name;
+    @Getter
+    @Setter
+    private double rating;
+    @Getter
+    @Setter
+    private String descTextSize;
+
     public TourDomain(String id, String name, double rating, String descTextSize) {
-        super(id, name, rating, descTextSize);
+        this.id = id;
+        this.name = name;
+        this.rating = rating;
+        this.descTextSize = descTextSize;
     }
 }

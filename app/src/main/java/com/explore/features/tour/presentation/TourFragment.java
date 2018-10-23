@@ -3,18 +3,25 @@ package com.explore.features.tour.presentation;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.explore.R;
-import com.explore.features.tour.domain.TourDomain;
-import com.explore.features.tour.domain.TourPackageDomain;
+import com.explore.features.tour.domain.TourPackageUI;
 import com.explore.features.tour.domain.TourPresenter;
+import com.explore.features.tour.domain.TourRvAdapter;
+import com.explore.features.tour.domain.TourUI;
 import com.explore.features.tour.domain.TourView;
 
 import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +30,19 @@ public class TourFragment extends Fragment implements TourView {
 
     Button tourDummyFetchButton;
     private TourPresenter mTourPresenter;
+
+    @BindView(R.id.recycler_tour_list)
+    public RecyclerView mRecyclerView;
+    private RecyclerView.LayoutManager mLayoutManager;
+
+    @BindView(R.id.text_tour_tourpackage_name)
+    TextView mTextViewTourPackageName;
+
+    @BindView(R.id.text_tour_tourpackage_description)
+    TextView mTextViewDescription;
+
+    @BindView(R.id.text_tour_tourpackage_rating)
+    TextView mTextViewTourPackageRating;
 
     public TourFragment() {
         // Required empty public constructor
@@ -34,21 +54,21 @@ public class TourFragment extends Fragment implements TourView {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_tour, container, false);
-        tourDummyFetchButton = v.findViewById(R.id.button_tour_dummy_fetch);
+        ButterKnife.bind(this,v);
 
         mTourPresenter = new TourPresenterImpl(this);
-        tourDummyFetchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        mTourPresenter.getTourPackage("2");
 
-                mTourPresenter.getTourPackage("2");
-            }
-        });
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
         return v;
     }
 
     @Override
-    public void showTourPackage(ArrayList<TourDomain> tourDomainArrayList, TourPackageDomain tourPackageDomain) {
+    public void showTourPackage(ArrayList<TourUI> tourUIArrayList, TourPackageUI tourPackageUI) {
+        mRecyclerView.setAdapter(new TourRvAdapter(tourUIArrayList));
 
+        mTextViewTourPackageName.setText(tourPackageUI.getName());
     }
 }

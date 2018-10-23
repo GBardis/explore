@@ -1,6 +1,5 @@
 package com.explore.features.tour.data;
 
-import com.explore.data.db.model.Tour;
 import com.explore.features.tour.domain.TourDomain;
 import com.explore.features.tour.domain.TourInteractor;
 import com.explore.features.tour.domain.TourPackageDomain;
@@ -31,7 +30,7 @@ public class TourInteractorImpl implements TourInteractor {
     }
 
     private TourPackageDomain mockTourPackage() {
-        return new TourPackageDomain("1","Acropolis",4.5,"red");
+        return new TourPackageDomain("1","Acropolis",4.5,"whatever","Attiki");
     }
 
 
