@@ -89,6 +89,7 @@ public class TourPackageFragment extends Fragment implements TourPackageView {
         MenuItem item = menu.findItem(R.id.menu_action_search);
         SearchView searchView = (SearchView) item.getActionView();
 
+
         // listening to search query text change
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

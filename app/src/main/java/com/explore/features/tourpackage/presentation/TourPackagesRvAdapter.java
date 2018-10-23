@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -54,9 +55,11 @@ public class TourPackagesRvAdapter extends RecyclerView.Adapter<TourPackagesRvAd
         @BindView(R.id.text_tourpackage_avgrating)
         TextView mTourPackageAvgRating;
         @BindView(R.id.tourpackage_root)
-        LinearLayout mRelativeLayout;
+        LinearLayout mLinearLayout;
         @BindView(R.id.image_tourpackage_photo)
         ImageView mTourPackagePhoto;
+        @BindView(R.id.image_tourpackage_rating)
+        ImageView mTourPackageRatingImage;
 
         TourPackagesViewHolder(@NonNull View v) {
             super(v);
@@ -79,8 +82,9 @@ public class TourPackagesRvAdapter extends RecyclerView.Adapter<TourPackagesRvAd
         tourPackagesViewHolder.mTourPackageAvgRating.setText(String.valueOf(tourPackageUI.getAvgrating()));
         Picasso.get().load( "https://www.interrail.eu/content/dam/mastheads/oia%20-%20greece%20-%20masthead.jpg")
                 .into(tourPackagesViewHolder.mTourPackagePhoto);
+        tourPackagesViewHolder.mTourPackageRatingImage.setImageResource(R.drawable.ic_star_rate);
 
-        tourPackagesViewHolder.mRelativeLayout.setOnClickListener(new View.OnClickListener() {
+        tourPackagesViewHolder.mLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onTourPackageClickListener.onTourPackageClicked(tourPackageUI);
