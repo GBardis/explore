@@ -1,6 +1,7 @@
 package com.explore.features.tourpackage.presentation;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import com.explore.MainActivity;
 import com.explore.R;
+import com.explore.features.IsToolbarSetter;
 import com.explore.features.tourpackage.domain.OnTourPackageClickListener;
 import com.explore.features.tourpackage.domain.TourPackagePresenter;
 import com.explore.features.tourpackage.domain.TourPackageUI;
@@ -30,11 +32,10 @@ import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class TourPackageFragment extends Fragment implements TourPackageView {
+public class TourPackageFragment extends Fragment implements TourPackageView,IsToolbarSetter {
+    final String FRAGMENT_TITLE = "Tour Package";
     @BindView(R.id.tourpackage_rv)
     RecyclerView tourPackageRv;
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
     TourPackagePresenter tourPackagePresenter;
     TourPackagesRvAdapter tourPackagesRvAdapter;
 
@@ -57,9 +58,7 @@ public class TourPackageFragment extends Fragment implements TourPackageView {
         View v = inflater.inflate(R.layout.fragment_tour_package, container, false);
         ButterKnife.bind(this, v);
 
-        // Setup SupportActionBar
-        ((MainActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
-
+        setToolbarTitle(getActivity(),FRAGMENT_TITLE);
         //Setup LayoutManager
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         tourPackageRv.setLayoutManager(layoutManager);
@@ -122,5 +121,10 @@ public class TourPackageFragment extends Fragment implements TourPackageView {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void setToolbarTitle(Activity activity, String title) {
+        ((MainActivity) activity).setActivityToolbarTitle(title);
     }
 }
