@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.explore.R;
+import com.explore.features.tour.presentation.TourFragment;
 import com.explore.features.tourpackage.domain.OnTourPackageClickListener;
 import com.explore.features.tourpackage.domain.TourPackageUI;
 import com.squareup.picasso.Picasso;
@@ -87,7 +88,9 @@ public class TourPackagesRvAdapter extends RecyclerView.Adapter<TourPackagesRvAd
         tourPackagesViewHolder.mLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onTourPackageClickListener.onTourPackageClicked(tourPackageUI);
+                TourFragment.TourFragmentListener TourFragmentListener = (TourFragment.TourFragmentListener) context;
+                TourFragmentListener.transitionToTourFragment();
+//                onTourPackageClickListener.onTourPackageClicked(tourPackageUI);
             }
         });
     }

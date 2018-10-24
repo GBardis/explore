@@ -1,16 +1,14 @@
-package com.explore.data.db.model;
+package com.explore.features.tour.domain;
 
-import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
-public class Tour {
+public class TourDomain{
     @Getter
     @PrimaryKey
-    public final String id;
+    private final String id;
     @Getter
     @Setter
     private String name;
@@ -20,11 +18,14 @@ public class Tour {
     @Getter
     @Setter
     private String descTextSize;
+    @Getter
+    @Setter
+    private String description;
 
-    public Tour(String id, String name, double rating, String descTextSize) {
+    public TourDomain(String id, String name, double rating, String description) {
         this.id = id;
         this.name = name;
         this.rating = rating;
-        this.descTextSize = descTextSize;
+        this.description = description;
     }
 }

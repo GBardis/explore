@@ -2,4 +2,8 @@
     <string name="app_name">Explore</string>
     <string name="action_search">Search</string>
     <string name="search_hint">Search TourPackage…</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="button_tour_read_reviews">Read reviews</string>
+    <string name="button_tour_write_review">Write a review</string>
 </resources>
