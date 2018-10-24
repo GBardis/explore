@@ -4,12 +4,20 @@ import java.util.List;
 
 public interface TourPackageIteractor {
 
-    void getTourPackages(OnTourPackageFinishListener listener);
+    void getTourPackages(OnTourPackageListFinishListener onTourPackageListFinishListener);
+
+    void getTourPackage(OnTourPackageFinishListener onTourPackageFinishListener, String tourPackageId);
 
     void getFilteredTourPackage();
 
-    interface OnTourPackageFinishListener {
+    interface OnTourPackageListFinishListener {
         void onSuccess(List<TourPackageDomain> tourPackageDomainList);
+
+        void onFailure();
+    }
+
+    interface OnTourPackageFinishListener {
+        void onSuccess(TourPackageDomain tourPackageDomainList);
 
         void onFailure();
     }

@@ -13,7 +13,7 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
-public class TourPackagePresenterImpl implements TourPackagePresenter, TourPackageIteractor.OnTourPackageFinishListener {
+public class TourPackageListPresenterImpl implements TourPackagePresenter, TourPackageIteractor.OnTourPackageListFinishListener {
     @Getter
     @Setter
     TourPackageView tourPackageView;
@@ -21,7 +21,7 @@ public class TourPackagePresenterImpl implements TourPackagePresenter, TourPacka
     @Setter
     TourPackageIteractor tourPackageIteractor;
 
-    public TourPackagePresenterImpl(TourPackageView tourPackageView) {
+    public TourPackageListPresenterImpl(TourPackageView tourPackageView) {
         this.setTourPackageView(tourPackageView);
         this.setTourPackageIteractor(new TourPackageIteractorImpl());
     }

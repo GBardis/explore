@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,7 +26,6 @@ import com.explore.features.tourpackage.domain.TourPackageUI;
 import com.explore.features.tourpackage.domain.TourPackageView;
 
 import java.util.List;
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -62,7 +60,7 @@ public class TourPackageFragment extends Fragment implements TourPackageView,IsT
         //Setup LayoutManager
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         tourPackageRv.setLayoutManager(layoutManager);
-        tourPackagePresenter = new TourPackagePresenterImpl(this);
+        tourPackagePresenter = new TourPackageListPresenterImpl(this);
         tourPackagePresenter.getTourPackages();
         return v;
     }

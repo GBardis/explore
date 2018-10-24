@@ -9,7 +9,7 @@ import java.util.List;
 public class TourPackageIteractorImpl implements TourPackageIteractor {
 
     @Override
-    public void getTourPackages(OnTourPackageFinishListener listener) {
+    public void getTourPackages(OnTourPackageListFinishListener listener) {
         List<TourPackageDomain> tourPackageDomainList = new ArrayList<>();
 
         tourPackageDomainList.add(new TourPackageDomain("", "George", 1 * 0.5, "red", "blue"));
