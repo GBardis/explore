@@ -3,7 +3,9 @@ package com.explore.features.tour.presentation;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 import com.explore.MainActivity;
 import com.explore.R;
 import com.explore.features.IsToolbarSetter;
+import com.explore.features.tour.TourFragmentPagerAdapter;
 import com.explore.features.tour.domain.TourPackageUI;
 import com.explore.features.tour.domain.TourPresenter;
 import com.explore.features.tour.domain.TourRvAdapter;
@@ -32,21 +35,23 @@ import butterknife.ButterKnife;
  */
 public class TourFragment extends Fragment implements TourView, IsToolbarSetter {
 
-    Button tourDummyFetchButton;
-    private TourPresenter mTourPresenter;
-
-    @BindView(R.id.recycler_tour_list)
-    public RecyclerView mRecyclerView;
-    private RecyclerView.LayoutManager mLayoutManager;
-
     //@BindView(R.id.text_tour_tourpackage_name)
-    //TextView mTextViewTourPackageName;
 
+    //TextView mTextViewTourPackageName;
     @BindView(R.id.text_tour_tourpackage_description)
     TextView mTextViewDescription;
 
     @BindView(R.id.text_tour_tourpackage_rating)
     TextView mTextViewTourPackageRating;
+
+    @BindView(R.id.tab_tour_fragment)
+    TabLayout tourTabLayout;
+
+    @BindView(R.id.view_pager_tour_fragment)
+    ViewPager tourViewPager;
+
+
+    TourFragmentPagerAdapter tourFragmentPagerAdapter;
 
     public TourFragment() {
         // Required empty public constructor
@@ -56,17 +61,16 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_tour, container, false);
         ButterKnife.bind(this, v);
 
-        mTourPresenter = new TourPresenterImpl(this);
-        mTourPresenter.getTourPackage("2");
+        tourFragmentPagerAdapter = new TourFragmentPagerAdapter(getChildFragmentManager(),getActivity());
 
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(),
-                DividerItemDecoration.VERTICAL));
+        tourViewPager.setAdapter(tourFragmentPagerAdapter);
+
+        tourTabLayout.setupWithViewPager(tourViewPager);
 
         return v;
     }
@@ -74,7 +78,6 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
     @Override
     public void showTourPackage(ArrayList<TourUI> tourUIArrayList, TourPackageUI tourPackageUI) {
         setToolbarTitle(getActivity(), tourPackageUI.getName());
-        mRecyclerView.setAdapter(new TourRvAdapter(tourUIArrayList));
 
         mTextViewDescription.setText(tourPackageUI.getDescription());
     }

@@ -3,7 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".features.tour.presentation.TourFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".features.tour.presentation.TourFragment"
+    android:id="@+id/parent_tour_fragment"
+    android:orientation="vertical">
 
 
     <!--<Button-->
@@ -43,17 +46,6 @@
         android:layout_marginBottom="0dp"
         android:text="" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_tour_list"
-        android:layout_width="match_parent"
-        android:layout_height="320dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="191dp"
-        tools:itemCount="13"
-        tools:listitem="@layout/tour_recycler_view_item" />
 
     <Button
         android:id="@+id/button_tour_read_reviews"
@@ -74,4 +66,21 @@
         android:layout_marginEnd="46dp"
         android:layout_marginBottom="0dp"
         android:text="@string/button_tour_write_review" />
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_tour_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabMode="fixed"
+        android:layout_below="@id/button_tour_write_review"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager_tour_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/white" />
+
+
 </RelativeLayout>
