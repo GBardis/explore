@@ -36,8 +36,10 @@ import butterknife.ButterKnife;
 public class TourFragment extends Fragment implements TourView, IsToolbarSetter {
 
     //@BindView(R.id.text_tour_tourpackage_name)
-
     //TextView mTextViewTourPackageName;
+
+    private TourPresenter mTourPresenter;
+
     @BindView(R.id.text_tour_tourpackage_description)
     TextView mTextViewDescription;
 
@@ -65,6 +67,9 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_tour, container, false);
         ButterKnife.bind(this, v);
+
+        mTourPresenter = new TourPresenterImpl(this);
+        mTourPresenter.getTourPackage("2");
 
         tourFragmentPagerAdapter = new TourFragmentPagerAdapter(getChildFragmentManager(),getActivity());
 
