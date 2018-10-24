@@ -19,6 +19,7 @@ import com.explore.MainActivity;
 import com.explore.R;
 import com.explore.features.IsToolbarSetter;
 import com.explore.features.tour.TourFragmentPagerAdapter;
+import com.explore.features.tour.domain.ReviewUI;
 import com.explore.features.tour.domain.TourPackageUI;
 import com.explore.features.tour.domain.TourPresenter;
 import com.explore.features.tour.domain.TourRvAdapter;
@@ -85,6 +86,11 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
         setToolbarTitle(getActivity(), tourPackageUI.getName());
 
         mTextViewDescription.setText(tourPackageUI.getDescription());
+    }
+
+    @Override
+    public void showTourPackageReviewList(ArrayList<ReviewUI> reviewUIArrayList) {
+
     }
 
     @Override

@@ -9,4 +9,6 @@ public interface TourPresenter {
 
     void getTourPackage(String tourPackageId);
 
+    void getTourPackageReviews(String tourPackageId);
+
 }

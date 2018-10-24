@@ -9,11 +9,6 @@ import java.util.ArrayList;
 public class TourInteractorImpl implements TourInteractor {
 
     @Override
-    public void getTourPackage(OnTourPackageFinishListener tourPackageFinishListener,String tourPackageId) {
-        tourPackageFinishListener.onSuccess(mockTours(),mockTourPackage());
-    }
-
-    @Override
     public void getTours(ArrayList<TourDomain> tourDomainArrayList) {
     }
 
@@ -34,6 +29,11 @@ public class TourInteractorImpl implements TourInteractor {
         tourDomainArrayList.add(new TourDomain("12","dgsdg",4.4,"description6"));
         tourDomainArrayList.add(new TourDomain("13","dfghdtg",4.4,"description6"));
         return tourDomainArrayList;
+    }
+
+    @Override
+    public void getTourPackage(OnTourPackageFinishListener tourPackageFinishListener,String tourPackageId) {
+        tourPackageFinishListener.onSuccess(mockTours(),mockTourPackage());
     }
 
     private TourPackageDomain mockTourPackage() {

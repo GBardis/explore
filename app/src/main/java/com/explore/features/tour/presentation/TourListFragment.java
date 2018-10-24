@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.explore.R;
+import com.explore.features.tour.domain.ReviewUI;
 import com.explore.features.tour.domain.TourPackageUI;
 import com.explore.features.tour.domain.TourPresenter;
 import com.explore.features.tour.domain.TourRvAdapter;
@@ -60,5 +61,10 @@ public class TourListFragment extends Fragment implements TourView {
     @Override
     public void showTourPackage(ArrayList<TourUI> tourUIArrayList, TourPackageUI tourPackageUI) {
         mRecyclerView.setAdapter(new TourRvAdapter(tourUIArrayList));
+    }
+
+    @Override
+    public void showTourPackageReviewList(ArrayList<ReviewUI> reviewUIArrayList) {
+
     }
 }
