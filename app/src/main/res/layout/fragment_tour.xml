@@ -77,9 +77,12 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager_tour_fragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="282dp"
+        android:layout_below="@+id/tab_tour_fragment"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="229dp"
         android:background="@android:color/white" />
 
 

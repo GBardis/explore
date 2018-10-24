@@ -42,9 +42,9 @@ public class TourFragmentPagerAdapter extends FragmentPagerAdapter {
         // Generate title based on item position
         switch (position) {
             case 0:
-                return mContext.getString(R.string.tab_tour_tours);
+                return "Tours";
             case 1:
-                return mContext.getString(R.string.tab_tour_reviews);
+                return "Reviews";
             default:
                 return null;
         }
