@@ -13,7 +13,8 @@ import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements TourFragment.TourFragmentListener {
+public class MainActivity extends AppCompatActivity implements TourFragment.TourFragmentListener ,
+        TourPackageFragment.TourPackageListener {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
@@ -44,6 +45,15 @@ public class MainActivity extends AppCompatActivity implements TourFragment.Tour
                 .beginTransaction()
                 .addToBackStack(null)
                 .replace(R.id.main_activity_root, new TourFragment())
+                .commit();
+    }
+
+    @Override
+    public void transitionToTourPackage() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .addToBackStack(null)
+                .replace(R.id.main_activity_root, new TourPackageFragment())
                 .commit();
     }
 }

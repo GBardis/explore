@@ -127,4 +127,8 @@ public class TourPackageFragment extends Fragment implements TourPackageView,IsT
     public void setToolbarTitle(Activity activity, String title) {
         ((MainActivity) activity).setActivityToolbarTitle(title);
     }
+
+    public interface TourPackageListener{
+        void transitionToTourPackage();
+    }
 }
