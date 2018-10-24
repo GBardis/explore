@@ -4,27 +4,24 @@ package com.explore.features.tour.presentation;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.explore.MainActivity;
 import com.explore.R;
 import com.explore.features.IsToolbarSetter;
+import com.explore.features.tour.TourFragmentPagerAdapter;
 import com.explore.features.tour.domain.TourPackageUI;
 import com.explore.features.tour.domain.TourPresenter;
-import com.explore.features.tour.domain.TourRvAdapter;
 import com.explore.features.tour.domain.TourUI;
 import com.explore.features.tour.domain.TourView;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,21 +31,25 @@ import butterknife.ButterKnife;
  */
 public class TourFragment extends Fragment implements TourView, IsToolbarSetter {
 
-    Button tourDummyFetchButton;
-    private TourPresenter mTourPresenter;
-
-    @BindView(R.id.recycler_tour_list)
-    public RecyclerView mRecyclerView;
-    private RecyclerView.LayoutManager mLayoutManager;
-
     //@BindView(R.id.text_tour_tourpackage_name)
     //TextView mTextViewTourPackageName;
+
+    private TourPresenter mTourPresenter;
 
     @BindView(R.id.text_tour_tourpackage_description)
     TextView mTextViewDescription;
 
     @BindView(R.id.text_tour_tourpackage_rating)
     TextView mTextViewTourPackageRating;
+
+    @BindView(R.id.tab_tour_fragment)
+    TabLayout tourTabLayout;
+
+    @BindView(R.id.view_pager_tour_fragment)
+    ViewPager tourViewPager;
+
+
+    TourFragmentPagerAdapter tourFragmentPagerAdapter;
 
     public TourFragment() {
         // Required empty public constructor
@@ -58,6 +59,7 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_tour, container, false);
         ButterKnife.bind(this, v);
@@ -65,10 +67,15 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
         mTourPresenter = new TourPresenterImpl(this);
         mTourPresenter.getTourPackage("2");
 
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getContext()),
-                DividerItemDecoration.VERTICAL));
+
+        mTourPresenter = new TourPresenterImpl(this);
+        mTourPresenter.getTourPackage("2");
+
+        tourFragmentPagerAdapter = new TourFragmentPagerAdapter(getChildFragmentManager(), getActivity());
+
+        tourViewPager.setAdapter(tourFragmentPagerAdapter);
+
+        tourTabLayout.setupWithViewPager(tourViewPager);
 
         return v;
     }
@@ -76,7 +83,6 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
     @Override
     public void showTourPackage(ArrayList<TourUI> tourUIArrayList, TourPackageUI tourPackageUI) {
         setToolbarTitle(getActivity(), tourPackageUI.getName());
-        mRecyclerView.setAdapter(new TourRvAdapter(tourUIArrayList));
 
         mTextViewDescription.setText(tourPackageUI.getDescription());
     }
@@ -86,7 +92,7 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
         ((MainActivity) activity).setActivityToolbarTitle(title);
     }
 
-    public interface TourFragmentListener{
+    public interface TourFragmentListener {
         void transitionToTourFragment();
     }
 }

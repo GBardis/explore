@@ -8,10 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.explore.R;
@@ -81,7 +79,7 @@ public class TourPackagesRvAdapter extends RecyclerView.Adapter<TourPackagesRvAd
         final TourPackageUI tourPackageUI = getTourPackageList().get(i);
         tourPackagesViewHolder.mTourPackageName.setText(tourPackageUI.getName());
         tourPackagesViewHolder.mTourPackageAvgRating.setText(String.valueOf(tourPackageUI.getAvgrating()));
-        Picasso.get().load( "https://www.interrail.eu/content/dam/mastheads/oia%20-%20greece%20-%20masthead.jpg")
+        Picasso.get().load("https://www.interrail.eu/content/dam/mastheads/oia%20-%20greece%20-%20masthead.jpg")
                 .into(tourPackagesViewHolder.mTourPackagePhoto);
         tourPackagesViewHolder.mTourPackageRatingImage.setImageResource(R.drawable.ic_star_rate);
 
