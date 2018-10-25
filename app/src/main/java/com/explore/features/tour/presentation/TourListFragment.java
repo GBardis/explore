@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.explore.R;
+import com.explore.features.tour.domain.AcceptsArgumentsFromParentFragment;
 import com.explore.features.tour.domain.ReviewUI;
 import com.explore.features.tour.domain.TourPackageUI;
 import com.explore.features.tour.domain.TourPresenter;
@@ -26,7 +27,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TourListFragment extends Fragment implements TourView {
+public class TourListFragment extends Fragment implements TourView,AcceptsArgumentsFromParentFragment {
 
     private TourPresenter mTourPresenter;
 
@@ -34,6 +35,7 @@ public class TourListFragment extends Fragment implements TourView {
     public RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
 
+    private String mParentArg;
 
     public TourListFragment() {
         // Required empty public constructor
@@ -48,7 +50,7 @@ public class TourListFragment extends Fragment implements TourView {
         ButterKnife.bind(this, v);
 
         mTourPresenter = new TourPresenterImpl(this);
-        mTourPresenter.getTourPackage("2");
+        mTourPresenter.getTourPackage(mParentArg);
 
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -66,5 +68,10 @@ public class TourListFragment extends Fragment implements TourView {
     @Override
     public void showTourPackageReviewList(ArrayList<ReviewUI> reviewUIArrayList) {
 
+    }
+
+    @Override
+    public void setStringAttr(String s) {
+        this.mParentArg = s;
     }
 }

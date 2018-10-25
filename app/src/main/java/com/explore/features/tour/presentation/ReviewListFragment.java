@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.explore.R;
+import com.explore.features.tour.domain.AcceptsArgumentsFromParentFragment;
 import com.explore.features.tour.domain.ReviewRvAdapter;
 import com.explore.features.tour.domain.ReviewUI;
 import com.explore.features.tour.domain.TourPackageUI;
@@ -27,12 +28,14 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ReviewListFragment extends Fragment implements TourView {
+public class ReviewListFragment extends Fragment implements TourView,AcceptsArgumentsFromParentFragment {
 
     private TourPresenter mTourPresenter;
 
     @BindView(R.id.recycler_review_list)
     public RecyclerView mRecyclerView;
+
+    private String mParentArg;
 
     public ReviewListFragment() {
         // Required empty public constructor
@@ -47,7 +50,7 @@ public class ReviewListFragment extends Fragment implements TourView {
         ButterKnife.bind(this, v);
 
         mTourPresenter = new TourPresenterImpl(this);
-        mTourPresenter.getTourPackageReviews("2");
+        mTourPresenter.getTourPackageReviews(mParentArg);
 
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -65,5 +68,10 @@ public class ReviewListFragment extends Fragment implements TourView {
     @Override
     public void showTourPackageReviewList(ArrayList<ReviewUI> reviewUIArrayList) {
         mRecyclerView.setAdapter(new ReviewRvAdapter(reviewUIArrayList));
+    }
+
+    @Override
+    public void setStringAttr(String s) {
+        this.mParentArg = s;
     }
 }

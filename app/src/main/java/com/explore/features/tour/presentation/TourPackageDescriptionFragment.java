@@ -9,6 +9,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.explore.R;
+import com.explore.features.tour.domain.AcceptsArgumentsFromParentFragment;
+import com.explore.features.tour.domain.ReviewUI;
+import com.explore.features.tour.domain.TourPackageUI;
+import com.explore.features.tour.domain.TourPresenter;
+import com.explore.features.tour.domain.TourUI;
+import com.explore.features.tour.domain.TourView;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -16,10 +24,14 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TourPackageDescriptionFragment extends Fragment {
+public class TourPackageDescriptionFragment extends Fragment implements TourView,AcceptsArgumentsFromParentFragment {
 
     @BindView(R.id.text_tour_description)
     TextView textViewTourDescription;
+
+    private TourPresenter mTourPresenter;
+
+    private String mParentArg;
 
     public TourPackageDescriptionFragment() {
         // Required empty public constructor
@@ -32,6 +44,10 @@ public class TourPackageDescriptionFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_tour_package_description, container, false);
         ButterKnife.bind(this,v);
+
+        mTourPresenter = new TourPresenterImpl(this);
+        mTourPresenter.getTourPackage(mParentArg);
+
         return v;
     }
 
@@ -39,4 +55,18 @@ public class TourPackageDescriptionFragment extends Fragment {
         textViewTourDescription.setText(description);
     }
 
+    @Override
+    public void showTourPackage(ArrayList<TourUI> tourUIArrayList, TourPackageUI tourPackageUI) {
+        textViewTourDescription.setText(tourPackageUI.getDescription());
+    }
+
+    @Override
+    public void showTourPackageReviewList(ArrayList<ReviewUI> reviewUIArrayList) {
+
+    }
+
+    @Override
+    public void setStringAttr(String s) {
+        this.mParentArg = s;
+    }
 }

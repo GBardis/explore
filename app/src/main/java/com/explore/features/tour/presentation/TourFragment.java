@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.explore.MainActivity;
 import com.explore.R;
+import com.explore.data.db.model.Review;
 import com.explore.features.IsToolbarSetter;
 import com.explore.features.tour.TourFragmentPagerAdapter;
 import com.explore.features.tour.domain.ReviewUI;
@@ -87,9 +88,17 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
             @Override
             public void onPageSelected(int i) {
                      mCurrentFragment = tourFragmentPagerAdapter.getRegisteredFragment(i);
-                     if (mCurrentFragment instanceof TourPackageDescriptionFragment){
-                         ((TourPackageDescriptionFragment)mCurrentFragment).setDescription(mTourPackageUI.getDescription());
-                     }
+                setParamToChildFragment();
+            }
+
+            private void setParamToChildFragment() {
+                if (mCurrentFragment instanceof TourPackageDescriptionFragment){
+                    ((TourPackageDescriptionFragment)mCurrentFragment).setStringAttr("2");
+                } else if(mCurrentFragment instanceof TourListFragment){
+                    ((TourListFragment)mCurrentFragment).setStringAttr("2");
+                } else if (mCurrentFragment instanceof ReviewListFragment){
+                    ((ReviewListFragment)mCurrentFragment).setStringAttr("2");
+                }
             }
 
             @Override
@@ -102,7 +111,6 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
 
     @Override
     public void showTourPackage(ArrayList<TourUI> tourUIArrayList, TourPackageUI tourPackageUI) {
-        this.mTourPackageUI = tourPackageUI;
         setToolbarTitle(getActivity(), tourPackageUI.getName());
 
         mTextViewDescription.setText(tourPackageUI.getDescription());
