@@ -22,13 +22,13 @@ public class TourPackageListPresenterImpl implements TourPackagePresenter, TourP
     TourPackageIteractor tourPackageIteractor;
 
     public TourPackageListPresenterImpl(TourPackageView tourPackageView) {
-        this.setTourPackageView(tourPackageView);
-        this.setTourPackageIteractor(new TourPackageIteractorImpl());
+        this.tourPackageView = tourPackageView;
+        this.tourPackageIteractor = new TourPackageIteractorImpl();
     }
 
     @Override
     public void getTourPackages() {
-        tourPackageIteractor.getTourPackages(this);
+        getTourPackageIteractor().getTourPackages(this);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class TourPackageListPresenterImpl implements TourPackagePresenter, TourP
             );
             tourPackageUIList.add(tourPackageUI);
         }
-        tourPackageView.showTourPackages(tourPackageUIList);
+        getTourPackageView().showTourPackages(tourPackageUIList);
     }
 
     @Override

@@ -12,7 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.explore.features.reviewnew.ReviewNewFragment;
+import com.explore.features.reviewnew.presentation.ReviewNewFragment;
 import com.explore.features.tour.presentation.TourFragment;
 import com.explore.features.tourpackage.presentation.TourPackageFragment;
 
