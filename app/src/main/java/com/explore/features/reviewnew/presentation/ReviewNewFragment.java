@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.explore.MainActivity;
 import com.explore.R;
@@ -84,7 +85,7 @@ public class ReviewNewFragment extends Fragment implements IsToolbarSetter, Revi
                 if (Objects.requireNonNull(textInputEditTextTitle.getText()).length() > 0) {
                     textInputEditTextTitle.setError(null);
                 } else {
-                    textInputEditTextTitle.setError("Title can be blank");
+                    textInputEditTextTitle.setError("Title can't be blank");
                 }
             }
 
@@ -93,8 +94,30 @@ public class ReviewNewFragment extends Fragment implements IsToolbarSetter, Revi
 
             }
         });
+
+        textInputEditTextReviewMessage.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                if (Objects.requireNonNull(textInputEditTextReviewMessage.getText()).length() > 0) {
+                    textInputEditTextReviewMessage.setError(null);
+                } else {
+                    textInputEditTextReviewMessage.setError("Message can't be blank");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
         reviewNewPresenter = new ReviewNewPresenterImpl(this);
-        
+
         mButtonSubmitReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,7 +126,11 @@ public class ReviewNewFragment extends Fragment implements IsToolbarSetter, Revi
                 String message = textInputEditTextReviewMessage.getText().toString();
 
 
-                reviewNewPresenter.setReviewNew(title, rating, message);
+                if (title.equals("") || message.equals("")) {
+                    Toast.makeText(getActivity(), "Title and Message can't be blank", Toast.LENGTH_LONG).show();
+                } else {
+                    reviewNewPresenter.setReviewNew(title, rating, message);
+                }
             }
         });
 
@@ -145,5 +172,6 @@ public class ReviewNewFragment extends Fragment implements IsToolbarSetter, Revi
     public void afterSubmit() {
         TourFragment.TourFragmentListener TourFragmentListener = (TourFragment.TourFragmentListener) getActivity();
         Objects.requireNonNull(TourFragmentListener).transitionToTourFragment();
+        Toast.makeText(getActivity(), "Thank you for reviewing our tour", Toast.LENGTH_LONG).show();
     }
 }

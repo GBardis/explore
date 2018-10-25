@@ -67,7 +67,8 @@
             android:hint="@string/textEdit_reviewnew_message"
             android:inputType="textMultiLine"
             android:padding="5dp"
-            android:singleLine="false" />
+            android:singleLine="false"
+            app:errorEnabled="true" />
     </android.support.design.widget.TextInputLayout>
 
     <Button
