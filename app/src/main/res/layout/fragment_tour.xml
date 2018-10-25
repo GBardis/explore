@@ -5,6 +5,7 @@
     android:id="@+id/parent_tour_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="100dp"
     android:orientation="vertical"
     tools:context=".features.tour.presentation.TourFragment">
 
