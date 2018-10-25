@@ -53,6 +53,9 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
     @BindView(R.id.view_pager_tour_fragment)
     ViewPager tourViewPager;
 
+    private Fragment mCurrentFragment;
+    private TourPackageUI mTourPackageUI;
+
 
     TourFragmentPagerAdapter tourFragmentPagerAdapter;
 
@@ -71,18 +74,35 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
 
         mTourPresenter = new TourPresenterImpl(this);
         mTourPresenter.getTourPackage("2");
-
         tourFragmentPagerAdapter = new TourFragmentPagerAdapter(getChildFragmentManager(),getActivity());
 
+        tourTabLayout.setupWithViewPager(tourViewPager);
         tourViewPager.setAdapter(tourFragmentPagerAdapter);
 
-        tourTabLayout.setupWithViewPager(tourViewPager);
+        tourViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+            }
 
+            @Override
+            public void onPageSelected(int i) {
+                     mCurrentFragment = tourFragmentPagerAdapter.getRegisteredFragment(i);
+                     if (mCurrentFragment instanceof TourPackageDescriptionFragment){
+                         ((TourPackageDescriptionFragment)mCurrentFragment).setDescription(mTourPackageUI.getDescription());
+                     }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
         return v;
     }
 
     @Override
     public void showTourPackage(ArrayList<TourUI> tourUIArrayList, TourPackageUI tourPackageUI) {
+        this.mTourPackageUI = tourPackageUI;
         setToolbarTitle(getActivity(), tourPackageUI.getName());
 
         mTextViewDescription.setText(tourPackageUI.getDescription());
