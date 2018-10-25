@@ -30,8 +30,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class TourPackageFragment extends Fragment implements TourPackageView,IsToolbarSetter {
-    final String FRAGMENT_TITLE = "Tour Package";
+public class TourPackageFragment extends Fragment implements TourPackageView, IsToolbarSetter {
+    final static String FRAGMENT_TITLE = "Tour Package";
     @BindView(R.id.tourpackage_rv)
     RecyclerView tourPackageRv;
     TourPackagePresenter tourPackagePresenter;
@@ -56,7 +56,7 @@ public class TourPackageFragment extends Fragment implements TourPackageView,IsT
         View v = inflater.inflate(R.layout.fragment_tour_package, container, false);
         ButterKnife.bind(this, v);
 
-        setToolbarTitle(getActivity(),FRAGMENT_TITLE);
+        setToolbarTitle(getActivity(), FRAGMENT_TITLE);
         //Setup LayoutManager
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         tourPackageRv.setLayoutManager(layoutManager);
@@ -126,7 +126,7 @@ public class TourPackageFragment extends Fragment implements TourPackageView,IsT
         ((MainActivity) activity).setActivityToolbarTitle(title);
     }
 
-    public interface TourPackageListener{
+    public interface TourPackageListener {
         void transitionToTourPackage();
     }
 }
