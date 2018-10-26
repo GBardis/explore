@@ -16,15 +16,15 @@ public class Tour {
     private String name;
     @Getter
     @Setter
-    private int rating;
+    private double rating;
     @Getter
     @Setter
     private String descTextSize;
 
-    public Tour(String id, String name, int rating, String descTextSize) {
+    public Tour(String id, String name, double rating, String descTextSize) {
         this.id = id;
-        this.setName(name);
-        this.setRating(rating);
-        this.setDescTextSize(descTextSize);
+        this.name = name;
+        this.rating = rating;
+        this.descTextSize = descTextSize;
     }
 }
