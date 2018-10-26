@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.main_activity_root, new LoginFragment())
+                .add(R.id.main_fragment_container, new LoginFragment())
                 .commit();
     }
 
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getSupportFragmentManager()
                 .beginTransaction()
                 .addToBackStack(null)
-                .replace(R.id.main_activity_root, new TourFragment())
+                .replace(R.id.main_fragment_container, new TourFragment())
                 .commit();
     }
 
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getSupportFragmentManager()
                 .beginTransaction()
                 .addToBackStack(null)
-                .replace(R.id.main_activity_root, new TourPackageFragment())
+                .replace(R.id.main_fragment_container, new TourPackageFragment())
                 .commit();
     }
 
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getSupportFragmentManager()
                 .beginTransaction()
                 .addToBackStack(null)
-                .replace(R.id.main_activity_root, new UserFragment())
+                .replace(R.id.main_fragment_container, new UserFragment())
                 .commit();
     }
 
