@@ -1,6 +1,7 @@
 package com.explore.features.login;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
@@ -11,7 +12,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.explore.MainActivity;
 import com.explore.R;
+import com.explore.features.IsToolbarSetter;
 import com.explore.features.tourpackage.presentation.TourPackageFragment;
 import com.explore.features.user.domain.UserPresenter;
 import com.explore.features.user.domain.UserUI;
@@ -24,7 +27,7 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class LoginFragment extends Fragment implements UserView {
+public class LoginFragment extends Fragment implements UserView, IsToolbarSetter {
     @BindView(R.id.edit_text_login_fragment_input_email)
     TextInputEditText mTextInputEmail;
     @BindView(R.id.edit_text_login_fragment_input_password)
@@ -46,6 +49,7 @@ public class LoginFragment extends Fragment implements UserView {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_login, container, false);
         ButterKnife.bind(this, v);
+        setToolbarTitle(getActivity(), "Login To Explore");
         userPresenter = new UserPresenterImpl(this);
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,5 +92,10 @@ public class LoginFragment extends Fragment implements UserView {
     public void showUserProfile(UserUI userUI) {
         TourPackageFragment.TourPackageListener tourPackageListener = (TourPackageFragment.TourPackageListener) getActivity();
         tourPackageListener.transitionToTourPackage();
+    }
+
+    @Override
+    public void setToolbarTitle(Activity activity, String title) {
+        ((MainActivity) activity).setActivityToolbarTitle(title);
     }
 }
