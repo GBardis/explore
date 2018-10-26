@@ -53,6 +53,7 @@ public class LoginFragment extends Fragment implements UserView, IsToolbarSetter
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_login, container, false);
         ButterKnife.bind(this, v);
+        ((MainActivity) getActivity()).getSupportActionBar().hide();
         setToolbarTitle(getActivity(), loginFragmentTitle);
         userPresenter = new UserPresenterImpl(this);
         buttonLogin.setOnClickListener(new View.OnClickListener() {
@@ -94,6 +95,7 @@ public class LoginFragment extends Fragment implements UserView, IsToolbarSetter
 
     @Override
     public void showUserProfile(UserUI userUI) {
+        ((MainActivity) getActivity()).getSupportActionBar().show();
         TourPackageFragment.TourPackageListener tourPackageListener = (TourPackageFragment.TourPackageListener) getActivity();
         tourPackageListener.transitionToTourPackage();
     }
