@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -80,32 +82,32 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
         tourTabLayout.setupWithViewPager(tourViewPager);
         tourViewPager.setAdapter(tourFragmentPagerAdapter);
 
-        tourViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int i, float v, int i1) {
-            }
-
-            @Override
-            public void onPageSelected(int i) {
-                     mCurrentFragment = tourFragmentPagerAdapter.getRegisteredFragment(i);
-                setParamToChildFragment();
-            }
-
-            private void setParamToChildFragment() {
-                if (mCurrentFragment instanceof TourPackageDescriptionFragment){
-                    ((TourPackageDescriptionFragment)mCurrentFragment).setStringAttr("2");
-                } else if(mCurrentFragment instanceof TourListFragment){
-                    ((TourListFragment)mCurrentFragment).setStringAttr("2");
-                } else if (mCurrentFragment instanceof ReviewListFragment){
-                    ((ReviewListFragment)mCurrentFragment).setStringAttr("2");
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) {
-
-            }
-        });
+//        tourViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//            @Override
+//            public void onPageScrolled(int i, float v, int i1) {
+//            }
+//
+//            @Override
+//            public void onPageSelected(int i) {
+//                     mCurrentFragment = tourFragmentPagerAdapter.getRegisteredFragment(i);
+//                setParamToChildFragment();
+//            }
+//
+//            private void setParamToChildFragment() {
+//                if (mCurrentFragment instanceof TourPackageDescriptionFragment){
+//                    ((TourPackageDescriptionFragment)mCurrentFragment).setStringAttr("2");
+//                } else if(mCurrentFragment instanceof TourListFragment){
+//                    ((TourListFragment)mCurrentFragment).setStringAttr("2");
+//                } else if (mCurrentFragment instanceof ReviewListFragment){
+//                    ((ReviewListFragment)mCurrentFragment).setStringAttr("2");
+//                }
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int i) {
+//
+//            }
+//        });
         return v;
     }
 
@@ -124,5 +126,16 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
     @Override
     public void setToolbarTitle(Activity activity, String title) {
         ((MainActivity) activity).setActivityToolbarTitle(title);
+    }
+
+    public void onAttachFragment (Fragment mCurrentFragment){
+        Log.d("FRAGMENT_ATTACH","Attached Fragment!" + mCurrentFragment.getClass().toString());
+        if (mCurrentFragment instanceof TourPackageDescriptionFragment){
+            ((TourPackageDescriptionFragment)mCurrentFragment).setStringAttr("2");
+        } else if(mCurrentFragment instanceof TourListFragment){
+            ((TourListFragment)mCurrentFragment).setStringAttr("2");
+        } else if (mCurrentFragment instanceof ReviewListFragment){
+            ((ReviewListFragment)mCurrentFragment).setStringAttr("2");
+        }
     }
 }

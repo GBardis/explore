@@ -3,6 +3,7 @@ package com.explore.features.tour.presentation;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,6 +68,8 @@ public class TourPackageDescriptionFragment extends Fragment implements TourView
 
     @Override
     public void setStringAttr(String s) {
+
+        Log.d("FRAGMENT_TALKING","Hello I'm Fragment" + getContext().toString() + "And just received this param:"+ s);
         this.mParentArg = s;
     }
 }

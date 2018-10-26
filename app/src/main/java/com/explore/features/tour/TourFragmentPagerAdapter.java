@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.ViewGroup;
 
@@ -69,12 +70,14 @@ public class TourFragmentPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         Fragment fragment = (Fragment) super.instantiateItem(container, position);
+        Log.d("FRAGMENT","CREATED FRAGMENT" + position);
         registeredFragments.put(position, fragment);
         return fragment;
     }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
+        Log.d("FRAGMENT","DESTROYING FRAGMENT" + position);
         registeredFragments.remove(position);
         super.destroyItem(container, position, object);
     }
