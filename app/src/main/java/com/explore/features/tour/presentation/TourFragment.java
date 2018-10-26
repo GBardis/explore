@@ -3,6 +3,7 @@ package com.explore.features.tour.presentation;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -13,7 +14,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.explore.MainActivity;
@@ -25,7 +25,6 @@ import com.explore.features.tour.domain.FragmentSettable;
 import com.explore.features.tour.domain.ReviewUI;
 import com.explore.features.tour.domain.TourPackageUI;
 import com.explore.features.tour.domain.TourPresenter;
-import com.explore.features.tour.domain.TourRvAdapter;
 import com.explore.features.tour.domain.TourUI;
 import com.explore.features.tour.domain.TourView;
 
@@ -69,7 +68,7 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
@@ -108,5 +107,8 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
 
         // TODO: TourPackageID should go here when available
         ((FragmentSettable)mCurrentFragment).setStringAttr("2");
+      }
+    public interface TourFragmentListener {
+        void transitionToTourFragment();
     }
 }

@@ -16,7 +16,7 @@ import com.explore.features.tour.presentation.TourPackageDescriptionFragment;
 
 public class TourFragmentPagerAdapter extends FragmentPagerAdapter {
 
-    private Context mContext;
+    Context mContext;
     private String mTourPackageId;
     SparseArray<Fragment> registeredFragments = new SparseArray<>();
 
@@ -40,7 +40,6 @@ public class TourFragmentPagerAdapter extends FragmentPagerAdapter {
             default:
                 return null;
         }
-
     }
 
     // TODO: set this to dynamic count
@@ -56,11 +55,11 @@ public class TourFragmentPagerAdapter extends FragmentPagerAdapter {
         // TODO: Change from static strings to @string
         switch (position) {
             case 0:
-                return "Tours";
+                return mContext.getString(R.string.view_pager_tour_tab_title);
             case 1:
                 return "Reviews";
             case 2:
-                return "Description";
+                return mContext.getString(R.string.view_pager_review_tab_title);
             default:
                 return null;
         }
