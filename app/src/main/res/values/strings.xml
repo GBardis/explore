@@ -41,4 +41,5 @@
     <string name="login_fragment_title">Login To Explore</string>
     <string name="reviewnew_fragment_title">Review Your TourPackage</string>
     <string name="user_fragment_title">Profile / Users</string>
+    <string name="tourpackage_fragment_title">Tour Package</string>
 </resources>
