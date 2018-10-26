@@ -69,8 +69,8 @@ public class LoginFragment extends Fragment implements UserView, IsToolbarSetter
         return v;
     }
 
-    private Boolean validateLoginForm(String email, String passoword) {
-        if (email.equals("") || passoword.equals("")) {
+    private Boolean validateLoginForm(String email, String password) {
+        if (email.equals("") || password.equals("")) {
             Toast.makeText(getActivity(), emptyMessage, Toast.LENGTH_LONG).show();
             return false;
         }

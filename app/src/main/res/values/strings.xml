@@ -25,9 +25,9 @@
     <string name="text_reviewnew_ratingtext_2_star">Need some improvement</string>
     <string name="text_reviewnew_ratingtext_3_star">Good</string>
     <string name="text_reviewnew_ratingtext_4_star">Great</string>
-    <string name="view_pager_tour_tab_title">Tours</string>
-    <string name="view_pager_review_tab_title">Reviews</string>
-    <string name="view_pager_description_tab_title">Description</string>
+    <string name="view_pager_tour_tour_tab_title">Tours</string>
+    <string name="view_pager_tour_review_tab_title">Reviews</string>
+    <string name="view_pager_tour_description_tab_title">Description</string>
     <string name="view_pager_users_tab_title">Users</string>
     <string name="view_pager_profile_tab_title">profile</string>
     <string name="age">Age</string>

@@ -9,7 +9,6 @@ import android.util.SparseArray;
 import android.view.ViewGroup;
 
 import com.explore.R;
-import com.explore.features.tour.domain.FragmentSettable;
 import com.explore.features.tour.presentation.ReviewListFragment;
 import com.explore.features.tour.presentation.TourListFragment;
 import com.explore.features.tour.presentation.TourPackageDescriptionFragment;
@@ -55,11 +54,11 @@ public class TourFragmentPagerAdapter extends FragmentPagerAdapter {
         // TODO: Change from static strings to @string
         switch (position) {
             case 0:
-                return mContext.getString(R.string.view_pager_tour_tab_title);
+                return mContext.getString(R.string.view_pager_tour_tour_tab_title);
             case 1:
-                return "Reviews";
+                return mContext.getString(R.string.view_pager_tour_review_tab_title);
             case 2:
-                return mContext.getString(R.string.view_pager_review_tab_title);
+                return mContext.getString(R.string.view_pager_tour_description_tab_title);
             default:
                 return null;
         }
