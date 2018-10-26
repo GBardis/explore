@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ButterKnife.bind(this);
         // Setup SupportActionBar
         setSupportActionBar(toolbar);
-
+       
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_close, R.string.navigation_drawer_open);
         drawer.addDrawerListener(toggle);
