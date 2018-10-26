@@ -86,8 +86,8 @@ public class TourPackagesRvAdapter extends RecyclerView.Adapter<TourPackagesRvAd
         tourPackagesViewHolder.mLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TourFragment.TourFragmentListener TourFragmentListener = (TourFragment.TourFragmentListener) context;
-                TourFragmentListener.transitionToTourFragment();
+                TourFragment.TourFragmentListener tourFragmentListener = (TourFragment.TourFragmentListener) context;
+                tourFragmentListener.transitionToTourFragment();
 //                onTourPackageClickListener.onTourPackageClicked(tourPackageUI);
             }
         });
