@@ -59,7 +59,7 @@ public class LoginFragment extends Fragment implements UserView, IsToolbarSetter
             @Override
             public void onClick(View view) {
                 String userEmail = mTextInputEmail.getText().toString();
-                String userPassword = mTextInputPassword.toString();
+                String userPassword = mTextInputPassword.getText().toString();
 
                 if (validateLoginForm(userEmail, userPassword)) {
                     userPresenter.getUser(userEmail);
