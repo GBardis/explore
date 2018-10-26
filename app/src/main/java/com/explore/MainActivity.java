@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.explore.features.tour.presentation.TourFragment;
 import com.explore.features.tourpackage.presentation.TourPackageFragment;
@@ -22,7 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, TourFragment.TourFragmentListener,
-        TourPackageFragment.TourPackageListener {
+        TourPackageFragment.TourPackageListener, UserFragment.UserFragmentListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -63,8 +62,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .commit();
     }
 
-    // expose a method which allows any fragment to change
-    // the app toolbar title
     public void setActivityToolbarTitle(String title) {
         Objects.requireNonNull(getSupportActionBar()).setTitle(title);
     }
@@ -87,6 +84,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .commit();
     }
 
+
+    @Override
+    public void transitionToUserFragment() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .addToBackStack(null)
+                .replace(R.id.main_activity_root, new UserFragment())
+                .commit();
+    }
 
     @Override
     public void onBackPressed() {
@@ -124,16 +130,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        switch (id) {
-            case R.id.nav_profile:
-                Toast.makeText(this, "Hi profile", Toast.LENGTH_LONG).show();
-                break;
+        if (id == R.id.nav_profile)
+            transitionToUserFragment();
 
-            case R.id.nav_allusers:
-                Toast.makeText(this, "Hi users", Toast.LENGTH_LONG).show();
-                break;
-        }
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }

@@ -1,6 +1,7 @@
 package com.explore.features.user.presentation;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
@@ -10,13 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.explore.MainActivity;
 import com.explore.R;
+import com.explore.features.IsToolbarSetter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class UserFragment extends Fragment {
-
+public class UserFragment extends Fragment implements IsToolbarSetter {
     @BindView(R.id.viewpager_user_fragment)
     ViewPager viewPager;
     @BindView(R.id.tab_user_fragment)
@@ -32,7 +34,7 @@ public class UserFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_user, container, false);
-
+        setToolbarTitle(getActivity(), "Profile / Users");
         ButterKnife.bind(this, v);
 
         // Create an adapter that knows which fragment should be shown on each page
@@ -44,5 +46,14 @@ public class UserFragment extends Fragment {
         // Give the TabLayout the ViewPager
         tabLayout.setupWithViewPager(viewPager);
         return v;
+    }
+
+    @Override
+    public void setToolbarTitle(Activity activity, String title) {
+        ((MainActivity) activity).setActivityToolbarTitle(title);
+    }
+
+    public interface UserFragmentListener {
+        void transitionToUserFragment();
     }
 }
