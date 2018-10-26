@@ -21,6 +21,7 @@ import com.explore.R;
 import com.explore.data.db.model.Review;
 import com.explore.features.IsToolbarSetter;
 import com.explore.features.tour.TourFragmentPagerAdapter;
+import com.explore.features.tour.domain.FragmentSettable;
 import com.explore.features.tour.domain.ReviewUI;
 import com.explore.features.tour.domain.TourPackageUI;
 import com.explore.features.tour.domain.TourPresenter;
@@ -82,32 +83,6 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
         tourTabLayout.setupWithViewPager(tourViewPager);
         tourViewPager.setAdapter(tourFragmentPagerAdapter);
 
-//        tourViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-//            @Override
-//            public void onPageScrolled(int i, float v, int i1) {
-//            }
-//
-//            @Override
-//            public void onPageSelected(int i) {
-//                     mCurrentFragment = tourFragmentPagerAdapter.getRegisteredFragment(i);
-//                setParamToChildFragment();
-//            }
-//
-//            private void setParamToChildFragment() {
-//                if (mCurrentFragment instanceof TourPackageDescriptionFragment){
-//                    ((TourPackageDescriptionFragment)mCurrentFragment).setStringAttr("2");
-//                } else if(mCurrentFragment instanceof TourListFragment){
-//                    ((TourListFragment)mCurrentFragment).setStringAttr("2");
-//                } else if (mCurrentFragment instanceof ReviewListFragment){
-//                    ((ReviewListFragment)mCurrentFragment).setStringAttr("2");
-//                }
-//            }
-//
-//            @Override
-//            public void onPageScrollStateChanged(int i) {
-//
-//            }
-//        });
         return v;
     }
 
@@ -130,12 +105,8 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
 
     public void onAttachFragment (Fragment mCurrentFragment){
         Log.d("FRAGMENT_ATTACH","Attached Fragment!" + mCurrentFragment.getClass().toString());
-        if (mCurrentFragment instanceof TourPackageDescriptionFragment){
-            ((TourPackageDescriptionFragment)mCurrentFragment).setStringAttr("2");
-        } else if(mCurrentFragment instanceof TourListFragment){
-            ((TourListFragment)mCurrentFragment).setStringAttr("2");
-        } else if (mCurrentFragment instanceof ReviewListFragment){
-            ((ReviewListFragment)mCurrentFragment).setStringAttr("2");
-        }
+
+        // TODO: TourPackageID should go here when available
+        ((FragmentSettable)mCurrentFragment).setStringAttr("2");
     }
 }

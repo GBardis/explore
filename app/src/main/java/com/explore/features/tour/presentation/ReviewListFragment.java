@@ -11,12 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.explore.R;
-import com.explore.features.tour.domain.AcceptsArgumentsFromParentFragment;
+import com.explore.features.tour.domain.FragmentSettable;
 import com.explore.features.tour.domain.ReviewRvAdapter;
 import com.explore.features.tour.domain.ReviewUI;
 import com.explore.features.tour.domain.TourPackageUI;
 import com.explore.features.tour.domain.TourPresenter;
-import com.explore.features.tour.domain.TourRvAdapter;
 import com.explore.features.tour.domain.TourUI;
 import com.explore.features.tour.domain.TourView;
 
@@ -24,11 +23,12 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ReviewListFragment extends Fragment implements TourView,AcceptsArgumentsFromParentFragment {
+public class ReviewListFragment extends FragmentSettable implements TourView {
 
     private TourPresenter mTourPresenter;
 
@@ -71,7 +71,8 @@ public class ReviewListFragment extends Fragment implements TourView,AcceptsArgu
     }
 
     @Override
-    public void setStringAttr(String s) {
+    public void setStringAttr(String s){
+        Timber.tag("FRAGMENT_TALKING").d("Received parent argument: " + s);
         this.mParentArg = s;
     }
 }

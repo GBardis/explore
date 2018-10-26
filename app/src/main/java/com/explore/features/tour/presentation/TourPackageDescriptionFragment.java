@@ -3,14 +3,13 @@ package com.explore.features.tour.presentation;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.explore.R;
-import com.explore.features.tour.domain.AcceptsArgumentsFromParentFragment;
+import com.explore.features.tour.domain.FragmentSettable;
 import com.explore.features.tour.domain.ReviewUI;
 import com.explore.features.tour.domain.TourPackageUI;
 import com.explore.features.tour.domain.TourPresenter;
@@ -21,11 +20,12 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TourPackageDescriptionFragment extends Fragment implements TourView,AcceptsArgumentsFromParentFragment {
+public class TourPackageDescriptionFragment extends FragmentSettable implements TourView {
 
     @BindView(R.id.text_tour_description)
     TextView textViewTourDescription;
@@ -67,9 +67,8 @@ public class TourPackageDescriptionFragment extends Fragment implements TourView
     }
 
     @Override
-    public void setStringAttr(String s) {
-
-        Log.d("FRAGMENT_TALKING","Hello I'm Fragment" + getContext().toString() + "And just received this param:"+ s);
+    public void setStringAttr(String s){
+        Timber.tag("FRAGMENT_TALKING").d("Received parent argument: " + s);
         this.mParentArg = s;
     }
 }

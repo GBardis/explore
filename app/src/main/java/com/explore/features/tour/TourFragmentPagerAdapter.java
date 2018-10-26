@@ -9,6 +9,7 @@ import android.util.SparseArray;
 import android.view.ViewGroup;
 
 import com.explore.R;
+import com.explore.features.tour.domain.FragmentSettable;
 import com.explore.features.tour.presentation.ReviewListFragment;
 import com.explore.features.tour.presentation.TourListFragment;
 import com.explore.features.tour.presentation.TourPackageDescriptionFragment;

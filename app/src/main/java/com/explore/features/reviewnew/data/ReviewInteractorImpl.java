@@ -12,7 +12,9 @@ public class ReviewInteractorImpl implements ReviewInteractor {
     @Override
     public void getReviewList(OnReviewListFinishListener reviewListFinishListener, String tourPackageId) {
         Log.d("INTERACTOR_REVIEW", "SERVING DATA FOR TOUR_PACKAGE ID:" + tourPackageId);
-        reviewListFinishListener.onSuccess(mockReviewsList());
+        if (tourPackageId == "2") {
+            reviewListFinishListener.onSuccess(mockReviewsList());
+        }
     }
 
     private ArrayList<ReviewDomain> mockReviewsList() {

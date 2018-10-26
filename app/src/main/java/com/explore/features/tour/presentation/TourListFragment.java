@@ -6,13 +6,12 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.explore.R;
-import com.explore.features.tour.domain.AcceptsArgumentsFromParentFragment;
+import com.explore.features.tour.domain.FragmentSettable;
 import com.explore.features.tour.domain.ReviewUI;
 import com.explore.features.tour.domain.TourPackageUI;
 import com.explore.features.tour.domain.TourPresenter;
@@ -29,7 +28,7 @@ import timber.log.Timber;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TourListFragment extends Fragment implements TourView,AcceptsArgumentsFromParentFragment {
+public class TourListFragment extends FragmentSettable implements TourView {
 
     private TourPresenter mTourPresenter;
 
@@ -73,9 +72,9 @@ public class TourListFragment extends Fragment implements TourView,AcceptsArgume
     }
 
     @Override
-    public void setStringAttr(String s) {
-
-        Log.d("FRAGMENT_TALKING","Hello I'm Fragment" + getContext().toString() + "And just received this param:"+ s);
+    public void setStringAttr(String s){
+        Timber.tag("FRAGMENT_TALKING").d("Received parent argument: " + s);
         this.mParentArg = s;
     }
+
 }
