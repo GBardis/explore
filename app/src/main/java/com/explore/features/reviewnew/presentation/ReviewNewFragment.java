@@ -31,10 +31,9 @@ import lombok.Getter;
 
 
 public class ReviewNewFragment extends Fragment implements IsToolbarSetter, ReviewNewView {
-    final static String FRAGMENT_TITLE = "Review Your TourPackage";
-
     @BindView(R.id.textInput_reviewnew_title)
     TextInputEditText textInputEditTextTitle;
+
     @BindView(R.id.ratingBar_reviewnew_rating)
     RatingBar mRatingBar;
     @BindView(R.id.text_reviewnew_ratingdesc)
@@ -53,7 +52,8 @@ public class ReviewNewFragment extends Fragment implements IsToolbarSetter, Revi
     String mRatingTextFourStar;
     @BindString(R.string.text_reviewnew_ratingtext_5_star)
     String mRatingTextFiveStar;
-
+    @BindString(R.string.reviewnew_fragment_title)
+    String reviewNewFragmentTitle;
     @Getter
     ReviewNewPresenter reviewNewPresenter;
 
@@ -71,7 +71,7 @@ public class ReviewNewFragment extends Fragment implements IsToolbarSetter, Revi
 
         ButterKnife.bind(this, v);
 
-        setToolbarTitle(getActivity(), FRAGMENT_TITLE);
+        setToolbarTitle(getActivity(), reviewNewFragmentTitle);
 
         // Check if Title is not empty
         textInputEditTextTitle.addTextChangedListener(new TextWatcher() {

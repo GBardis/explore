@@ -36,6 +36,10 @@ public class LoginFragment extends Fragment implements UserView, IsToolbarSetter
     Button buttonLogin;
     @BindString(R.string.login_empty_message)
     String emptyMessage;
+    @BindString(R.string.not_valid_email_format_error)
+    String emailErrorMessage;
+    @BindString(R.string.login_fragment_title)
+    String loginFragmentTitle;
     UserPresenter userPresenter;
 
     public LoginFragment() {
@@ -49,7 +53,7 @@ public class LoginFragment extends Fragment implements UserView, IsToolbarSetter
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_login, container, false);
         ButterKnife.bind(this, v);
-        setToolbarTitle(getActivity(), "Login To Explore");
+        setToolbarTitle(getActivity(), loginFragmentTitle);
         userPresenter = new UserPresenterImpl(this);
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +79,7 @@ public class LoginFragment extends Fragment implements UserView, IsToolbarSetter
 
     private boolean validateEmail(String email) {
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            mTextInputEmail.setError("enter a valid email address");
+            mTextInputEmail.setError(emailErrorMessage);
             return false;
         } else {
             mTextInputEmail.setError(null);

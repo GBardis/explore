@@ -15,6 +15,7 @@ import com.explore.MainActivity;
 import com.explore.R;
 import com.explore.features.IsToolbarSetter;
 
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -23,6 +24,9 @@ public class UserFragment extends Fragment implements IsToolbarSetter {
     ViewPager viewPager;
     @BindView(R.id.tab_user_fragment)
     TabLayout tabLayout;
+
+    @BindString(R.string.user_fragment_title)
+    String userFragmentTitle;
 
     public UserFragment() {
         // Required empty public constructor
@@ -34,8 +38,8 @@ public class UserFragment extends Fragment implements IsToolbarSetter {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_user, container, false);
-        setToolbarTitle(getActivity(), "Profile / Users");
         ButterKnife.bind(this, v);
+        setToolbarTitle(getActivity(), userFragmentTitle);
 
         // Create an adapter that knows which fragment should be shown on each page
         UserFragmentPagerAdapter adapter = new UserFragmentPagerAdapter(getChildFragmentManager(), getActivity());

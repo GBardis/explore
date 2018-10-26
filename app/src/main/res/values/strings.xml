@@ -36,4 +36,8 @@
     <string name="text_input_login_fragment_password_input">Password</string>
     <string name="button_login_fragment_login">Login</string>
     <string name="login_empty_message">Email and Password can\'t be blank</string>
+    <string name="not_valid_email_format_error">Enter a valid email address</string>
+    <string name="login_fragment_title">Login To Explore</string>
+    <string name="reviewnew_fragment_title">Review Your TourPackage</string>
+    <string name="user_fragment_title">Profile / Users</string>
 </resources>
