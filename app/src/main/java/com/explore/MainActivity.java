@@ -12,9 +12,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.explore.features.reviewnew.presentation.ReviewNewFragment;
 import com.explore.features.tour.presentation.TourFragment;
 import com.explore.features.tourpackage.presentation.TourPackageFragment;
+import com.explore.features.user.presentation.UserFragment;
 
 import java.util.Objects;
 
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.main_activity_root, new ReviewNewFragment())
+                .add(R.id.main_activity_root, new UserFragment())
                 .commit();
     }
 

@@ -8,8 +8,6 @@ public interface TourPackageIteractor {
 
     void getTourPackage(OnTourPackageFinishListener onTourPackageFinishListener, String tourPackageId);
 
-    void getFilteredTourPackage();
-
     interface OnTourPackageListFinishListener {
         void onSuccess(List<TourPackageDomain> tourPackageDomainList);
 

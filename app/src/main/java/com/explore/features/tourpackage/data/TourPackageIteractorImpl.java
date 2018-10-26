@@ -31,11 +31,6 @@ public class TourPackageIteractorImpl implements TourPackageIteractor {
 
     @Override
     public void getTourPackage(OnTourPackageFinishListener onTourPackageFinishListener, String tourPackageId) {
-        
-    }
-
-    @Override
-    public void getFilteredTourPackage() {
 
     }
 }

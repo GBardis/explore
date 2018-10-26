@@ -32,11 +32,6 @@ public class TourPackageListPresenterImpl implements TourPackagePresenter, TourP
     }
 
     @Override
-    public void getFilteredTourPackages(String filter) {
-
-    }
-
-    @Override
     public void onSuccess(List<TourPackageDomain> tourPackageDomainList) {
         List<TourPackageUI> tourPackageUIList = new ArrayList<>();
         for (TourPackageDomain tourPackageDomain : tourPackageDomainList) {
