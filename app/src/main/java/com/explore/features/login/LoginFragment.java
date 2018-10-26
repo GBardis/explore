@@ -13,8 +13,10 @@ import android.widget.Toast;
 
 import com.explore.R;
 import com.explore.features.tourpackage.presentation.TourPackageFragment;
+import com.explore.features.user.domain.UserPresenter;
 import com.explore.features.user.domain.UserUI;
 import com.explore.features.user.domain.UserView;
+import com.explore.features.user.presentation.UserPresenterImpl;
 
 import java.util.List;
 
@@ -31,6 +33,7 @@ public class LoginFragment extends Fragment implements UserView {
     Button buttonLogin;
     @BindString(R.string.login_empty_message)
     String emptyMessage;
+    UserPresenter userPresenter;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -43,13 +46,15 @@ public class LoginFragment extends Fragment implements UserView {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_login, container, false);
         ButterKnife.bind(this, v);
-
+        userPresenter = new UserPresenterImpl(this);
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (validateLoginForm(mTextInputEmail.getText().toString(), mTextInputPassword.toString())) {
-                    TourPackageFragment.TourPackageListener tourPackageListener = (TourPackageFragment.TourPackageListener) getActivity();
-                    tourPackageListener.transitionToTourPackage();
+                String userEmail = mTextInputEmail.getText().toString();
+                String userPassword = mTextInputPassword.toString();
+
+                if (validateLoginForm(userEmail, userPassword)) {
+                    userPresenter.getUser(userEmail);
                 }
             }
         });
@@ -81,6 +86,7 @@ public class LoginFragment extends Fragment implements UserView {
 
     @Override
     public void showUserProfile(UserUI userUI) {
-
+        TourPackageFragment.TourPackageListener tourPackageListener = (TourPackageFragment.TourPackageListener) getActivity();
+        tourPackageListener.transitionToTourPackage();
     }
 }

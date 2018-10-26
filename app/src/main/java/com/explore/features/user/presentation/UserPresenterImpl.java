@@ -33,8 +33,8 @@ public class UserPresenterImpl implements UserPresenter, UserIteractor.OnUserFin
     }
 
     @Override
-    public void getUser() {
-        getUserIteractor().getUser(this);
+    public void getUser(String userEmail) {
+        getUserIteractor().getUser(this, userEmail);
     }
 
     @Override

@@ -6,7 +6,7 @@ public interface UserIteractor {
 
     void getUsers(OnUserListFinishListener onUserListFinishListener);
 
-    void getUser(OnUserFinishListener onUserFinishListener);
+    void getUser(OnUserFinishListener onUserFinishListener, String userEmail);
 
     interface OnUserListFinishListener {
         void onSuccess(List<UserDomain> userDomainList);

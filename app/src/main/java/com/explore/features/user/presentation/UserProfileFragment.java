@@ -34,6 +34,8 @@ public class UserProfileFragment extends Fragment implements UserView {
     @BindView(R.id.text_profile_fragment_address)
     TextView mTextViewAddress;
 
+    String userEmail = "email@email.com";
+
     public UserProfileFragment() {
         // Required empty public constructor
     }
@@ -46,7 +48,7 @@ public class UserProfileFragment extends Fragment implements UserView {
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
         ButterKnife.bind(this, v);
         UserPresenterImpl userPresenter = new UserPresenterImpl(this);
-        userPresenter.getUser();
+        userPresenter.getUser(userEmail);
         return v;
     }
 

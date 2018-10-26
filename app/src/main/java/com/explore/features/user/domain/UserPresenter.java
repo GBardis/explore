@@ -4,5 +4,5 @@ public interface UserPresenter {
 
     void getUserList();
 
-    void getUser();
+    void getUser(String userEmail);
 }

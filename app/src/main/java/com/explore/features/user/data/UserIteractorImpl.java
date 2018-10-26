@@ -21,7 +21,7 @@ public class UserIteractorImpl implements UserIteractor {
     }
 
     @Override
-    public void getUser(OnUserFinishListener onUserFinishListener) {
+    public void getUser(OnUserFinishListener onUserFinishListener, String userEmail) {
         onUserFinishListener.onSuccess(new UserDomain("George12", "George", "Bardis", "email@email.com", "galatsi", 25));
     }
 }
