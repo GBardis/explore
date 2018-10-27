@@ -7,9 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +15,6 @@ import android.widget.TextView;
 
 import com.explore.MainActivity;
 import com.explore.R;
-import com.explore.data.db.model.Review;
 import com.explore.features.IsToolbarSetter;
 import com.explore.features.tour.TourFragmentPagerAdapter;
 import com.explore.features.tour.domain.FragmentSettable;
@@ -32,7 +28,6 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import timber.log.Timber;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -77,7 +72,7 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
 
         mTourPresenter = new TourPresenterImpl(this);
         mTourPresenter.getTourPackage("2");
-        tourFragmentPagerAdapter = new TourFragmentPagerAdapter(getChildFragmentManager(),getActivity());
+        tourFragmentPagerAdapter = new TourFragmentPagerAdapter(getChildFragmentManager(), getActivity());
 
         tourTabLayout.setupWithViewPager(tourViewPager);
         tourViewPager.setAdapter(tourFragmentPagerAdapter);
@@ -102,12 +97,13 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
         ((MainActivity) activity).setActivityToolbarTitle(title);
     }
 
-    public void onAttachFragment (Fragment mCurrentFragment){
-        Log.d("FRAGMENT_ATTACH","Attached Fragment!" + mCurrentFragment.getClass().toString());
+    public void onAttachFragment(Fragment mCurrentFragment) {
+        Log.d("FRAGMENT_ATTACH", "Attached Fragment!" + mCurrentFragment.getClass().toString());
 
         // TODO: TourPackageID should go here when available
-        ((FragmentSettable)mCurrentFragment).setStringAttr("2");
-      }
+        ((FragmentSettable) mCurrentFragment).setStringAttr("2");
+    }
+
     public interface TourFragmentListener {
         void transitionToTourFragment();
     }
