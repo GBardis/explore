@@ -19,7 +19,7 @@ public interface ReviewInteractor {
 
     interface OnReviewListFinishListener {
 
-        void onSuccess(ArrayList<ReviewDomain> reviewDomainArrayList);
+        void onReviewListSuccess(ArrayList<ReviewDomain> reviewDomainArrayList);
 
         void onFailure();
     }

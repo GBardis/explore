@@ -114,10 +114,15 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
     }
 
     @Override
-    public void showTourPackage(ArrayList<TourUI> tourUIArrayList, TourPackageUI tourPackageUI) {
+    public void showTourPackage(TourPackageUI tourPackageUI) {
         setToolbarTitle(getActivity(), tourPackageUI.getName());
 
         mTextViewDescription.setText(tourPackageUI.getDescription());
+    }
+
+    @Override
+    public void showTourList(ArrayList<TourUI> tourUIArrayList) {
+
     }
 
     @Override

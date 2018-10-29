@@ -64,7 +64,12 @@ public class ReviewListFragment extends Fragment implements TourView {
     }
 
     @Override
-    public void showTourPackage(ArrayList<TourUI> tourUIArrayList, TourPackageUI tourPackageUI) {
+    public void showTourPackage(TourPackageUI tourPackageUI) {
+
+    }
+
+    @Override
+    public void showTourList(ArrayList<TourUI> tourUIArrayList) {
 
     }
 

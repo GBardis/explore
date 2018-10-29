@@ -14,7 +14,7 @@ public class ReviewInteractorImpl implements ReviewInteractor {
     public void getReviewList(OnReviewListFinishListener reviewListFinishListener, String tourPackageId) {
         Timber.d("SERVING DATA FOR TOUR_PACKAGE ID:" + tourPackageId);
         if (tourPackageId == "2") {
-            reviewListFinishListener.onSuccess(mockReviewsList());
+            reviewListFinishListener.onReviewListSuccess(mockReviewsList());
         }
     }
 

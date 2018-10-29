@@ -6,7 +6,9 @@ import java.util.ArrayList;
 
 public interface TourView {
 
-    void showTourPackage(ArrayList<TourUI> tourUIArrayList, TourPackageUI tourPackageUI);
+    void showTourPackage(TourPackageUI tourPackageUI);
+
+    void showTourList(ArrayList<TourUI> tourUIArrayList);
 
     void showTourPackageReviewList(ArrayList<ReviewUI> reviewUIArrayList);
 }

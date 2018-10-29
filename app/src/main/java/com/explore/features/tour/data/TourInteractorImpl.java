@@ -2,15 +2,10 @@ package com.explore.features.tour.data;
 
 import com.explore.features.tour.domain.TourDomain;
 import com.explore.features.tour.domain.TourInteractor;
-import com.explore.features.tour.domain.TourPackageDomain;
 
 import java.util.ArrayList;
 
 public class TourInteractorImpl implements TourInteractor {
-
-    @Override
-    public void getTours(ArrayList<TourDomain> tourDomainArrayList) {
-    }
 
     private ArrayList<TourDomain> mockTours() {
         ArrayList<TourDomain> tourDomainArrayList = new ArrayList<>();
@@ -32,13 +27,7 @@ public class TourInteractorImpl implements TourInteractor {
     }
 
     @Override
-    public void getTourPackage(OnTourPackageFinishListener tourPackageFinishListener,String tourPackageId) {
-        tourPackageFinishListener.onSuccess(mockTours(),mockTourPackage());
+    public void getTourList(OnTourListFinishListener tourListFinishListener,String tourPackageId) {
+        tourListFinishListener.onTourListSuccess(mockTours());
     }
-
-    private TourPackageDomain mockTourPackage() {
-        return new TourPackageDomain("1","Acropolis",4.5,"Attiki","A tour around attiki!");
-    }
-
-
 }

@@ -31,6 +31,9 @@ public class TourPackageInteractorImpl implements TourPackageInteractor {
 
     @Override
     public void getTourPackage(OnTourPackageFinishListener onTourPackageFinishListener, String tourPackageId) {
-
+        // TODO: remove condition when real data comes
+        if(tourPackageId == "2") {
+            onTourPackageFinishListener.onTourPackageSuccess(new TourPackageDomain("2", "Giannhs", 1 * 0.5, "red", "blue","Acropolis","A tour around the city"));
+        }
     }
 }

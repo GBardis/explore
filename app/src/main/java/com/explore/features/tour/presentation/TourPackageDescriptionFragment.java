@@ -56,8 +56,13 @@ public class TourPackageDescriptionFragment extends Fragment implements TourView
     }
 
     @Override
-    public void showTourPackage(ArrayList<TourUI> tourUIArrayList, TourPackageUI tourPackageUI) {
+    public void showTourPackage(TourPackageUI tourPackageUI) {
         textViewTourDescription.setText(tourPackageUI.getDescription());
+    }
+
+    @Override
+    public void showTourList(ArrayList<TourUI> tourUIArrayList) {
+
     }
 
     @Override

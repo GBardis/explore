@@ -15,7 +15,7 @@ public interface TourPackageInteractor {
     }
 
     interface OnTourPackageFinishListener {
-        void onSuccess(TourPackageDomain tourPackageDomainList);
+        void onTourPackageSuccess(TourPackageDomain tourPackageDomain);
 
         void onFailure();
     }

@@ -7,12 +7,10 @@ import java.util.ArrayList;
 
 public interface TourInteractor {
 
-    void getTourPackage(OnTourPackageFinishListener tourPackageFinishListener,String tourPackageId);
+    void getTourList(OnTourListFinishListener tourPackageFinishListener,String tourPackageId);
 
-    void getTours(ArrayList<TourDomain> tourDomainArrayList);
-
-    interface OnTourPackageFinishListener{
-        void onSuccess(ArrayList<TourDomain> tourDomainArrayList,TourPackageDomain tourPackageDomain);
+    interface OnTourListFinishListener{
+        void onTourListSuccess(ArrayList<TourDomain> tourDomainArrayList);
 
         void onError();
     }
