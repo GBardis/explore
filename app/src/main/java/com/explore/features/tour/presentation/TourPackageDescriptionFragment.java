@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.explore.R;
-import com.explore.features.tour.domain.FragmentSettable;
 import com.explore.features.tour.domain.ReviewUI;
 import com.explore.features.tour.domain.TourPackageUI;
 import com.explore.features.tour.domain.TourPresenter;
@@ -21,12 +20,11 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import timber.log.Timber;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TourPackageDescriptionFragment extends FragmentSettable implements TourView {
+public class TourPackageDescriptionFragment extends Fragment implements TourView {
 
     @BindView(R.id.text_tour_description)
     TextView textViewTourDescription;
@@ -67,9 +65,4 @@ public class TourPackageDescriptionFragment extends FragmentSettable implements 
 
     }
 
-    @Override
-    public void setStringAttr(String s) {
-        Timber.tag("FRAGMENT_TALKING").d("Received parent argument: " + s);
-        this.mParentArg = s;
-    }
 }

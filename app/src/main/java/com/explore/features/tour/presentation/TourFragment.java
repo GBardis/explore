@@ -20,7 +20,6 @@ import com.explore.R;
 import com.explore.features.IsToolbarSetter;
 import com.explore.features.reviewnew.presentation.ReviewNewFragment;
 import com.explore.features.tour.TourFragmentPagerAdapter;
-import com.explore.features.tour.domain.FragmentSettable;
 import com.explore.features.tour.domain.ReviewUI;
 import com.explore.features.tour.domain.TourPackageUI;
 import com.explore.features.tour.domain.TourPresenter;
@@ -64,6 +63,8 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
     private Fragment mCurrentFragment;
     private TourPackageUI mTourPackageUI;
 
+    Bundle bundle;
+    String mParentArg;
 
     TourFragmentPagerAdapter tourFragmentPagerAdapter;
 
@@ -80,9 +81,19 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
         View v = inflater.inflate(R.layout.fragment_tour, container, false);
         ButterKnife.bind(this, v);
 
+        // TODO: maybe refactor to sync with parent bundle
+        bundle = new Bundle();
+
+        if (getArguments() != null){
+            mParentArg = getArguments().getString("TOUR_PACKAGE_ID");
+        }
+
+        bundle.putString("TOUR_PACKAGE_ID",mParentArg);
+
+
         mTourPresenter = new TourPresenterImpl(this);
-        mTourPresenter.getTourPackage("2");
-        tourFragmentPagerAdapter = new TourFragmentPagerAdapter(getChildFragmentManager(), getActivity());
+        mTourPresenter.getTourPackage(bundle.getString("TOUR_PACKAGE_ID"));
+        tourFragmentPagerAdapter = new TourFragmentPagerAdapter(getChildFragmentManager(), getActivity(),bundle);
 
         tourTabLayout.setupWithViewPager(tourViewPager);
         tourViewPager.setAdapter(tourFragmentPagerAdapter);
@@ -91,7 +102,7 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
             @Override
             public void onClick(View view) {
                 ReviewNewFragment.ReviewNewFragmentListener reviewNewFragmentListener = (ReviewNewFragment.ReviewNewFragmentListener) getActivity();
-                reviewNewFragmentListener.transitionToReviewNewFragment();
+                reviewNewFragmentListener.transitionToReviewNewFragment(bundle);
             }
         });
 
@@ -119,14 +130,7 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
         ((MainActivity) activity).setActivityToolbarTitle(title);
     }
 
-    public void onAttachFragment(Fragment mCurrentFragment) {
-        Log.d("FRAGMENT_ATTACH", "Attached Fragment!" + mCurrentFragment.getClass().toString());
-
-        // TODO: TourPackageID should go here when available
-        ((FragmentSettable) mCurrentFragment).setStringAttr("2");
-    }
-
     public interface TourFragmentListener {
-        void transitionToTourFragment();
+        void transitionToTourFragment(Bundle bundle);
     }
 }

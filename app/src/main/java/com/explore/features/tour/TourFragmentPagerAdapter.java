@@ -1,14 +1,17 @@
 package com.explore.features.tour;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.explore.R;
+import com.explore.data.db.model.Tour;
 import com.explore.features.tour.presentation.ReviewListFragment;
 import com.explore.features.tour.presentation.TourListFragment;
 import com.explore.features.tour.presentation.TourPackageDescriptionFragment;
@@ -16,14 +19,16 @@ import com.explore.features.tour.presentation.TourPackageDescriptionFragment;
 public class TourFragmentPagerAdapter extends FragmentPagerAdapter {
 
     Context mContext;
+    Bundle mParentBundle;
     private String mTourPackageId;
     SparseArray<Fragment> registeredFragments = new SparseArray<>();
 
     // TODO: Create constructor to accept arguments for TourPackage id
 
-    public TourFragmentPagerAdapter(FragmentManager fm, Context context) {
+    public TourFragmentPagerAdapter(FragmentManager fm, Context context, Bundle parentBundle) {
         super(fm);
         this.mContext = context;
+        this.mParentBundle = parentBundle;
     }
 
     @Override
@@ -31,11 +36,17 @@ public class TourFragmentPagerAdapter extends FragmentPagerAdapter {
 
         switch (viewPagerPosition) {
             case 0:
-                return new TourListFragment();
+                TourListFragment tfr = new TourListFragment();
+                tfr.setArguments(mParentBundle);
+                return tfr;
             case 1:
-                return new ReviewListFragment();
+                ReviewListFragment rfr = new ReviewListFragment();
+                rfr.setArguments(mParentBundle);
+                return rfr;
             case 2:
-                return new TourPackageDescriptionFragment();
+                TourPackageDescriptionFragment tpfr = new TourPackageDescriptionFragment();
+                tpfr.setArguments(mParentBundle);
+                return tpfr;
             default:
                 return null;
         }
@@ -69,14 +80,12 @@ public class TourFragmentPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         Fragment fragment = (Fragment) super.instantiateItem(container, position);
-        Log.d("FRAGMENT","CREATED FRAGMENT" + position);
         registeredFragments.put(position, fragment);
         return fragment;
     }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        Log.d("FRAGMENT","DESTROYING FRAGMENT" + position);
         registeredFragments.remove(position);
         super.destroyItem(container, position, object);
     }

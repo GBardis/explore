@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.explore.MainActivity;
 import com.explore.R;
 import com.explore.features.IsToolbarSetter;
+import com.explore.features.tour.presentation.TourFragment;
 import com.explore.features.tourpackage.domain.OnTourPackageClickListener;
 import com.explore.features.tourpackage.domain.TourPackagePresenter;
 import com.explore.features.tourpackage.domain.TourPackageUI;
@@ -38,6 +39,7 @@ public class TourPackageFragment extends Fragment implements TourPackageView, Is
     RecyclerView tourPackageRv;
     TourPackagePresenter tourPackagePresenter;
     TourPackagesRvAdapter tourPackagesRvAdapter;
+    Bundle bundle;
 
 
     public TourPackageFragment() {
@@ -58,6 +60,8 @@ public class TourPackageFragment extends Fragment implements TourPackageView, Is
         View v = inflater.inflate(R.layout.fragment_tour_package, container, false);
         ButterKnife.bind(this, v);
 
+        bundle = new Bundle();
+
         setToolbarTitle(getActivity(), tourPackageFragmentTitle);
         //Setup LayoutManager
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -72,7 +76,10 @@ public class TourPackageFragment extends Fragment implements TourPackageView, Is
         tourPackagesRvAdapter = new TourPackagesRvAdapter(tourPackageArrayList, new OnTourPackageClickListener() {
             @Override
             public void onTourPackageClicked(TourPackageUI tourPackageUI) {
-                Toast.makeText(getContext(), "Selected: " + tourPackageUI.getName(), Toast.LENGTH_LONG).show();
+                bundle.putString("TOUR_PACKAGE_ID",tourPackageUI.getId());
+                TourFragment.TourFragmentListener tourFragmentListener = (TourFragment.TourFragmentListener) getActivity();
+                tourFragmentListener.transitionToTourFragment(bundle);
+
             }
         }, getActivity());
         tourPackageRv.setAdapter(tourPackagesRvAdapter);

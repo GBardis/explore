@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.explore.data.db.model.Review;
 import com.explore.features.reviewnew.presentation.ReviewNewFragment;
 import com.explore.features.tour.presentation.TourFragment;
 import com.explore.features.tourpackage.presentation.TourPackageFragment;
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.main_fragment_container, new TourFragment())
+                .add(R.id.main_fragment_container, new TourPackageFragment())
                 .commit();
     }
 
@@ -69,11 +70,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public void transitionToTourFragment() {
+    public void transitionToTourFragment(Bundle bundle) {
+        TourFragment tourFragment = new TourFragment();
+        tourFragment.setArguments(bundle);
+
         getSupportFragmentManager()
                 .beginTransaction()
                 .addToBackStack(null)
-                .replace(R.id.main_fragment_container, new TourFragment())
+                .replace(R.id.main_fragment_container, tourFragment)
                 .commit();
     }
 
@@ -97,11 +101,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public void transitionToReviewNewFragment() {
+    public void transitionToReviewNewFragment(Bundle bundle) {
+        ReviewNewFragment reviewNewFragment = new ReviewNewFragment();
+        reviewNewFragment.setArguments(bundle);
+
         getSupportFragmentManager()
                 .beginTransaction()
                 .addToBackStack(null)
-                .replace(R.id.main_fragment_container, new ReviewNewFragment())
+                .replace(R.id.main_fragment_container, reviewNewFragment)
                 .commit();
     }
 

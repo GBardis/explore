@@ -57,6 +57,9 @@ public class ReviewNewFragment extends Fragment implements IsToolbarSetter, Revi
     @Getter
     ReviewPresenter reviewNewPresenter;
 
+    String mParentArg;
+    Bundle bundle;
+
 
     public ReviewNewFragment() {
         // Required empty public constructor
@@ -68,8 +71,13 @@ public class ReviewNewFragment extends Fragment implements IsToolbarSetter, Revi
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_review_new, container, false);
-
         ButterKnife.bind(this, v);
+
+        if (getArguments() != null){
+            mParentArg = getArguments().getString("TOUR_PACKAGE_ID");
+            bundle = new Bundle();
+            bundle.putString("TOUR_PACKAGE_ID",mParentArg);
+        }
 
         setToolbarTitle(getActivity(), reviewNewFragmentTitle);
 
@@ -171,11 +179,11 @@ public class ReviewNewFragment extends Fragment implements IsToolbarSetter, Revi
     @Override
     public void afterSubmit() {
         TourFragment.TourFragmentListener TourFragmentListener = (TourFragment.TourFragmentListener) getActivity();
-        Objects.requireNonNull(TourFragmentListener).transitionToTourFragment();
+        Objects.requireNonNull(TourFragmentListener).transitionToTourFragment(bundle);
         Toast.makeText(getActivity(), "Thank you for reviewing our tour", Toast.LENGTH_LONG).show();
     }
 
     public interface ReviewNewFragmentListener {
-        void transitionToReviewNewFragment();
+        void transitionToReviewNewFragment(Bundle bundle);
     }
 }
