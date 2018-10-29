@@ -83,7 +83,6 @@ public class TourPresenterImpl implements TourPresenter, TourInteractor.OnTourLi
 
     }
 
-    // TODO: investigate
     @Override
     public void onTourPackageSuccess(TourPackageDomain tourPackageDomain) {
         mTourView.showTourPackage(
