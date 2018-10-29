@@ -1,20 +1,31 @@
 package com.explore.features.reviewnew.data;
 
-import android.util.Log;
-
 import com.explore.features.reviewnew.domain.ReviewDomain;
 import com.explore.features.reviewnew.domain.ReviewInteractor;
+import com.explore.features.reviewnew.presentation.ReviewNewUI;
 
 import java.util.ArrayList;
+
+import timber.log.Timber;
 
 public class ReviewInteractorImpl implements ReviewInteractor {
 
     @Override
     public void getReviewList(OnReviewListFinishListener reviewListFinishListener, String tourPackageId) {
-        Log.d("INTERACTOR_REVIEW", "SERVING DATA FOR TOUR_PACKAGE ID:" + tourPackageId);
+        Timber.d("SERVING DATA FOR TOUR_PACKAGE ID:" + tourPackageId);
         if (tourPackageId == "2") {
             reviewListFinishListener.onSuccess(mockReviewsList());
         }
+    }
+
+    @Override
+    public void setReviewNew(ReviewInteractor.OnReviewSubmitListener onReviewSubmitListener, ReviewNewUI reviewNewUI) {
+        ReviewDomain reviewDomain = new ReviewDomain("1", reviewNewUI.getTitle(),
+                reviewNewUI.getRating(), reviewNewUI.getReviewMessage());
+
+        //Database Call
+
+        onReviewSubmitListener.onSuccess();
     }
 
     private ArrayList<ReviewDomain> mockReviewsList() {
