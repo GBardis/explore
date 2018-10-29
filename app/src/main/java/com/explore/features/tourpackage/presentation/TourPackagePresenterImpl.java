@@ -1,6 +1,6 @@
 package com.explore.features.tourpackage.presentation;
 
-import com.explore.features.tourpackage.data.TourPackageIteractorImpl;
+import com.explore.features.tourpackage.data.TourPackageInteractorImpl;
 import com.explore.features.tourpackage.domain.TourPackageDomain;
 import com.explore.features.tourpackage.domain.TourPackageInteractor;
 import com.explore.features.tourpackage.domain.TourPackagePresenter;
@@ -23,7 +23,7 @@ public class TourPackagePresenterImpl implements TourPackagePresenter, TourPacka
 
     public TourPackagePresenterImpl(TourPackageView tourPackageView) {
         this.tourPackageView = tourPackageView;
-        this.tourPackageIteractor = new TourPackageIteractorImpl();
+        this.tourPackageIteractor = new TourPackageInteractorImpl();
     }
 
     @Override

@@ -6,7 +6,7 @@ import com.explore.features.tourpackage.domain.TourPackageInteractor;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TourPackageIteractorImpl implements TourPackageInteractor {
+public class TourPackageInteractorImpl implements TourPackageInteractor {
 
     @Override
     public void getTourPackages(OnTourPackageListFinishListener listener) {
