@@ -2,6 +2,7 @@ package com.explore.features.tour.presentation;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -43,7 +44,7 @@ public class ReviewListFragment extends FragmentSettable implements TourView {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_review_list, container, false);
@@ -71,7 +72,7 @@ public class ReviewListFragment extends FragmentSettable implements TourView {
     }
 
     @Override
-    public void setStringAttr(String s){
+    public void setStringAttr(String s) {
         Timber.tag("FRAGMENT_TALKING").d("Received parent argument: " + s);
         this.mParentArg = s;
     }

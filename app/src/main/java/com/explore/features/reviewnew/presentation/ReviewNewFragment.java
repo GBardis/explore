@@ -19,7 +19,7 @@ import android.widget.Toast;
 import com.explore.MainActivity;
 import com.explore.R;
 import com.explore.features.IsToolbarSetter;
-import com.explore.features.reviewnew.domain.ReviewNewPresenter;
+import com.explore.features.reviewnew.domain.ReviewPresenter;
 import com.explore.features.tour.presentation.TourFragment;
 
 import java.util.Objects;
@@ -55,7 +55,7 @@ public class ReviewNewFragment extends Fragment implements IsToolbarSetter, Revi
     @BindString(R.string.reviewnew_fragment_title)
     String reviewNewFragmentTitle;
     @Getter
-    ReviewNewPresenter reviewNewPresenter;
+    ReviewPresenter reviewNewPresenter;
 
 
     public ReviewNewFragment() {
@@ -116,7 +116,7 @@ public class ReviewNewFragment extends Fragment implements IsToolbarSetter, Revi
             }
         });
 
-        reviewNewPresenter = new ReviewNewPresenterImpl(this);
+        reviewNewPresenter = new ReviewPresenterImpl(this);
 
         mButtonSubmitReview.setOnClickListener(new View.OnClickListener() {
             @Override

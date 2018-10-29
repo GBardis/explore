@@ -2,12 +2,12 @@ package com.explore.features.reviewnew.presentation;
 
 import com.explore.features.reviewnew.data.ReviewInteractorImpl;
 import com.explore.features.reviewnew.domain.ReviewInteractor;
-import com.explore.features.reviewnew.domain.ReviewNewPresenter;
+import com.explore.features.reviewnew.domain.ReviewPresenter;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public class ReviewNewPresenterImpl implements ReviewNewPresenter, ReviewInteractor.OnReviewSubmitListener {
+public class ReviewPresenterImpl implements ReviewPresenter, ReviewInteractor.OnReviewSubmitListener {
 
     @Getter
     @Setter
@@ -16,7 +16,7 @@ public class ReviewNewPresenterImpl implements ReviewNewPresenter, ReviewInterac
     @Setter
     private ReviewInteractor reviewInteractor;
 
-    public ReviewNewPresenterImpl(ReviewNewView reviewNewView) {
+    public ReviewPresenterImpl(ReviewNewView reviewNewView) {
         this.reviewNewView = reviewNewView;
         this.reviewInteractor = new ReviewInteractorImpl();
     }
