@@ -1,12 +1,12 @@
 package com.explore.features.tourpackage.data;
 
 import com.explore.features.tourpackage.domain.TourPackageDomain;
-import com.explore.features.tourpackage.domain.TourPackageIteractor;
+import com.explore.features.tourpackage.domain.TourPackageInteractor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TourPackageIteractorImpl implements TourPackageIteractor {
+public class TourPackageIteractorImpl implements TourPackageInteractor {
 
     @Override
     public void getTourPackages(OnTourPackageListFinishListener listener) {

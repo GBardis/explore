@@ -15,7 +15,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.explore.MainActivity;
 import com.explore.R;
@@ -66,7 +65,7 @@ public class TourPackageFragment extends Fragment implements TourPackageView, Is
         //Setup LayoutManager
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         tourPackageRv.setLayoutManager(layoutManager);
-        tourPackagePresenter = new TourPackageListPresenterImpl(this);
+        tourPackagePresenter = new TourPackagePresenterImpl(this);
         tourPackagePresenter.getTourPackages();
         return v;
     }

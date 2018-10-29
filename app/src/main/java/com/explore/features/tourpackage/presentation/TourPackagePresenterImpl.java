@@ -2,7 +2,7 @@ package com.explore.features.tourpackage.presentation;
 
 import com.explore.features.tourpackage.data.TourPackageIteractorImpl;
 import com.explore.features.tourpackage.domain.TourPackageDomain;
-import com.explore.features.tourpackage.domain.TourPackageIteractor;
+import com.explore.features.tourpackage.domain.TourPackageInteractor;
 import com.explore.features.tourpackage.domain.TourPackagePresenter;
 import com.explore.features.tourpackage.domain.TourPackageUI;
 import com.explore.features.tourpackage.domain.TourPackageView;
@@ -13,15 +13,15 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
-public class TourPackageListPresenterImpl implements TourPackagePresenter, TourPackageIteractor.OnTourPackageListFinishListener {
+public class TourPackagePresenterImpl implements TourPackagePresenter, TourPackageInteractor.OnTourPackageListFinishListener {
     @Getter
     @Setter
     TourPackageView tourPackageView;
     @Getter
     @Setter
-    TourPackageIteractor tourPackageIteractor;
+    TourPackageInteractor tourPackageIteractor;
 
-    public TourPackageListPresenterImpl(TourPackageView tourPackageView) {
+    public TourPackagePresenterImpl(TourPackageView tourPackageView) {
         this.tourPackageView = tourPackageView;
         this.tourPackageIteractor = new TourPackageIteractorImpl();
     }

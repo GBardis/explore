@@ -2,7 +2,7 @@ package com.explore.features.tourpackage.domain;
 
 import java.util.List;
 
-public interface TourPackageIteractor {
+public interface TourPackageInteractor {
 
     void getTourPackages(OnTourPackageListFinishListener onTourPackageListFinishListener);
 
