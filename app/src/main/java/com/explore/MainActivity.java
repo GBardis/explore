@@ -11,6 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.explore.features.login.LoginFragment;
+import com.explore.features.reviewnew.presentation.ReviewNewFragment;
 import com.explore.features.tour.presentation.TourFragment;
 import com.explore.features.tourpackage.presentation.TourPackageFragment;
 import com.explore.features.user.presentation.UserFragment;
@@ -20,7 +22,8 @@ import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, TourFragment.TourFragmentListener,
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
+        TourFragment.TourFragmentListener, ReviewNewFragment.ReviewNewFragmentListener,
         TourPackageFragment.TourPackageListener, UserFragment.UserFragmentListener {
 
     @BindView(R.id.toolbar)
@@ -58,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.main_fragment_container, new TourPackageFragment())
+                .add(R.id.main_fragment_container, new LoginFragment())
                 .commit();
     }
 
@@ -91,6 +94,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .beginTransaction()
                 .addToBackStack(null)
                 .replace(R.id.main_fragment_container, new UserFragment())
+                .commit();
+    }
+
+    @Override
+    public void transitionToReviewNewFragment() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .addToBackStack(null)
+                .replace(R.id.main_fragment_container, new ReviewNewFragment())
                 .commit();
     }
 
@@ -136,5 +148,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
 }

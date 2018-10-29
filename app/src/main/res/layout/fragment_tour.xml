@@ -68,13 +68,13 @@
 
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fab_tour_fragment_transition_reviewnew"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
-        android:layout_marginEnd="11dp"
+        android:layout_marginEnd="6dp"
         android:layout_marginBottom="374dp"
         android:src="@drawable/ic_add_review" />
 

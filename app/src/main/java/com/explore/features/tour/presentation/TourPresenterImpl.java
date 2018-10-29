@@ -15,7 +15,7 @@ import com.explore.features.tour.domain.TourView;
 
 import java.util.ArrayList;
 
-public class TourPresenterImpl implements TourPresenter, TourInteractor.OnTourPackageFinishListener,ReviewInteractor.OnReviewListFinishListener {
+public class TourPresenterImpl implements TourPresenter, TourInteractor.OnTourPackageFinishListener, ReviewInteractor.OnReviewListFinishListener {
 
     private TourView mTourView;
     private TourInteractor mTourInteractor;
@@ -38,7 +38,7 @@ public class TourPresenterImpl implements TourPresenter, TourInteractor.OnTourPa
 
     @Override
     public void getTourPackageReviews(String tourPackageId) {
-        mReviewInteractor.getReviewList(this,tourPackageId);
+        mReviewInteractor.getReviewList(this, tourPackageId);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class TourPresenterImpl implements TourPresenter, TourInteractor.OnTourPa
     public void onSuccess(ArrayList<ReviewDomain> reviewDomainArrayList) {
         ArrayList<ReviewUI> reviewUIArrayList = new ArrayList<>();
 
-        for (ReviewDomain reviewDomain : reviewDomainArrayList){
+        for (ReviewDomain reviewDomain : reviewDomainArrayList) {
             reviewUIArrayList.add(
                     new ReviewUI(
                             reviewDomain.getId(),
@@ -75,6 +75,11 @@ public class TourPresenterImpl implements TourPresenter, TourInteractor.OnTourPa
 
     @Override
     public void onError() {
+
+    }
+
+    @Override
+    public void onFailure() {
 
     }
 }

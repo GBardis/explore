@@ -4,6 +4,7 @@ package com.explore.features.tour.presentation;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import com.explore.MainActivity;
 import com.explore.R;
 import com.explore.features.IsToolbarSetter;
+import com.explore.features.reviewnew.presentation.ReviewNewFragment;
 import com.explore.features.tour.TourFragmentPagerAdapter;
 import com.explore.features.tour.domain.FragmentSettable;
 import com.explore.features.tour.domain.ReviewUI;
@@ -51,6 +53,9 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
     @BindView(R.id.view_pager_tour_fragment)
     ViewPager tourViewPager;
 
+    @BindView(R.id.fab_tour_fragment_transition_reviewnew)
+    FloatingActionButton mFloatingActionButton;
+
     private Fragment mCurrentFragment;
     private TourPackageUI mTourPackageUI;
 
@@ -76,6 +81,14 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
 
         tourTabLayout.setupWithViewPager(tourViewPager);
         tourViewPager.setAdapter(tourFragmentPagerAdapter);
+
+        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ReviewNewFragment.ReviewNewFragmentListener reviewNewFragmentListener = (ReviewNewFragment.ReviewNewFragmentListener) getActivity();
+                reviewNewFragmentListener.transitionToReviewNewFragment();
+            }
+        });
 
         return v;
     }

@@ -1,15 +1,12 @@
 package com.explore.features.reviewnew.domain;
 
-import android.arch.persistence.room.ForeignKey;
-import android.arch.persistence.room.PrimaryKey;
-
 import lombok.Getter;
 import lombok.Setter;
 
 public class ReviewDomain {
 
     @Getter
-    @PrimaryKey
+    @Setter
     private final String id;
 
     @Setter

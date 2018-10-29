@@ -174,4 +174,8 @@ public class ReviewNewFragment extends Fragment implements IsToolbarSetter, Revi
         Objects.requireNonNull(TourFragmentListener).transitionToTourFragment();
         Toast.makeText(getActivity(), "Thank you for reviewing our tour", Toast.LENGTH_LONG).show();
     }
+
+    public interface ReviewNewFragmentListener {
+        void transitionToReviewNewFragment();
+    }
 }

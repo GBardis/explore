@@ -2,6 +2,7 @@ package com.explore.features.tour.presentation;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,11 +41,11 @@ public class TourPackageDescriptionFragment extends FragmentSettable implements 
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_tour_package_description, container, false);
-        ButterKnife.bind(this,v);
+        ButterKnife.bind(this, v);
 
         mTourPresenter = new TourPresenterImpl(this);
         mTourPresenter.getTourPackage(mParentArg);
@@ -52,7 +53,7 @@ public class TourPackageDescriptionFragment extends FragmentSettable implements 
         return v;
     }
 
-    public void setDescription(String description){
+    public void setDescription(String description) {
         textViewTourDescription.setText(description);
     }
 
@@ -67,7 +68,7 @@ public class TourPackageDescriptionFragment extends FragmentSettable implements 
     }
 
     @Override
-    public void setStringAttr(String s){
+    public void setStringAttr(String s) {
         Timber.tag("FRAGMENT_TALKING").d("Received parent argument: " + s);
         this.mParentArg = s;
     }

@@ -71,7 +71,7 @@ public class LoginFragment extends Fragment implements UserView, IsToolbarSetter
     }
 
     private Boolean validateLoginForm(String email, String password) {
-        if (email.equals("") || password.equals("")) {
+        if (email.isEmpty() || password.isEmpty()) {
             Toast.makeText(getActivity(), emptyMessage, Toast.LENGTH_LONG).show();
             return false;
         }
