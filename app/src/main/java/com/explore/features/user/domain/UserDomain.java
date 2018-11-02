@@ -6,7 +6,12 @@ import lombok.Setter;
 public class UserDomain {
     @Getter
     @Setter
-    private String userName;
+    private String password;
+
+
+    @Getter
+    @Setter
+    private String username;
     @Getter
     @Setter
     private String firstName;
@@ -23,8 +28,13 @@ public class UserDomain {
     @Setter
     private int age;
 
-    public UserDomain(String userName, String firstName, String lastName, String email, String address, int age) {
-        this.userName = userName;
+    public UserDomain(String username, String password) {
+        this.password = password;
+        this.username = username;
+    }
+
+    public UserDomain(String username, String firstName, String lastName, String email, String address, int age) {
+        this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

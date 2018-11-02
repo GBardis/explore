@@ -29,7 +29,7 @@ public class RestClient {
 
 
         final Retrofit retrorift = new Retrofit.Builder()
-                .baseUrl("http://akazoo.com/services/Test/TestMobileService.svc/")
+                .baseUrl("https://explore-greece.herokuapp.com/")
                 .client(mOkHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

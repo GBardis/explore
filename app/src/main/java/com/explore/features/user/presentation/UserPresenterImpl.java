@@ -41,14 +41,14 @@ public class UserPresenterImpl implements UserPresenter, UserIteractor.OnUserFin
     public void onSuccess(List<UserDomain> userDomainList) {
         List<UserUI> userUIList = new ArrayList();
         for (UserDomain userDomain : userDomainList) {
-            userUIList.add(new UserUI(userDomain.getUserName(), userDomain.getFirstName(), userDomain.getLastName(), userDomain.getEmail(), userDomain.getAddress(), userDomain.getAge()));
+            userUIList.add(new UserUI(userDomain.getUsername(), userDomain.getFirstName(), userDomain.getLastName(), userDomain.getEmail(), userDomain.getAddress(), userDomain.getAge()));
         }
         getUserView().showUserList(userUIList);
     }
 
     @Override
     public void onSuccess(UserDomain userDomain) {
-        getUserView().showUserProfile(new UserUI(userDomain.getUserName(), userDomain.getFirstName(), userDomain.getLastName(), userDomain.getEmail(), userDomain.getAddress(), userDomain.getAge()));
+        getUserView().showUserProfile(new UserUI(userDomain.getUsername(), userDomain.getFirstName(), userDomain.getLastName(), userDomain.getEmail(), userDomain.getAddress(), userDomain.getAge()));
     }
 
     @Override

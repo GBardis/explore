@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.explore.features.login.LoginFragment;
 import com.explore.features.reviewnew.presentation.ReviewNewFragment;
 import com.explore.features.tour.presentation.TourFragment;
 import com.explore.features.tourpackage.presentation.TourPackageFragment;
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.main_fragment_container, new TourFragment())
+                .add(R.id.main_fragment_container, new LoginFragment())
                 .commit();
     }
 

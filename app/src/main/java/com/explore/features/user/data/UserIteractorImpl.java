@@ -1,10 +1,19 @@
 package com.explore.features.user.data;
 
+import android.os.AsyncTask;
+import android.support.annotation.NonNull;
+
 import com.explore.features.user.domain.UserDomain;
 import com.explore.features.user.domain.UserIteractor;
+import com.explore.rest.RestClient;
+import com.explore.rest.responses.UserResponse;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class UserIteractorImpl implements UserIteractor {
 
@@ -21,7 +30,29 @@ public class UserIteractorImpl implements UserIteractor {
     }
 
     @Override
-    public void getUser(OnUserFinishListener onUserFinishListener, String userEmail) {
-        onUserFinishListener.onSuccess(new UserDomain("George12", "George", "Bardis", "email@email.com", "galatsi", 25));
+    public void getUser(final OnUserFinishListener onUserFinishListener, String userEmail) {
+//
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                Call<UserResponse> call = RestClient.call().login(new UserDomain("teamBlack", "theBlacksw0rd"));
+                call.enqueue(new Callback<UserResponse>() {
+                    @Override
+                    public void onResponse(@NonNull Call<UserResponse> call, @NonNull Response<UserResponse> response) {
+                        UserResponse userResponse = response.body();
+                        UserDomain userDomain = new UserDomain(userResponse.getUsername(),
+                                userResponse.getFirstName(), userResponse.getLastName(),
+                                userResponse.getEmail(), userResponse.getAddress(),
+                                userResponse.getAge());
+                        onUserFinishListener.onSuccess(userDomain);
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<UserResponse> call, @NonNull Throwable t) {
+
+                    }
+                });
+            }
+        });
     }
 }
