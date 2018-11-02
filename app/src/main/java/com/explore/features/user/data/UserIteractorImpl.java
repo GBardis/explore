@@ -44,18 +44,22 @@ public class UserIteractorImpl implements UserIteractor {
                         @Override
                         public void onResponse(@NonNull Call<UserResponse> call, @NonNull Response<UserResponse> response) {
                             UserResponse userResponse = response.body();
-                            final UserDomain userDomain = new UserDomain(userResponse.getId(), Objects.requireNonNull(userResponse).getUsername(),
-                                    userResponse.getFirstName(), userResponse.getLastName(),
-                                    userResponse.getEmail(), userResponse.getAddress(),
-                                    userResponse.getAge());
+                            if (userResponse != null) {
+                                final UserDomain userDomain = new UserDomain(userResponse.getId(), Objects.requireNonNull(userResponse).getUsername(),
+                                        userResponse.getFirstName(), userResponse.getLastName(),
+                                        userResponse.getEmail(), userResponse.getAddress(),
+                                        userResponse.getAge());
 
-                            AsyncTask.execute(new Runnable() {
-                                @Override
-                                public void run() {
-                                    userDao.insertUser(userDomain);
-                                }
-                            });
-                            onUserFinishListener.onSuccess(userDomain);
+                                AsyncTask.execute(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        userDao.insertUser(userDomain);
+                                    }
+                                });
+                                onUserFinishListener.onSuccess(userDomain);
+                            } else {
+                                onUserFinishListener.onFailure();
+                            }
                         }
 
                         @Override

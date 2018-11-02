@@ -40,7 +40,7 @@ public class UserIndexFragment extends Fragment implements UserView {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_user_index, container, false);
         ButterKnife.bind(this, v);
-        
+
         userListRv.setHasFixedSize(true);
 
         userListRv.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -61,6 +61,11 @@ public class UserIndexFragment extends Fragment implements UserView {
 
     @Override
     public void showUserProfile(UserUI userUI) {
+
+    }
+
+    @Override
+    public void showLoginError(String message) {
 
     }
 }

@@ -67,4 +67,9 @@ public class UserProfileFragment extends Fragment implements UserView {
         mTextViewLastName.setText(userUI.getLastName());
         mTextViewAddress.setText(userUI.getAddress());
     }
+
+    @Override
+    public void showLoginError(String message) {
+
+    }
 }

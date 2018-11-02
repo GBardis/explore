@@ -99,6 +99,11 @@ public class LoginFragment extends Fragment implements UserView, IsToolbarSetter
     }
 
     @Override
+    public void showLoginError(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
     public void setToolbarTitle(Activity activity, String title) {
         ((MainActivity) activity).setActivityToolbarTitle(title);
     }

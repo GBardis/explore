@@ -55,6 +55,6 @@ public class UserPresenterImpl implements UserPresenter, UserIteractor.OnUserFin
 
     @Override
     public void onFailure() {
-
+        getUserView().showLoginError("Wrong Username or PassWord");
     }
 }
