@@ -1,5 +1,7 @@
 package com.explore.features.user.presentation;
 
+import android.content.Context;
+
 import com.explore.features.user.data.UserIteractorImpl;
 import com.explore.features.user.domain.UserDomain;
 import com.explore.features.user.domain.UserIteractor;
@@ -33,8 +35,8 @@ public class UserPresenterImpl implements UserPresenter, UserIteractor.OnUserFin
     }
 
     @Override
-    public void getUser(String userEmail) {
-        getUserIteractor().getUser(this, userEmail);
+    public void getUser(String userEmail, String passWord, Context context) {
+        getUserIteractor().getUser(this, userEmail, passWord, context);
     }
 
     @Override

@@ -28,8 +28,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class LoginFragment extends Fragment implements UserView, IsToolbarSetter {
-    @BindView(R.id.edit_text_login_fragment_input_email)
-    TextInputEditText mTextInputEmail;
+    @BindView(R.id.edit_text_login_fragment_input_username)
+    TextInputEditText mTextInputUsername;
     @BindView(R.id.edit_text_login_fragment_input_password)
     TextInputEditText mTextInputPassword;
     @BindView(R.id.button_login_fragment_login)
@@ -59,31 +59,24 @@ public class LoginFragment extends Fragment implements UserView, IsToolbarSetter
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String userEmail = mTextInputEmail.getText().toString();
+                String userName = mTextInputUsername.getText().toString();
                 String userPassword = mTextInputPassword.getText().toString();
 
-                if (validateLoginForm(userEmail, userPassword)) {
-                    userPresenter.getUser(userEmail);
+                if (validateLoginForm(userName, userPassword)) {
+                    userName = "teamBlack";
+                    userPassword = "theBlacksw0rd";
+                    userPresenter.getUser(userName, userPassword, getActivity());
                 }
             }
         });
         return v;
     }
 
-    private Boolean validateLoginForm(String email, String password) {
-        if (email.isEmpty() || password.isEmpty()) {
+    private Boolean validateLoginForm(String userName, String passWord) {
+        if (userName.isEmpty() || passWord.isEmpty()) {
             Toast.makeText(getActivity(), emptyMessage, Toast.LENGTH_LONG).show();
             return false;
-        }
-        return validateEmail(email);
-    }
-
-    private boolean validateEmail(String email) {
-        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            mTextInputEmail.setError(emailErrorMessage);
-            return false;
         } else {
-            mTextInputEmail.setError(null);
             return true;
         }
     }
@@ -95,9 +88,14 @@ public class LoginFragment extends Fragment implements UserView, IsToolbarSetter
 
     @Override
     public void showUserProfile(UserUI userUI) {
-        ((MainActivity) getActivity()).getSupportActionBar().show();
-        TourPackageFragment.TourPackageListener tourPackageListener = (TourPackageFragment.TourPackageListener) getActivity();
-        tourPackageListener.transitionToTourPackage();
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ((MainActivity) getActivity()).getSupportActionBar().show();
+                TourPackageFragment.TourPackageListener tourPackageListener = (TourPackageFragment.TourPackageListener) getActivity();
+                tourPackageListener.transitionToTourPackage();
+            }
+        });
     }
 
     @Override
