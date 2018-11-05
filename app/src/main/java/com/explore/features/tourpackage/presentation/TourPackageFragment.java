@@ -66,7 +66,7 @@ public class TourPackageFragment extends Fragment implements TourPackageView, Is
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         tourPackageRv.setLayoutManager(layoutManager);
         tourPackagePresenter = new TourPackagePresenterImpl(this);
-        tourPackagePresenter.getTourPackages();
+        tourPackagePresenter.getTourPackages(getActivity());
         return v;
     }
 
@@ -75,7 +75,7 @@ public class TourPackageFragment extends Fragment implements TourPackageView, Is
         tourPackagesRvAdapter = new TourPackagesRvAdapter(tourPackageArrayList, new OnTourPackageClickListener() {
             @Override
             public void onTourPackageClicked(TourPackageUI tourPackageUI) {
-                bundle.putString("TOUR_PACKAGE_ID",tourPackageUI.getId());
+                bundle.putString("TOUR_PACKAGE_ID", tourPackageUI.getId());
                 TourFragment.TourFragmentListener tourFragmentListener = (TourFragment.TourFragmentListener) getActivity();
                 tourFragmentListener.transitionToTourFragment(bundle);
 

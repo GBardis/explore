@@ -57,7 +57,7 @@ public class TourPackageDescriptionFragment extends Fragment implements TourView
 
     @Override
     public void showTourPackage(TourPackageUI tourPackageUI) {
-        textViewTourDescription.setText(tourPackageUI.getDescription());
+        textViewTourDescription.setText(tourPackageUI.getName());
     }
 
     @Override

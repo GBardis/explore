@@ -8,7 +8,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,16 +83,16 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
         // TODO: maybe refactor to sync with parent bundle
         bundle = new Bundle();
 
-        if (getArguments() != null){
+        if (getArguments() != null) {
             mParentArg = getArguments().getString("TOUR_PACKAGE_ID");
         }
 
-        bundle.putString("TOUR_PACKAGE_ID",mParentArg);
+        bundle.putString("TOUR_PACKAGE_ID", mParentArg);
 
 
         mTourPresenter = new TourPresenterImpl(this);
         mTourPresenter.getTourPackage(bundle.getString("TOUR_PACKAGE_ID"));
-        tourFragmentPagerAdapter = new TourFragmentPagerAdapter(getChildFragmentManager(), getActivity(),bundle);
+        tourFragmentPagerAdapter = new TourFragmentPagerAdapter(getChildFragmentManager(), getActivity(), bundle);
 
         tourTabLayout.setupWithViewPager(tourViewPager);
         tourViewPager.setAdapter(tourFragmentPagerAdapter);
@@ -117,7 +116,7 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
     public void showTourPackage(TourPackageUI tourPackageUI) {
         setToolbarTitle(getActivity(), tourPackageUI.getName());
 
-        mTextViewDescription.setText(tourPackageUI.getDescription());
+        mTextViewDescription.setText(tourPackageUI.getName());
     }
 
     @Override

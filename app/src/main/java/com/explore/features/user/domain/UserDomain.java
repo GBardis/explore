@@ -1,30 +1,49 @@
 package com.explore.features.user.domain;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
 import lombok.Getter;
 import lombok.Setter;
 
+@Entity(tableName = "users")
 public class UserDomain {
+    @NonNull
+    @PrimaryKey
+    public int userId;
     @Getter
     @Setter
-    private String userName;
+    public String password;
     @Getter
     @Setter
-    private String firstName;
+    public String username;
     @Getter
     @Setter
-    private String lastName;
+    public String firstName;
     @Getter
     @Setter
-    private String email;
+    public String lastName;
     @Getter
     @Setter
-    private String address;
+    public String email;
     @Getter
     @Setter
-    private int age;
+    public String address;
+    @Getter
+    @Setter
+    public int age;
 
-    public UserDomain(String userName, String firstName, String lastName, String email, String address, int age) {
-        this.userName = userName;
+    @Ignore
+    public UserDomain(String username, String password) {
+        this.password = password;
+        this.username = username;
+    }
+
+    public UserDomain(int userId, String username, String firstName, String lastName, String email, String address, int age) {
+        this.userId = userId;
+        this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

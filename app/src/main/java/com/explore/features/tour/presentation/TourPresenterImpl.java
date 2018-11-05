@@ -22,7 +22,7 @@ public class TourPresenterImpl implements TourPresenter, TourInteractor.OnTourLi
     private TourView mTourView;
     private TourInteractor mTourInteractor;
     private ReviewInteractor mReviewInteractor;
-    private TourPackageInteractor  mTourPackageInteractor;
+    private TourPackageInteractor mTourPackageInteractor;
 
     public TourPresenterImpl() {
     }
@@ -37,7 +37,7 @@ public class TourPresenterImpl implements TourPresenter, TourInteractor.OnTourLi
 
     @Override
     public void getTourPackage(String tourPackageId) {
-        mTourPackageInteractor.getTourPackage(this,tourPackageId);
+        mTourPackageInteractor.getTourPackage(this, tourPackageId);
     }
 
     @Override
@@ -87,9 +87,8 @@ public class TourPresenterImpl implements TourPresenter, TourInteractor.OnTourLi
     public void onTourPackageSuccess(TourPackageDomain tourPackageDomain) {
         mTourView.showTourPackage(
                 new TourPackageUI(tourPackageDomain.getName(),
-                        tourPackageDomain.getArea(),
-                        tourPackageDomain.getRating(),
-                        tourPackageDomain.getDescription()));
+                        tourPackageDomain.getRegion(),
+                        tourPackageDomain.getRating()));
     }
 
     @Override

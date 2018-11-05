@@ -2,6 +2,7 @@ package com.explore.data.db.model;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,6 +11,7 @@ import lombok.Setter;
 public class TourPackage {
     @Getter
     @PrimaryKey
+    @NonNull
     public final String id;
 
     public enum Region {
@@ -37,16 +39,16 @@ public class TourPackage {
 
     @Getter
     @Setter
-    private String name;
+    public String name;
     @Getter
     @Setter
-    private Double rating;
+    public Double rating;
     @Getter
     @Setter
-    private String ratingColor;
+    public String ratingColor;
     @Getter
     @Setter
-    private String regionColor;
+    public String regionColor;
 
     public TourPackage(String id, String name, Double rating, String ratingColor, String regionColor) {
         this.id = id;

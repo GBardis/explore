@@ -1,5 +1,7 @@
 package com.explore.features.user.presentation;
 
+import android.content.Context;
+
 import com.explore.features.user.data.UserIteractorImpl;
 import com.explore.features.user.domain.UserDomain;
 import com.explore.features.user.domain.UserIteractor;
@@ -33,26 +35,26 @@ public class UserPresenterImpl implements UserPresenter, UserIteractor.OnUserFin
     }
 
     @Override
-    public void getUser(String userEmail) {
-        getUserIteractor().getUser(this, userEmail);
+    public void getUser(String userEmail, String passWord, Context context) {
+        getUserIteractor().getUser(this, userEmail, passWord, context);
     }
 
     @Override
     public void onSuccess(List<UserDomain> userDomainList) {
         List<UserUI> userUIList = new ArrayList();
         for (UserDomain userDomain : userDomainList) {
-            userUIList.add(new UserUI(userDomain.getUserName(), userDomain.getFirstName(), userDomain.getLastName(), userDomain.getEmail(), userDomain.getAddress(), userDomain.getAge()));
+            userUIList.add(new UserUI(userDomain.getUsername(), userDomain.getFirstName(), userDomain.getLastName(), userDomain.getEmail(), userDomain.getAddress(), userDomain.getAge()));
         }
         getUserView().showUserList(userUIList);
     }
 
     @Override
     public void onSuccess(UserDomain userDomain) {
-        getUserView().showUserProfile(new UserUI(userDomain.getUserName(), userDomain.getFirstName(), userDomain.getLastName(), userDomain.getEmail(), userDomain.getAddress(), userDomain.getAge()));
+        getUserView().showUserProfile(new UserUI(userDomain.getUsername(), userDomain.getFirstName(), userDomain.getLastName(), userDomain.getEmail(), userDomain.getAddress(), userDomain.getAge()));
     }
 
     @Override
     public void onFailure() {
-
+        getUserView().showLoginError("Wrong Username or PassWord");
     }
 }

@@ -33,7 +33,7 @@
     <string name="age">Age</string>
     <string name="address">Address</string>
     <string name="login_title">Welcome To Explore</string>
-    <string name="text_input_login_fragment_email_input">Email</string>
+    <string name="text_input_login_fragment_username_input">Username</string>
     <string name="text_input_login_fragment_password_input">Password</string>
     <string name="button_login_fragment_login">Login</string>
     <string name="login_empty_message">Email and Password can\'t be blank</string>

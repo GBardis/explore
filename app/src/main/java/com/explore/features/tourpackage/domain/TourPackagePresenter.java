@@ -1,5 +1,7 @@
 package com.explore.features.tourpackage.domain;
 
+import android.content.Context;
+
 public interface TourPackagePresenter {
-    void getTourPackages();
+    void getTourPackages(Context context);
 }

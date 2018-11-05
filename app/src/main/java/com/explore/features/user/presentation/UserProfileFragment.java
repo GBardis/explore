@@ -34,7 +34,8 @@ public class UserProfileFragment extends Fragment implements UserView {
     @BindView(R.id.text_profile_fragment_address)
     TextView mTextViewAddress;
 
-    String userEmail = "email@email.com";
+    String userName = "teamBlack";
+    String passWord = "theBlacksw0rd";
 
     public UserProfileFragment() {
         // Required empty public constructor
@@ -48,7 +49,7 @@ public class UserProfileFragment extends Fragment implements UserView {
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
         ButterKnife.bind(this, v);
         UserPresenterImpl userPresenter = new UserPresenterImpl(this);
-        userPresenter.getUser(userEmail);
+        userPresenter.getUser(userName, passWord, getActivity());
         return v;
     }
 
@@ -65,5 +66,10 @@ public class UserProfileFragment extends Fragment implements UserView {
         mTextViewFirstName.setText(userUI.getFirstName());
         mTextViewLastName.setText(userUI.getLastName());
         mTextViewAddress.setText(userUI.getAddress());
+    }
+
+    @Override
+    public void showLoginError(String message) {
+
     }
 }

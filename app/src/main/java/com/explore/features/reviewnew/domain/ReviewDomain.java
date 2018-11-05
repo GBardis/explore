@@ -6,7 +6,6 @@ import lombok.Setter;
 public class ReviewDomain {
 
     @Getter
-    @Setter
     private final String id;
 
     @Setter
