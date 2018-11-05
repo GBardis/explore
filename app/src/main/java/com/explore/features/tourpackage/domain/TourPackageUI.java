@@ -6,6 +6,9 @@ import lombok.Setter;
 public class TourPackageUI {
     @Getter
     @Setter
+    private String id;
+    @Getter
+    @Setter
     private String name;
     @Getter
     @Setter

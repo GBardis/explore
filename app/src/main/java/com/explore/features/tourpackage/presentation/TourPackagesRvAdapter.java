@@ -41,6 +41,7 @@ public class TourPackagesRvAdapter extends RecyclerView.Adapter<TourPackagesRvAd
     @Setter
     private Context context;
 
+
     TourPackagesRvAdapter(List<TourPackageUI> tourPackageList, OnTourPackageClickListener onTourPackageClickListener, Context context) {
         this.tourPackageList = tourPackageList;
         this.onTourPackageClickListener = onTourPackageClickListener;
@@ -88,9 +89,9 @@ public class TourPackagesRvAdapter extends RecyclerView.Adapter<TourPackagesRvAd
         tourPackagesViewHolder.mLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TourFragment.TourFragmentListener tourFragmentListener = (TourFragment.TourFragmentListener) context;
-                tourFragmentListener.transitionToTourFragment();
-//                onTourPackageClickListener.onTourPackageClicked(tourPackageUI);
+//                TourFragment.TourFragmentListener tourFragmentListener = (TourFragment.TourFragmentListener) context;
+//                tourFragmentListener.transitionToTourFragment(bundle);
+                onTourPackageClickListener.onTourPackageClicked(tourPackageUI);
             }
         });
     }
@@ -133,6 +134,3 @@ public class TourPackagesRvAdapter extends RecyclerView.Adapter<TourPackagesRvAd
         };
     }
 }
-
-
-

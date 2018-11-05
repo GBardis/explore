@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.explore.R;
-import com.explore.features.tour.domain.FragmentSettable;
 import com.explore.features.tour.domain.ReviewRvAdapter;
 import com.explore.features.tour.domain.ReviewUI;
 import com.explore.features.tour.domain.TourPackageUI;
@@ -24,12 +23,11 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import timber.log.Timber;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ReviewListFragment extends FragmentSettable implements TourView {
+public class ReviewListFragment extends Fragment implements TourView {
 
     private TourPresenter mTourPresenter;
 
@@ -50,6 +48,10 @@ public class ReviewListFragment extends FragmentSettable implements TourView {
         View v = inflater.inflate(R.layout.fragment_review_list, container, false);
         ButterKnife.bind(this, v);
 
+        if (getArguments() != null){
+            mParentArg = getArguments().getString("TOUR_PACKAGE_ID");
+        }
+
         mTourPresenter = new TourPresenterImpl(this);
         mTourPresenter.getTourPackageReviews(mParentArg);
 
@@ -62,7 +64,12 @@ public class ReviewListFragment extends FragmentSettable implements TourView {
     }
 
     @Override
-    public void showTourPackage(ArrayList<TourUI> tourUIArrayList, TourPackageUI tourPackageUI) {
+    public void showTourPackage(TourPackageUI tourPackageUI) {
+
+    }
+
+    @Override
+    public void showTourList(ArrayList<TourUI> tourUIArrayList) {
 
     }
 
@@ -71,9 +78,4 @@ public class ReviewListFragment extends FragmentSettable implements TourView {
         mRecyclerView.setAdapter(new ReviewRvAdapter(reviewUIArrayList));
     }
 
-    @Override
-    public void setStringAttr(String s) {
-        Timber.tag("FRAGMENT_TALKING").d("Received parent argument: " + s);
-        this.mParentArg = s;
-    }
 }

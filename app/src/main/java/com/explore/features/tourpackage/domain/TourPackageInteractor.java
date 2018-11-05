@@ -4,7 +4,7 @@ import android.content.Context;
 
 import java.util.List;
 
-public interface TourPackageIteractor {
+public interface TourPackageInteractor {
 
     void getTourPackages(OnTourPackageListFinishListener onTourPackageListFinishListener, Context context);
 
@@ -17,7 +17,7 @@ public interface TourPackageIteractor {
     }
 
     interface OnTourPackageFinishListener {
-        void onSuccess(TourPackageDomain tourPackageDomainList);
+        void onTourPackageSuccess(TourPackageDomain tourPackageDomain);
 
         void onFailure();
     }

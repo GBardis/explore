@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 
 import com.explore.base.ExploreDatabase;
 import com.explore.features.tourpackage.domain.TourPackageDomain;
-import com.explore.features.tourpackage.domain.TourPackageIteractor;
+import com.explore.features.tourpackage.domain.TourPackageInteractor;
 import com.explore.rest.RestClient;
 import com.explore.rest.responses.TourPackageResponse;
 
@@ -17,7 +17,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TourPackageIteractorImpl implements TourPackageIteractor {
+public class TourPackageInteractorImpl implements TourPackageInteractor {
 
     @Override
     public void getTourPackages(final OnTourPackageListFinishListener onTourPackageListFinishListener, final Context context) {

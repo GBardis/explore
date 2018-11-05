@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.explore.R;
-import com.explore.features.tour.domain.FragmentSettable;
 import com.explore.features.tour.domain.ReviewUI;
 import com.explore.features.tour.domain.TourPackageUI;
 import com.explore.features.tour.domain.TourPresenter;
@@ -23,12 +22,11 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import timber.log.Timber;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TourListFragment extends FragmentSettable implements TourView {
+public class TourListFragment extends Fragment implements TourView {
 
     private TourPresenter mTourPresenter;
 
@@ -51,7 +49,7 @@ public class TourListFragment extends FragmentSettable implements TourView {
         ButterKnife.bind(this, v);
 
         mTourPresenter = new TourPresenterImpl(this);
-        mTourPresenter.getTourPackage(mParentArg);
+        mTourPresenter.getTourList(mParentArg);
 
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -61,8 +59,14 @@ public class TourListFragment extends FragmentSettable implements TourView {
         return v;
     }
 
+
     @Override
-    public void showTourPackage(ArrayList<TourUI> tourUIArrayList, TourPackageUI tourPackageUI) {
+    public void showTourPackage(TourPackageUI tourPackageUI) {
+
+    }
+
+    @Override
+    public void showTourList(ArrayList<TourUI> tourUIArrayList) {
         mRecyclerView.setAdapter(new TourRvAdapter(tourUIArrayList));
     }
 
@@ -71,10 +75,5 @@ public class TourListFragment extends FragmentSettable implements TourView {
 
     }
 
-    @Override
-    public void setStringAttr(String s){
-        Timber.tag("FRAGMENT_TALKING").d("Received parent argument: " + s);
-        this.mParentArg = s;
-    }
 
 }

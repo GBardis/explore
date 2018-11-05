@@ -70,11 +70,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public void transitionToTourFragment() {
+    public void transitionToTourFragment(Bundle bundle) {
+        TourFragment tourFragment = new TourFragment();
+        tourFragment.setArguments(bundle);
+
         getSupportFragmentManager()
                 .beginTransaction()
                 .addToBackStack(null)
-                .replace(R.id.main_fragment_container, new TourFragment())
+                .replace(R.id.main_fragment_container, tourFragment)
                 .commit();
     }
 
@@ -98,11 +101,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public void transitionToReviewNewFragment() {
+    public void transitionToReviewNewFragment(Bundle bundle) {
+        ReviewNewFragment reviewNewFragment = new ReviewNewFragment();
+        reviewNewFragment.setArguments(bundle);
+
         getSupportFragmentManager()
                 .beginTransaction()
                 .addToBackStack(null)
-                .replace(R.id.main_fragment_container, new ReviewNewFragment())
+                .replace(R.id.main_fragment_container, reviewNewFragment)
                 .commit();
     }
 
