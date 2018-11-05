@@ -1,10 +1,12 @@
 package com.explore.features.tourpackage.domain;
 
+import android.content.Context;
+
 import java.util.List;
 
 public interface TourPackageIteractor {
 
-    void getTourPackages(OnTourPackageListFinishListener onTourPackageListFinishListener);
+    void getTourPackages(OnTourPackageListFinishListener onTourPackageListFinishListener, Context context);
 
     void getTourPackage(OnTourPackageFinishListener onTourPackageFinishListener, String tourPackageId);
 

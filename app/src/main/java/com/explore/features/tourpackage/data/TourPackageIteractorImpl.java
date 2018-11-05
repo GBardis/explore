@@ -1,32 +1,56 @@
 package com.explore.features.tourpackage.data;
 
+import android.content.Context;
+import android.os.AsyncTask;
+import android.support.annotation.NonNull;
+
+import com.explore.base.ExploreDatabase;
 import com.explore.features.tourpackage.domain.TourPackageDomain;
 import com.explore.features.tourpackage.domain.TourPackageIteractor;
+import com.explore.rest.RestClient;
+import com.explore.rest.responses.TourPackageResponse;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class TourPackageIteractorImpl implements TourPackageIteractor {
 
     @Override
-    public void getTourPackages(OnTourPackageListFinishListener listener) {
-        List<TourPackageDomain> tourPackageDomainList = new ArrayList<>();
+    public void getTourPackages(OnTourPackageListFinishListener listener, final Context context) {
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                final TourPackageDao tourPackageDao = ExploreDatabase.getDatabase(context).tourPackageDao();
+                List<TourPackageDomain> tourPackageDomainList = tourPackageDao.getTourPackages();
 
-        tourPackageDomainList.add(new TourPackageDomain("", "George", 1 * 0.5, "red", "blue"));
+                if (tourPackageDomainList.isEmpty()) {
+                    retrofit2.Call<TourPackageResponse> tourPackageResponseCall = RestClient.call().fetchTourPackages();
+                    tourPackageResponseCall.enqueue(new Callback<TourPackageResponse>() {
+                        @Override
+                        public void onResponse(@NonNull Call<TourPackageResponse> call, @NonNull final Response<TourPackageResponse> response) {
+                            AsyncTask.execute(new Runnable() {
+                                @Override
+                                public void run() {
+                                    TourPackageResponse results = response.body();
 
-        tourPackageDomainList.add(new TourPackageDomain("1", "Giannhs", 1 * 0.5, "red", "blue"));
+                                    results.getId();
+                                }
+                            });
+                        }
 
-        tourPackageDomainList.add(new TourPackageDomain("1", "Geo", 1.1, "red", "blue"));
+                        @Override
+                        public void onFailure(@NonNull Call<TourPackageResponse> call, @NonNull Throwable t) {
 
-        tourPackageDomainList.add(new TourPackageDomain("1", "GeorgeBardis", 1.3, "red", "blue"));
+                        }
+                    });
+                }
+            }
+        });
 
-        tourPackageDomainList.add(new TourPackageDomain("1", "hahaha", 1.1, "red", "blue"));
-
-        tourPackageDomainList.add(new TourPackageDomain("1", "xoxoxoxox", 1.1, "red", "blue"));
-
-        tourPackageDomainList.add(new TourPackageDomain("1", "hihihihihi", 1.2, "red", "blue"));
-
-        listener.onSuccess(tourPackageDomainList);
+//        listener.onSuccess();
     }
 
     @Override

@@ -9,17 +9,17 @@ import com.explore.features.user.domain.UserDomain;
 import java.util.List;
 
 @Dao
-public interface UserDao {
+public abstract class UserDao {
 
     @Insert
-    void insertUser(UserDomain userDomain);
+    abstract void insertUser(UserDomain userDomain);
 
     @Insert
-    void insertUsers(List<UserDomain> userDomainList);
+    abstract void insertUsers(List<UserDomain> userDomainList);
 
     @Query("SELECT * FROM users")
-    List<UserDomain> getAllUsers();
+    abstract List<UserDomain> getAllUsers();
 
     @Query("SELECT * FROM users WHERE username = :username")
-    UserDomain findByUsername(String username);
+    abstract UserDomain findByUsername(String username);
 }

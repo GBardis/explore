@@ -1,5 +1,7 @@
 package com.explore.features.tourpackage.presentation;
 
+import android.content.Context;
+
 import com.explore.features.tourpackage.data.TourPackageIteractorImpl;
 import com.explore.features.tourpackage.domain.TourPackageDomain;
 import com.explore.features.tourpackage.domain.TourPackageIteractor;
@@ -27,8 +29,8 @@ public class TourPackageListPresenterImpl implements TourPackagePresenter, TourP
     }
 
     @Override
-    public void getTourPackages() {
-        getTourPackageIteractor().getTourPackages(this);
+    public void getTourPackages(Context context) {
+        getTourPackageIteractor().getTourPackages(this, context);
     }
 
     @Override
