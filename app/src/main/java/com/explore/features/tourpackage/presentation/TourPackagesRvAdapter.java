@@ -1,6 +1,7 @@
 package com.explore.features.tourpackage.presentation;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -78,7 +79,8 @@ public class TourPackagesRvAdapter extends RecyclerView.Adapter<TourPackagesRvAd
     public void onBindViewHolder(@NonNull TourPackagesViewHolder tourPackagesViewHolder, int i) {
         final TourPackageUI tourPackageUI = getTourPackageList().get(i);
         tourPackagesViewHolder.mTourPackageName.setText(tourPackageUI.getName());
-        tourPackagesViewHolder.mTourPackageAvgRating.setText(String.valueOf(tourPackageUI.getAvgrating()));
+        tourPackagesViewHolder.mTourPackageAvgRating.setText(String.valueOf(tourPackageUI.getAvgRating()));
+        tourPackagesViewHolder.mTourPackageAvgRating.setTextColor(Color.parseColor(tourPackageUI.getRatingColor()));
         Picasso.get().load("https://www.interrail.eu/content/dam/mastheads/oia%20-%20greece%20-%20masthead.jpg")
                 .into(tourPackagesViewHolder.mTourPackagePhoto);
         tourPackagesViewHolder.mTourPackageRatingImage.setImageResource(R.drawable.ic_star_rate);

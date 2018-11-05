@@ -39,6 +39,7 @@ public class TourPackageListPresenterImpl implements TourPackagePresenter, TourP
         for (TourPackageDomain tourPackageDomain : tourPackageDomainList) {
             TourPackageUI tourPackageUI = new TourPackageUI(
                     tourPackageDomain.getName(),
+                    tourPackageDomain.getRegion(),
                     tourPackageDomain.getRating()
             );
             tourPackageUIList.add(tourPackageUI);
