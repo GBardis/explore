@@ -2,7 +2,7 @@ package com.explore.features.tourpackage.presentation;
 
 import android.content.Context;
 
-import com.explore.features.tourpackage.data.TourPackageIteractorImpl;
+import com.explore.features.tourpackage.data.TourPackageInteractorImpl;
 import com.explore.features.tourpackage.domain.TourPackageDomain;
 import com.explore.features.tourpackage.domain.TourPackageInteractor;
 import com.explore.features.tourpackage.domain.TourPackagePresenter;
@@ -38,7 +38,6 @@ public class TourPackagePresenterImpl implements TourPackagePresenter, TourPacka
         List<TourPackageUI> tourPackageUIList = new ArrayList<>();
         for (TourPackageDomain tourPackageDomain : tourPackageDomainList) {
             TourPackageUI tourPackageUI = new TourPackageUI(
-                    tourPackageDomain.getId(),
                     tourPackageDomain.getName(),
                     tourPackageDomain.getRegion(),
                     tourPackageDomain.getRating()
