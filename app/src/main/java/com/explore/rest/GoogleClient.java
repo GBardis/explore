@@ -7,15 +7,15 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class RestClient {
+public class GoogleClient {
 
-    private static RestAPI API;
+    private static GoogleApi API;
 
     static {
         setupRestClient();
     }
 
-    public static RestAPI call() {
+    public static GoogleApi call() {
         return API;
     }
 
@@ -29,12 +29,12 @@ public class RestClient {
 
 
         final Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://explore-greece.herokuapp.com/")
+                .baseUrl("https://maps.googleapis.com/maps/api/")
                 .client(mOkHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        API = retrofit.create(RestAPI.class);
+        API = retrofit.create(GoogleApi.class);
 
     }
 }
