@@ -22,13 +22,17 @@ public class TourPackageUI {
     @Getter
     @Setter
     private Double avgRating;
+    @Getter
+    @Setter
+    private String placeId;
 
-    public TourPackageUI(String name, String region, Double avgRating) {
+    public TourPackageUI(String name, String region, Double avgRating, String placeId) {
         this.name = name;
         this.region = region;
         this.ratingColor = findRatingColor(avgRating);
         this.regionColor = findRegionColor(region);
         this.avgRating = avgRating;
+        this.placeId = placeId;
     }
 
     private String findRatingColor(Double avgRating) {

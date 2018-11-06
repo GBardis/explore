@@ -52,7 +52,7 @@ public class TourPackageInteractorImpl implements TourPackageInteractor {
                                                     tourPackageResponse.getName(),
                                                     tourPackageResponse.getAverageReviewScore(),
                                                     tourPackageResponse.getRegion(),
-                                                    getTourPackagePlaceId(tourPackageResponse.getName(), context)
+                                                    getTourPackagePlaceId(tourPackageResponse.getRegion(), context)
                                             ));
                                         }
                                         tourPackageDao.insertTourPackages(tourPackageDomainList);
