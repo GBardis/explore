@@ -47,15 +47,13 @@ public class TourPackageInteractorImpl implements TourPackageInteractor {
                                         List<TourPackageResponse> tourPackageResponseList = response.body();
                                         for (TourPackageResponse tourPackageResponse : tourPackageResponseList) {
 
-                                            getTourPackagePlaceId(tourPackageResponse.getName(), context);
-
                                             tourPackageDomainList.add(new TourPackageDomain(
                                                     tourPackageResponse.getId(),
                                                     tourPackageResponse.getName(),
                                                     tourPackageResponse.getAverageReviewScore(),
-                                                    tourPackageResponse.getRegion()
+                                                    tourPackageResponse.getRegion(),
+                                                    getTourPackagePlaceId(tourPackageResponse.getName(), context)
                                             ));
-
                                         }
                                         tourPackageDao.insertTourPackages(tourPackageDomainList);
                                         onTourPackageListFinishListener.onSuccess(tourPackageDomainList);
