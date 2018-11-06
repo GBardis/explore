@@ -2,11 +2,13 @@ package com.explore.features.tourpackage.domain;
 
 import android.content.Context;
 
+import com.explore.features.tourpackage.PresenterObserver;
+
 import java.util.List;
 
 public interface TourPackageInteractor {
 
-    void getTourPackages(OnTourPackageListFinishListener onTourPackageListFinishListener, Context context);
+    void getTourPackages(PresenterObserver presenterObserver,OnTourPackageListFinishListener onTourPackageListFinishListener, Context context);
 
     void getTourPackage(OnTourPackageFinishListener onTourPackageFinishListener, String tourPackageId);
 
