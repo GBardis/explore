@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 
 import com.explore.R;
 import com.explore.base.ExploreDatabase;
+import com.explore.base.GooglePlacesApiClient;
 import com.explore.features.tourpackage.domain.TourPackageDomain;
 import com.explore.features.tourpackage.domain.TourPackageInteractor;
 import com.explore.rest.GoogleClient;
@@ -41,21 +42,28 @@ public class TourPackageInteractorImpl implements TourPackageInteractor {
                                 @Override
                                 public void run() {
                                     if (response.body() != null) {
-
+                                        String placeID = "";
+                                        GooglePlacesApiClient googlePlacesApiClient = new GooglePlacesApiClient(context);
                                         List<TourPackageDomain> tourPackageDomainList = new ArrayList<>(response.body().size());
 
                                         List<TourPackageResponse> tourPackageResponseList = response.body();
                                         for (TourPackageResponse tourPackageResponse : tourPackageResponseList) {
 
+
+                                            placeID = getTourPackagePlaceId(tourPackageResponse.getRegion(), context);
                                             tourPackageDomainList.add(new TourPackageDomain(
                                                     tourPackageResponse.getId(),
                                                     tourPackageResponse.getName(),
                                                     tourPackageResponse.getAverageReviewScore(),
                                                     tourPackageResponse.getRegion(),
-                                                    getTourPackagePlaceId(tourPackageResponse.getRegion(), context)
+                                                    placeID,
+                                                    googlePlacesApiClient.getPhotos(placeID)
                                             ));
                                         }
                                         tourPackageDao.insertTourPackages(tourPackageDomainList);
+//                                        for (TourPackageDomain tourPackageDomain : tourPackageDomainList) {
+//                                            tourPackageDomain.setPlacePhoto();
+//                                        }
                                         onTourPackageListFinishListener.onSuccess(tourPackageDomainList);
                                     } else {
                                         onTourPackageListFinishListener.onFailure();
@@ -81,6 +89,9 @@ public class TourPackageInteractorImpl implements TourPackageInteractor {
         Response<GoogleMapApi> result;
         List<GooglePlaceID> candidates;
         String placeId = "";
+        if (placeName.equals("Aeagean")) {
+            placeName = "Aegean Islands";
+        }
         Call<GoogleMapApi> googleMapApiCall = GoogleClient.call().getPlace(placeName, "textquery", context.getString(R.string.Google_api_key));
         try {
             result = googleMapApiCall.execute();

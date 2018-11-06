@@ -1,7 +1,9 @@
 package com.explore.features.tourpackage.domain;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 
 import lombok.Getter;
@@ -25,6 +27,10 @@ public class TourPackageDomain {
     @Getter
     @Setter
     public String placeId;
+    @Ignore
+    @Getter
+    @Setter
+    public Bitmap placePhoto;
 
     public TourPackageDomain(@NonNull String id, String name, Double rating, String region, String placeId) {
         this.id = id;
@@ -32,5 +38,14 @@ public class TourPackageDomain {
         this.rating = rating;
         this.region = region;
         this.placeId = placeId;
+    }
+
+    public TourPackageDomain(@NonNull String id, String name, Double rating, String region, String placeId, Bitmap placePhoto) {
+        this.id = id;
+        this.name = name;
+        this.rating = rating;
+        this.region = region;
+        this.placeId = placeId;
+        this.placePhoto = placePhoto;
     }
 }

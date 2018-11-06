@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import java.util.Objects;
+import java.util.Random;
 
 public class GooglePlacesApiClient implements GoogleApiClient.OnConnectionFailedListener {
     private GeoDataClient mGeoDataClient;
@@ -34,13 +35,17 @@ public class GooglePlacesApiClient implements GoogleApiClient.OnConnectionFailed
             @Override
             public void onComplete(@NonNull Task<PlacePhotoMetadataResponse> task) {
                 if (task.isSuccessful()) {
+
+                    Random rand = new Random();
+                    int n = rand.nextInt(5) + 1;
+
                     // Get the list of photos.
                     PlacePhotoMetadataResponse photos = task.getResult();
                     // Get the PlacePhotoMetadataBuffer (metadata for all of the photos).
                     photoMetadataBuffer = Objects.requireNonNull(photos).getPhotoMetadata();
                     try {
                         // Get the first photo in the list.
-                        PlacePhotoMetadata photoMetadata = photoMetadataBuffer.get(0);
+                        PlacePhotoMetadata photoMetadata = photoMetadataBuffer.get(n);
                         // Get the attribution text.
                         CharSequence attribution = photoMetadata.getAttributions();
                         // Get a full-size bitmap for the photo.

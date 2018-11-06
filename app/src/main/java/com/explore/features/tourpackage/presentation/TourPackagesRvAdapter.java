@@ -14,7 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.explore.R;
-import com.explore.base.GooglePlacesApiClient;
 import com.explore.features.tourpackage.domain.OnTourPackageClickListener;
 import com.explore.features.tourpackage.domain.TourPackageUI;
 
@@ -39,9 +38,6 @@ public class TourPackagesRvAdapter extends RecyclerView.Adapter<TourPackagesRvAd
     @Getter
     @Setter
     private Context context;
-    @Getter
-    @Setter
-    private GooglePlacesApiClient googlePlacesApiClient;
 
 
     TourPackagesRvAdapter(List<TourPackageUI> tourPackageList, OnTourPackageClickListener onTourPackageClickListener, Context context) {
@@ -49,7 +45,6 @@ public class TourPackagesRvAdapter extends RecyclerView.Adapter<TourPackagesRvAd
         this.onTourPackageClickListener = onTourPackageClickListener;
         this.context = context;
         this.tourPackageUIFilteredList = tourPackageList;
-        this.googlePlacesApiClient = new GooglePlacesApiClient(context);
     }
 
 
@@ -86,7 +81,7 @@ public class TourPackagesRvAdapter extends RecyclerView.Adapter<TourPackagesRvAd
         tourPackagesViewHolder.mTourPackageAvgRating.setText(String.valueOf(tourPackageUI.getAvgRating()));
         tourPackagesViewHolder.mTourPackageAvgRating.setTextColor(Color.parseColor(tourPackageUI.getRatingColor()));
 
-//        tourPackagesViewHolder.mTourPackagePhoto.setImageBitmap(googlePlacesApiClient.getPhotos(tourPackageUI.getPlaceId()));
+        tourPackagesViewHolder.mTourPackagePhoto.setImageBitmap(tourPackageUI.getPlacePhoto());
 
 //        Picasso.get().load("https://www.interrail.eu/content/dam/mastheads/oia%20-%20greece%20-%20masthead.jpg")
 //                .into(tourPackagesViewHolder.mTourPackagePhoto);
