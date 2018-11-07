@@ -33,12 +33,21 @@ public class TourInteractorImpl implements TourInteractor {
             @Override
             public void run() {
 
-                tourDomainList = tourDao.getTours();
+                tourDomainList = tourDao.getTours(tourPackageId);
 
 
                 if (tourDomainList.isEmpty()) {
                     Call<List<TourResponse>> tourResponseCall = RestClient.call().fetchTours(tourPackageId);
                     tourResponseCall.enqueue(new Callback<List<TourResponse>>() {
+
+                        private void insertTourListToDb(final List<TourDomain> responseList) {
+                            AsyncTask.execute(new Runnable() {
+                                @Override
+                                public void run() {
+                                    tourDao.insertTours(responseList);
+                                }
+                            });
+                        }
 
 
                         @Override
@@ -52,9 +61,11 @@ public class TourInteractorImpl implements TourInteractor {
                                         tourResponse.getPrice(),
                                         tourResponse.getDuration(),
                                         tourResponse.getBullets(),
-                                        tourResponse.getKeywords()
+                                        tourResponse.getKeywords(),
+                                        tourPackageId
                                 ));
                             }
+                            insertTourListToDb(tourDomainList);
                             observableTourList.changeDataset(tourDomainList);
                         }
 
@@ -66,7 +77,13 @@ public class TourInteractorImpl implements TourInteractor {
 
 
                 } else {
-                    observableTourList.changeDataset(tourDomainList);
+                    AsyncTask.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            observableTourList.changeDataset(tourDomainList);
+                        }
+                    });
+
                 }
             }
         });

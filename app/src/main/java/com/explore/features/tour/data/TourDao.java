@@ -5,7 +5,6 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
 import com.explore.features.tour.domain.TourDomain;
-import com.explore.features.tourpackage.domain.TourPackageDomain;
 
 import java.util.List;
 
@@ -14,6 +13,6 @@ public abstract class TourDao {
     @Insert
     abstract void insertTours(List<TourDomain> tourDomainList);
 
-    @Query("SELECT * FROM tours")
-    abstract List<TourDomain> getTours();
+    @Query("SELECT * FROM tours WHERE tourPackageId=:tourPackageId")
+    abstract List<TourDomain> getTours(final String tourPackageId);
 }

@@ -57,8 +57,8 @@ public class TourListFragment extends Fragment implements TourView {
 
         bundle.putString("TOUR_PACKAGE_ID", mParentArg);
 
-        mTourPresenter = new TourPresenterImpl(getActivity(),this);
-        mTourPresenter.getTourList(getActivity(),mParentArg);
+        mTourPresenter = new TourPresenterImpl(getActivity(), this);
+        mTourPresenter.getTourList(getActivity(), mParentArg);
 
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

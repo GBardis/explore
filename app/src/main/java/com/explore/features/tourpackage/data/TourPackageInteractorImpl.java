@@ -40,6 +40,15 @@ public class TourPackageInteractorImpl implements TourPackageInteractor {
                     Call<List<TourPackageResponse>> tourPackageResponseCall = RestClient.call().fetchTourPackages();
                     tourPackageResponseCall.enqueue(new Callback<List<TourPackageResponse>>() {
 
+                        private void insertTourPackageListToDb(final List<TourPackageDomain> responseList) {
+                            AsyncTask.execute(new Runnable() {
+                                @Override
+                                public void run() {
+                                    tourPackageDao.insertTourPackages(responseList);
+                                }
+                            });
+                        }
+
 
                         @Override
                         public void onResponse(Call<List<TourPackageResponse>> call, Response<List<TourPackageResponse>> response) {
@@ -53,6 +62,8 @@ public class TourPackageInteractorImpl implements TourPackageInteractor {
                                 ));
 
                             }
+
+                            insertTourPackageListToDb(tourPackageDomainList);
                             observableTourPackageList.changeDataset(tourPackageDomainList);
                         }
 
@@ -62,7 +73,13 @@ public class TourPackageInteractorImpl implements TourPackageInteractor {
                         }
                     });
                 } else {
-                    observableTourPackageList.changeDataset(tourPackageDomainList);
+                    AsyncTask.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            observableTourPackageList.changeDataset(tourPackageDomainList);
+                        }
+                    });
+
                 }
             }
         });
