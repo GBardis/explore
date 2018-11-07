@@ -28,7 +28,6 @@ public class TourPackageInteractorImpl implements TourPackageInteractor {
     public void getTourPackages(PresenterObserver presenterObserver, final OnTourPackageListFinishListener onTourPackageListFinishListener, final Context context) {
         final TourPackageDao tourPackageDao = ExploreDatabase.getDatabase(context).tourPackageDao();
         observableTourPackageList.setTourPackageDomainList(tourPackageDomainList);
-        TourPackagePresenterImpl tourPackagePresenter = new TourPackagePresenterImpl();
         observableTourPackageList.addObserver(presenterObserver);
 
         AsyncTask.execute(new Runnable() {
@@ -68,7 +67,6 @@ public class TourPackageInteractorImpl implements TourPackageInteractor {
                 }
             }
         });
-
 
     }
 
