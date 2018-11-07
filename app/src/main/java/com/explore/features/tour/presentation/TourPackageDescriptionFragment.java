@@ -45,7 +45,7 @@ public class TourPackageDescriptionFragment extends Fragment implements TourView
         View v = inflater.inflate(R.layout.fragment_tour_package_description, container, false);
         ButterKnife.bind(this, v);
 
-        mTourPresenter = new TourPresenterImpl(this);
+        mTourPresenter = new TourPresenterImpl(getActivity(),this);
 //        mTourPresenter.getTourPackage(mParentArg);
 
         return v;
