@@ -1,7 +1,5 @@
 package com.explore.features.tourpackage.domain;
 
-import android.graphics.Bitmap;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,18 +25,14 @@ public class TourPackageUI {
     @Getter
     @Setter
     private String placeId;
-    @Getter
-    @Setter
-    private Bitmap placePhoto;
 
-    public TourPackageUI(String name, String region, Double avgRating, String placeId, Bitmap placePhoto) {
+    public TourPackageUI(String name, String region, Double avgRating, String placeId) {
         this.name = name;
         this.region = region;
         this.ratingColor = findRatingColor(avgRating);
         this.regionColor = findRegionColor(region);
         this.avgRating = avgRating;
         this.placeId = placeId;
-        this.placePhoto = placePhoto;
     }
 
     private String findRatingColor(Double avgRating) {
