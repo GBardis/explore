@@ -14,9 +14,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.explore.R;
-import com.explore.rest.GooglePlacesApiClient;
 import com.explore.features.tourpackage.domain.OnTourPackageClickListener;
 import com.explore.features.tourpackage.domain.TourPackageUI;
+import com.explore.rest.GooglePlacesApiClient;
 
 import java.util.ArrayList;
 import java.util.List;

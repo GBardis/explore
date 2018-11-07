@@ -53,9 +53,7 @@ public class GooglePlacesApiClient implements GoogleApiClient.OnConnectionFailed
                         photoResponse.addOnCompleteListener(new OnCompleteListener<PlacePhotoResponse>() {
                             @Override
                             public void onComplete(@NonNull Task<PlacePhotoResponse> task) {
-                                PlacePhotoResponse photo = task.getResult();
-                                bitmap = Objects.requireNonNull(photo).getBitmap();
-                                mTourPackagePhoto.setImageBitmap(bitmap);
+                                mTourPackagePhoto.setImageBitmap(Objects.requireNonNull(task.getResult()).getBitmap());
                             }
                         });
                     } catch (IllegalStateException ex) {
