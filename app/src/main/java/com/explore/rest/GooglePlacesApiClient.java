@@ -1,4 +1,4 @@
-package com.explore.base;
+package com.explore.rest;
 
 import android.content.Context;
 import android.graphics.Bitmap;
