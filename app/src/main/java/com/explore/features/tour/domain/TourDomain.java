@@ -9,28 +9,29 @@ import lombok.Setter;
 
 @Entity(tableName = "tours")
 public class TourDomain{
+
     @Getter
     @PrimaryKey
     @NonNull
-    private final int id;
+    public final int id;
     @Getter
     @Setter
-    String title;
+    public String title;
     @Getter
     @Setter
-    String description;
+    public String description;
     @Getter
     @Setter
-    int price;
+    public int price;
     @Getter
     @Setter
-    String duration;
+    public String duration;
     @Getter
     @Setter
-    String bullets;
+    public String bullets;
     @Getter
     @Setter
-    String keywords;
+    public String keywords;
 
     public TourDomain(@NonNull int id, String title, String description, int price, String duration, String bullets, String keywords) {
         this.id = id;

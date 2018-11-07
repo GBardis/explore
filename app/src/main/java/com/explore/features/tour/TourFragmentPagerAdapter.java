@@ -5,13 +5,10 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import com.explore.R;
-import com.explore.data.db.model.Tour;
 import com.explore.features.tour.presentation.ReviewListFragment;
 import com.explore.features.tour.presentation.TourListFragment;
 import com.explore.features.tour.presentation.TourPackageDescriptionFragment;

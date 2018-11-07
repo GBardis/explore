@@ -6,6 +6,7 @@ import com.explore.features.reviewnew.data.ReviewInteractorImpl;
 import com.explore.features.reviewnew.domain.ReviewDomain;
 import com.explore.features.reviewnew.domain.ReviewInteractor;
 import com.explore.features.tour.data.TourInteractorImpl;
+import com.explore.features.tour.data.TourObservable;
 import com.explore.features.tour.domain.ReviewUI;
 import com.explore.features.tour.domain.TourDomain;
 import com.explore.features.tour.domain.TourInteractor;
@@ -41,25 +42,28 @@ public class TourPresenterImpl extends PresenterObserver implements TourPresente
         mReviewInteractor = new ReviewInteractorImpl();
         mTourPackageInteractor = new TourPackageInteractorImpl();
         this.context = context;
+
     }
 
-    public TourPresenterImpl(TourView tourView,String tourPackageId) {
-
-        this.mTourView = tourView;
-        mTourInteractor = new TourInteractorImpl();
-        mReviewInteractor = new ReviewInteractorImpl();
-        mTourPackageInteractor = new TourPackageInteractorImpl();
-        mTourPackageId = tourPackageId;
-    }
+//    public TourPresenterImpl(TourView tourView,String tourPackageId,Context context) {
+//
+//        this.mTourView = tourView;
+//        mTourInteractor = new TourInteractorImpl();
+//        mReviewInteractor = new ReviewInteractorImpl();
+//        mTourPackageInteractor = new TourPackageInteractorImpl();
+//        mTourPackageId = tourPackageId;
+//        this.context = context;
+//    }
 
     @Override
     public void getTourPackage(Context context,String tourPackageId) {
+        this.mTourPackageId = tourPackageId;
         mTourPackageInteractor.getTourPackages(this, context);
     }
 
     @Override
     public void getTourList(Context context, String tourPackageId) {
-        mTourInteractor.getTourList(this, tourPackageId);
+        mTourInteractor.getTourList(this,context, tourPackageId);
     }
 
     @Override
@@ -88,7 +92,7 @@ public class TourPresenterImpl extends PresenterObserver implements TourPresente
         ArrayList<TourUI> tourUIArrayList = new ArrayList<>();
 
         for (TourDomain tourDomain : tourDomainArrayList) {
-            tourUIArrayList.add(new TourUI(tourDomain.getName(), tourDomain.getRating()));
+//            tourUIArrayList.add(new TourUI(tourDomain.getName(), tourDomain.getRating()));
         }
 
         mTourView.showTourList(tourUIArrayList);
@@ -112,6 +116,26 @@ public class TourPresenterImpl extends PresenterObserver implements TourPresente
                 new TourPackageUI(tourPackageDomain.getName(),
                         tourPackageDomain.getRegion(),
                         tourPackageDomain.getRating()));
+    }
+
+
+    @Override
+    public void updateTours(TourObservable tourObservable,Object o){
+        ArrayList<TourUI> tourUIArrayList = new ArrayList<>();
+
+        for (TourDomain tourDomain : (List<TourDomain>) o) {
+            tourUIArrayList.add(new TourUI(
+                    tourDomain.getId(),
+                    tourDomain.getTitle(),
+                    tourDomain.getDescription(),
+                    tourDomain.getPrice(),
+                    tourDomain.getDuration(),
+                    tourDomain.getBullets(),
+                    tourDomain.getKeywords()
+            ));
+        }
+
+        mTourView.showTourList(tourUIArrayList);
     }
 
     @Override

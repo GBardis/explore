@@ -90,7 +90,7 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
         bundle.putString("TOUR_PACKAGE_ID", mParentArg);
 
 
-        mTourPresenter = new TourPresenterImpl(this,mParentArg);
+        mTourPresenter = new TourPresenterImpl(getActivity(),this);
         mTourPresenter.getTourPackage(getActivity(),bundle.getString("TOUR_PACKAGE_ID"));
         tourFragmentPagerAdapter = new TourFragmentPagerAdapter(getChildFragmentManager(), getActivity(), bundle);
 

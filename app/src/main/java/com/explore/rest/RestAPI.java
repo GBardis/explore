@@ -18,4 +18,7 @@ public interface RestAPI {
 
     @GET("tourPackages")
     Call<List<TourPackageResponse>> fetchTourPackages();
+
+    @GET("tours")
+    Call<Object> fetchTours();
 }
