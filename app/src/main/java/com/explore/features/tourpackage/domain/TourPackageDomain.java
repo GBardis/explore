@@ -39,13 +39,4 @@ public class TourPackageDomain {
         this.region = region;
         this.placeId = placeId;
     }
-
-    public TourPackageDomain(@NonNull String id, String name, Double rating, String region, String placeId, Bitmap placePhoto) {
-        this.id = id;
-        this.name = name;
-        this.rating = rating;
-        this.region = region;
-        this.placeId = placeId;
-        this.placePhoto = placePhoto;
-    }
 }
