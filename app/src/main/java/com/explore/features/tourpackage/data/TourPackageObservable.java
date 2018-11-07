@@ -7,12 +7,10 @@ public class TourPackageObservable {
 
     boolean changeFlag = false;
 
-    public void notifyObservers(Object o)
-    {
-        if (hasChanged())
-        {
-            for(TourPackageObserver mo : tourPackageObserverList) {
-                mo.updateTourPackage(this, o);
+    public void notifyObservers(Object o) {
+        if (hasChanged()) {
+            for (TourPackageObserver mo : tourPackageObserverList) {
+                mo.updateTourPackageList(this, o);
             }
             clearChanged();
         }
@@ -23,7 +21,9 @@ public class TourPackageObservable {
         tourPackageObserverList.add(o);
     }
 
-    public void removeObserver(TourPackageObserver o){tourPackageObserverList.remove(o);}
+    public void removeObserver(TourPackageObserver o) {
+        tourPackageObserverList.remove(o);
+    }
 
     public void setChanged() {
         changeFlag = true;

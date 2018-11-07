@@ -8,7 +8,6 @@ import com.explore.base.ExploreDatabase;
 import com.explore.features.tourpackage.PresenterObserver;
 import com.explore.features.tourpackage.domain.TourPackageDomain;
 import com.explore.features.tourpackage.domain.TourPackageInteractor;
-import com.explore.features.tourpackage.presentation.TourPackagePresenterImpl;
 import com.explore.rest.RestClient;
 import com.explore.rest.responses.TourPackageResponse;
 
@@ -67,12 +66,6 @@ public class TourPackageInteractorImpl implements TourPackageInteractor {
                 }
             }
         });
-
-    }
-
-
-    @Override
-    public void getTourPackage(PresenterObserver presenterObserver,OnTourPackageFinishListener onTourPackageFinishListener, String tourPackageId) {
 
     }
 }

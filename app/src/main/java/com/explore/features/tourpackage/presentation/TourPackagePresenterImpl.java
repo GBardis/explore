@@ -17,7 +17,7 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
-public class TourPackagePresenterImpl extends PresenterObserver implements TourPackagePresenter, TourPackageInteractor.OnTourPackageListFinishListener {
+public class TourPackagePresenterImpl extends PresenterObserver implements TourPackagePresenter {
     @Getter
     @Setter
     TourPackageView tourPackageView;
@@ -35,27 +35,9 @@ public class TourPackagePresenterImpl extends PresenterObserver implements TourP
         getTourPackageIteractor().getTourPackages(this, context);
     }
 
-    @Override
-    public void onSuccess(List<TourPackageDomain> tourPackageDomainList) {
-        List<TourPackageUI> tourPackageUIList = new ArrayList<>();
-        for (TourPackageDomain tourPackageDomain : tourPackageDomainList) {
-            TourPackageUI tourPackageUI = new TourPackageUI(
-                    tourPackageDomain.getName(),
-                    tourPackageDomain.getRegion(),
-                    tourPackageDomain.getRating()
-            );
-            tourPackageUIList.add(tourPackageUI);
-        }
-        getTourPackageView().showTourPackages(tourPackageUIList);
-    }
 
     @Override
-    public void onFailure() {
-
-    }
-
-    @Override
-    public void updateTourPackage(TourPackageObservable tourPackageObservable, Object o) {
+    public void updateTourPackageList(TourPackageObservable tourPackageObservable, Object o) {
         List<TourPackageUI> tourPackageUIList = new ArrayList<>();
         for (TourPackageDomain tourPackageDomain : (List<TourPackageDomain>) o) {
             TourPackageUI tourPackageUI = new TourPackageUI(
