@@ -10,10 +10,10 @@ import com.explore.features.tour.domain.TourInteractor;
 import com.explore.features.tourpackage.PresenterObserver;
 import com.explore.rest.RestClient;
 import com.explore.rest.responses.TourResponse;
+import com.explore.rest.responses.tourResponse.TourRetrofitResponse;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TreeMap;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,24 +40,35 @@ public class TourInteractorImpl implements TourInteractor {
 
 
                 if (tourDomainList.isEmpty()) {
-                    Call<Object> tourResponseCall = RestClient.call().fetchTours();
-                    tourResponseCall.enqueue(new Callback<Object>() {
+                    Call<TourRetrofitResponse> tourResponseCall = RestClient.call().fetchTours();
+                    tourResponseCall.enqueue(new Callback<TourRetrofitResponse>() {
 
                         @Override
-                        public void onResponse(Call<Object> call, Response<Object> response) {
-                            Object o = response;
-                            TreeMap<String,String> tourResponseTreeMap = new TreeMap<>();
-                            TreeMap<String,String> tourResponseEmbedded = new TreeMap<>();
-                            TreeMap<String,String> tourResponseTours = new TreeMap<>();
-                            List<TourResponse> tourResponseList = new ArrayList<>();
-                            tourResponseTreeMap = (TreeMap<String,String>) response.body();
+                        public void onResponse(Call<TourRetrofitResponse> call, Response<TourRetrofitResponse> response) {
+                            TourRetrofitResponse retrofitResponse = response.body();
+                            List<TourResponse> tourResponseList = retrofitResponse.embedded.tours;
+
+                            for (TourResponse tourResponse : tourResponseList) {
+                                tourDomainList.add(new TourDomain(
+                                        tourResponse.getId(),
+                                        tourResponse.getTitle(),
+                                        tourResponse.getDescription(),
+                                        tourResponse.getPrice(),
+                                        tourResponse.getDuration(),
+                                        tourResponse.getBullets(),
+                                        tourResponse.getKeywords()
+                                ));
 
 
-                            int i =0;
+//                                String title, String description, int price, String duration, String bullets, String keywords
+                            }
+                            observableTourList.changeDataset(tourDomainList);
                         }
 
+
+
                         @Override
-                        public void onFailure(Call<Object> call, Throwable t) {
+                        public void onFailure(Call<TourRetrofitResponse> call, Throwable t) {
 
                         }
                     });

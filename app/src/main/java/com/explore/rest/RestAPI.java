@@ -3,6 +3,7 @@ package com.explore.rest;
 import com.explore.features.user.domain.UserDomain;
 import com.explore.rest.responses.TourPackageResponse;
 import com.explore.rest.responses.UserResponse;
+import com.explore.rest.responses.tourResponse.TourRetrofitResponse;
 
 import java.util.List;
 
@@ -20,5 +21,5 @@ public interface RestAPI {
     Call<List<TourPackageResponse>> fetchTourPackages();
 
     @GET("tours")
-    Call<Object> fetchTours();
+    Call<TourRetrofitResponse> fetchTours();
 }
