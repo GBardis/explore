@@ -1,7 +1,6 @@
 package com.explore.features.tour.data;
 
 import android.content.Context;
-import android.databinding.ObservableList;
 import android.os.AsyncTask;
 
 import com.explore.base.ExploreDatabase;
@@ -21,7 +20,6 @@ import retrofit2.Response;
 public class TourInteractorImpl implements TourInteractor {
 
     List<TourDomain> tourDomainList = new ArrayList<>();
-    ObservableList<TourDomain> tourDomainObservableArrayList;
     ObservableTourList observableTourList = new ObservableTourList();
 
 
