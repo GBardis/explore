@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 
 import com.explore.R;
 import com.explore.base.ExploreDatabase;
-import com.explore.base.GooglePlacesApiClient;
 import com.explore.features.tourpackage.domain.TourPackageDomain;
 import com.explore.features.tourpackage.domain.TourPackageInteractor;
 import com.explore.rest.GoogleClient;
@@ -42,8 +41,8 @@ public class TourPackageInteractorImpl implements TourPackageInteractor {
                                 @Override
                                 public void run() {
                                     if (response.body() != null) {
-                                        String placeID = "";
-                                        GooglePlacesApiClient googlePlacesApiClient = new GooglePlacesApiClient(context);
+                                        String placeID;
+
                                         List<TourPackageDomain> tourPackageDomainList = new ArrayList<>(response.body().size());
 
                                         List<TourPackageResponse> tourPackageResponseList = response.body();
@@ -56,14 +55,11 @@ public class TourPackageInteractorImpl implements TourPackageInteractor {
                                                     tourPackageResponse.getName(),
                                                     tourPackageResponse.getAverageReviewScore(),
                                                     tourPackageResponse.getRegion(),
-                                                    placeID,
-                                                    googlePlacesApiClient.getPhotos(placeID)
+                                                    placeID
                                             ));
                                         }
                                         tourPackageDao.insertTourPackages(tourPackageDomainList);
-//                                        for (TourPackageDomain tourPackageDomain : tourPackageDomainList) {
-//                                            tourPackageDomain.setPlacePhoto();
-//                                        }
+
                                         onTourPackageListFinishListener.onSuccess(tourPackageDomainList);
                                     } else {
                                         onTourPackageListFinishListener.onFailure();
