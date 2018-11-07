@@ -1,19 +1,30 @@
 package com.explore.rest.responses;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import lombok.Getter;
 import lombok.Setter;
 
 public class TourPackageResponse {
     @Getter
     @Setter
-    private String name;
+    @SerializedName("name")
+    @Expose
+    public String name;
     @Getter
     @Setter
-    private String region;
+    @SerializedName("region")
+    @Expose
+    public String region;
     @Getter
     @Setter
-    private Double averageReviewScore;
+    @SerializedName("averageReviewScore")
+    @Expose
+    public Double averageReviewScore;
     @Getter
     @Setter
-    private String id;
+    @SerializedName("id")
+    @Expose
+    public String id;
 }

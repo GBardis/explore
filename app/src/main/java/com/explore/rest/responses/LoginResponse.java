@@ -1,31 +1,51 @@
 package com.explore.rest.responses;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import lombok.Getter;
 import lombok.Setter;
 
 public class LoginResponse {
     @Getter
     @Setter
-    private Integer id;
+    @SerializedName("id")
+    @Expose
+    public Integer id;
     @Getter
     @Setter
-    private String username;
+    @SerializedName("username")
+    @Expose
+    public String username;
     @Getter
     @Setter
-    private String firstName;
+    @SerializedName("firstName")
+    @Expose
+    public String firstName;
     @Getter
     @Setter
-    private String lastName;
+    @SerializedName("lastName")
+    @Expose
+    public String lastName;
     @Getter
     @Setter
-    private String email;
+    @SerializedName("email")
+    @Expose
+    public String email;
     @Getter
     @Setter
-    private String address;
+    @SerializedName("address")
+    @Expose
+    public String address;
     @Getter
     @Setter
-    private Integer age;
+    @SerializedName("age")
+    @Expose
+    public Integer age;
     @Getter
     @Setter
-    private String team;
+    @SerializedName("team")
+    @Expose
+    public String team;
+
 }
