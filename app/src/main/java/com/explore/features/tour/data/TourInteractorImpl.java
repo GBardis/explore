@@ -10,7 +10,6 @@ import com.explore.features.tour.domain.TourInteractor;
 import com.explore.features.tourpackage.PresenterObserver;
 import com.explore.rest.RestClient;
 import com.explore.rest.responses.TourResponse;
-import com.explore.rest.responses.tourResponse.TourRetrofitResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,14 +39,13 @@ public class TourInteractorImpl implements TourInteractor {
 
 
                 if (tourDomainList.isEmpty()) {
-                    Call<TourRetrofitResponse> tourResponseCall = RestClient.call().fetchTours();
-                    tourResponseCall.enqueue(new Callback<TourRetrofitResponse>() {
+                    Call<List<TourResponse>> tourResponseCall = RestClient.call().fetchTours(tourPackageId);
+                    tourResponseCall.enqueue(new Callback<List<TourResponse> >() {
+
 
                         @Override
-                        public void onResponse(Call<TourRetrofitResponse> call, Response<TourRetrofitResponse> response) {
-                            TourRetrofitResponse retrofitResponse = response.body();
-                            List<TourResponse> tourResponseList = retrofitResponse.embedded.tours;
-
+                        public void onResponse(Call<List<TourResponse> > call, Response<List<TourResponse> > response) {
+                            List<TourResponse> tourResponseList = response.body();
                             for (TourResponse tourResponse : tourResponseList) {
                                 tourDomainList.add(new TourDomain(
                                         tourResponse.getId(),
@@ -65,10 +63,8 @@ public class TourInteractorImpl implements TourInteractor {
                             observableTourList.changeDataset(tourDomainList);
                         }
 
-
-
                         @Override
-                        public void onFailure(Call<TourRetrofitResponse> call, Throwable t) {
+                        public void onFailure(Call<List<TourResponse> > call, Throwable t) {
 
                         }
                     });

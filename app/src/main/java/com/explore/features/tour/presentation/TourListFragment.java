@@ -35,6 +35,7 @@ public class TourListFragment extends Fragment implements TourView {
     private RecyclerView.LayoutManager mLayoutManager;
 
     private String mParentArg;
+    Bundle bundle;
 
     public TourListFragment() {
         // Required empty public constructor
@@ -47,6 +48,14 @@ public class TourListFragment extends Fragment implements TourView {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_tour_list, container, false);
         ButterKnife.bind(this, v);
+
+        bundle = new Bundle();
+
+        if (getArguments() != null) {
+            mParentArg = getArguments().getString("TOUR_PACKAGE_ID");
+        }
+
+        bundle.putString("TOUR_PACKAGE_ID", mParentArg);
 
         mTourPresenter = new TourPresenterImpl(getActivity(),this);
         mTourPresenter.getTourList(getActivity(),mParentArg);
