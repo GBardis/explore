@@ -1,31 +1,44 @@
 package com.explore.features.tour.domain;
 
+import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 import lombok.Getter;
 import lombok.Setter;
 
+@Entity(tableName = "tours")
 public class TourDomain{
     @Getter
     @PrimaryKey
-    private final String id;
+    @NonNull
+    private final int id;
     @Getter
     @Setter
-    private String name;
+    String title;
     @Getter
     @Setter
-    private double rating;
+    String description;
     @Getter
     @Setter
-    private String descTextSize;
+    int price;
     @Getter
     @Setter
-    private String description;
+    String duration;
+    @Getter
+    @Setter
+    String bullets;
+    @Getter
+    @Setter
+    String keywords;
 
-    public TourDomain(String id, String name, double rating, String description) {
+    public TourDomain(@NonNull int id, String title, String description, int price, String duration, String bullets, String keywords) {
         this.id = id;
-        this.name = name;
-        this.rating = rating;
+        this.title = title;
         this.description = description;
+        this.price = price;
+        this.duration = duration;
+        this.bullets = bullets;
+        this.keywords = keywords;
     }
 }

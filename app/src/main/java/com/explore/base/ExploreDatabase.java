@@ -5,6 +5,7 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
+import com.explore.features.tour.data.TourDao;
 import com.explore.features.tourpackage.data.TourPackageDao;
 import com.explore.features.tourpackage.domain.TourPackageDomain;
 import com.explore.features.user.data.UserDao;
@@ -16,6 +17,8 @@ abstract public class ExploreDatabase extends RoomDatabase {
     public abstract UserDao userDao();
 
     public abstract TourPackageDao tourPackageDao();
+
+    public abstract TourDao tourDao();
 
     static private ExploreDatabase INSTANCE;
 
