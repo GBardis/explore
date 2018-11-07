@@ -38,11 +38,11 @@ public class TourInteractorImpl implements TourInteractor {
 
                 if (tourDomainList.isEmpty()) {
                     Call<List<TourResponse>> tourResponseCall = RestClient.call().fetchTours(tourPackageId);
-                    tourResponseCall.enqueue(new Callback<List<TourResponse> >() {
+                    tourResponseCall.enqueue(new Callback<List<TourResponse>>() {
 
 
                         @Override
-                        public void onResponse(Call<List<TourResponse> > call, Response<List<TourResponse> > response) {
+                        public void onResponse(Call<List<TourResponse>> call, Response<List<TourResponse>> response) {
                             List<TourResponse> tourResponseList = response.body();
                             for (TourResponse tourResponse : tourResponseList) {
                                 tourDomainList.add(new TourDomain(
@@ -59,7 +59,7 @@ public class TourInteractorImpl implements TourInteractor {
                         }
 
                         @Override
-                        public void onFailure(Call<List<TourResponse> > call, Throwable t) {
+                        public void onFailure(Call<List<TourResponse>> call, Throwable t) {
 
                         }
                     });
