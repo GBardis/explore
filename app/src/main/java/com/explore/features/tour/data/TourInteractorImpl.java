@@ -56,9 +56,6 @@ public class TourInteractorImpl implements TourInteractor {
                                         tourResponse.getBullets(),
                                         tourResponse.getKeywords()
                                 ));
-
-
-//                                String title, String description, int price, String duration, String bullets, String keywords
                             }
                             observableTourList.changeDataset(tourDomainList);
                         }

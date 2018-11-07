@@ -45,16 +45,6 @@ public class TourPresenterImpl extends PresenterObserver implements TourPresente
 
     }
 
-//    public TourPresenterImpl(TourView tourView,String tourPackageId,Context context) {
-//
-//        this.mTourView = tourView;
-//        mTourInteractor = new TourInteractorImpl();
-//        mReviewInteractor = new ReviewInteractorImpl();
-//        mTourPackageInteractor = new TourPackageInteractorImpl();
-//        mTourPackageId = tourPackageId;
-//        this.context = context;
-//    }
-
     @Override
     public void getTourPackage(Context context,String tourPackageId) {
         this.mTourPackageId = tourPackageId;
@@ -89,18 +79,11 @@ public class TourPresenterImpl extends PresenterObserver implements TourPresente
 
     @Override
     public void onTourListSuccess(ArrayList<TourDomain> tourDomainArrayList) {
-        ArrayList<TourUI> tourUIArrayList = new ArrayList<>();
-
-        for (TourDomain tourDomain : tourDomainArrayList) {
-//            tourUIArrayList.add(new TourUI(tourDomain.getName(), tourDomain.getRating()));
-        }
-
-        mTourView.showTourList(tourUIArrayList);
 
     }
 
     @Override
-    public void update(TourPackageObservable tourPackageObservable, Object o) {
+    public void updateTourPackage(TourPackageObservable tourPackageObservable, Object o) {
 
         TourPackageDomain tourPackageDomain = null;
 

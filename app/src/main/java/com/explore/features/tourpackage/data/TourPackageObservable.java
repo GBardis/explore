@@ -12,7 +12,7 @@ public class TourPackageObservable {
         if (hasChanged())
         {
             for(TourPackageObserver mo : tourPackageObserverList) {
-                mo.update(this, o);
+                mo.updateTourPackage(this, o);
             }
             clearChanged();
         }

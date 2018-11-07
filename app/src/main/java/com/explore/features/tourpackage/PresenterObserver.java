@@ -7,7 +7,7 @@ import com.explore.features.tourpackage.data.TourPackageObserver;
 
 public abstract class PresenterObserver implements TourPackageObserver,TourObserver {
     @Override
-    public void update(TourPackageObservable tourPackageObservable, Object o) {
+    public void updateTourPackage(TourPackageObservable tourPackageObservable, Object o) {
 
     }
 

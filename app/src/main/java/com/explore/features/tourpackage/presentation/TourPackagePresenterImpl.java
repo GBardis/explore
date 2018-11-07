@@ -55,7 +55,7 @@ public class TourPackagePresenterImpl extends PresenterObserver implements TourP
     }
 
     @Override
-    public void update(TourPackageObservable tourPackageObservable, Object o) {
+    public void updateTourPackage(TourPackageObservable tourPackageObservable, Object o) {
         List<TourPackageUI> tourPackageUIList = new ArrayList<>();
         for (TourPackageDomain tourPackageDomain : (List<TourPackageDomain>) o) {
             TourPackageUI tourPackageUI = new TourPackageUI(
