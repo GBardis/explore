@@ -49,7 +49,7 @@ public class TourListFragment extends Fragment implements TourView {
         ButterKnife.bind(this, v);
 
         mTourPresenter = new TourPresenterImpl(this);
-        mTourPresenter.getTourList(mParentArg);
+        mTourPresenter.getTourList(getActivity(),mParentArg);
 
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

@@ -46,7 +46,7 @@ public class TourPackageDescriptionFragment extends Fragment implements TourView
         ButterKnife.bind(this, v);
 
         mTourPresenter = new TourPresenterImpl(this);
-        mTourPresenter.getTourPackage(mParentArg);
+//        mTourPresenter.getTourPackage(mParentArg);
 
         return v;
     }

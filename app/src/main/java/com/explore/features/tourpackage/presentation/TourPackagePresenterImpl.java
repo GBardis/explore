@@ -32,7 +32,7 @@ public class TourPackagePresenterImpl extends PresenterObserver implements TourP
 
     @Override
     public void getTourPackages(Context context) {
-        getTourPackageIteractor().getTourPackages(this,this, context);
+        getTourPackageIteractor().getTourPackages(this, context);
     }
 
     @Override
@@ -59,6 +59,7 @@ public class TourPackagePresenterImpl extends PresenterObserver implements TourP
         List<TourPackageUI> tourPackageUIList = new ArrayList<>();
         for (TourPackageDomain tourPackageDomain : (List<TourPackageDomain>) o) {
             TourPackageUI tourPackageUI = new TourPackageUI(
+                    tourPackageDomain.getId(),
                     tourPackageDomain.getName(),
                     tourPackageDomain.getRegion(),
                     tourPackageDomain.getRating()

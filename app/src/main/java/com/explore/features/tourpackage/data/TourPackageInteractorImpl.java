@@ -25,7 +25,7 @@ public class TourPackageInteractorImpl implements TourPackageInteractor {
     ObservableTourPackageList observableTourPackageList = new ObservableTourPackageList();
 
     @Override
-    public void getTourPackages(PresenterObserver presenterObserver, final OnTourPackageListFinishListener onTourPackageListFinishListener, final Context context) {
+    public void getTourPackages(PresenterObserver presenterObserver, final Context context) {
         final TourPackageDao tourPackageDao = ExploreDatabase.getDatabase(context).tourPackageDao();
         observableTourPackageList.setTourPackageDomainList(tourPackageDomainList);
         TourPackagePresenterImpl tourPackagePresenter = new TourPackagePresenterImpl();
@@ -74,7 +74,7 @@ public class TourPackageInteractorImpl implements TourPackageInteractor {
 
 
     @Override
-    public void getTourPackage(OnTourPackageFinishListener onTourPackageFinishListener, String tourPackageId) {
+    public void getTourPackage(PresenterObserver presenterObserver,OnTourPackageFinishListener onTourPackageFinishListener, String tourPackageId) {
 
     }
 }

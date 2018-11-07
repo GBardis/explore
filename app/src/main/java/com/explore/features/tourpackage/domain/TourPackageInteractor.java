@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface TourPackageInteractor {
 
-    void getTourPackages(PresenterObserver presenterObserver,OnTourPackageListFinishListener onTourPackageListFinishListener, Context context);
+    void getTourPackages(PresenterObserver presenterObserver, Context context);
 
-    void getTourPackage(OnTourPackageFinishListener onTourPackageFinishListener, String tourPackageId);
+    void getTourPackage(PresenterObserver presenterObserver,OnTourPackageFinishListener onTourPackageFinishListener, String tourPackageId);
 
     interface OnTourPackageListFinishListener {
         void onSuccess(List<TourPackageDomain> tourPackageDomainList);
