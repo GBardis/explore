@@ -23,6 +23,8 @@ public class TourPackageObservable {
         tourPackageObserverList.add(o);
     }
 
+    public void removeObserver(TourPackageObserver o){tourPackageObserverList.remove(o);}
+
     public void setChanged() {
         changeFlag = true;
     }
