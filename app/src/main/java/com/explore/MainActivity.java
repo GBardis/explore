@@ -48,16 +48,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         navigationView.setNavigationItemSelectedListener(this);
 
-
-        // add image to nav drawer header
-//        View header = navigationView.getHeaderView(0);
-//        ImageView imageView = header.findViewById(R.id.nav_drawer_image);
-//        Picasso.get().load("https://cache-graphicslib.viator.com/graphicslib/thumbs360x240/2916/SITours/city-sightseeing-barcelona-hop-on-hop-off-tour-in-barcelona-534067.jpg")
-//                .resize(100, 100)
-//                .centerCrop()
-//                .into(imageView);
-//
-
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.main_fragment_container, new TourPackageFragment())

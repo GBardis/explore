@@ -8,7 +8,7 @@ import com.explore.base.ExploreDatabase;
 import com.explore.features.user.domain.UserDomain;
 import com.explore.features.user.domain.UserIteractor;
 import com.explore.rest.RestClient;
-import com.explore.rest.responses.UserResponse;
+import com.explore.rest.responses.LoginResponse;
 
 import java.util.Objects;
 
@@ -39,11 +39,11 @@ public class UserIteractorImpl implements UserIteractor {
                 final UserDao userDao = ExploreDatabase.getDatabase(context).userDao();
                 UserDomain userDomain = userDao.findByUsername(userName);
                 if (userDomain == null) {
-                    Call<UserResponse> call = RestClient.call().login(new UserDomain(userName, passWord));
-                    call.enqueue(new Callback<UserResponse>() {
+                    Call<LoginResponse> call = RestClient.call().login(new UserDomain(userName, passWord));
+                    call.enqueue(new Callback<LoginResponse>() {
                         @Override
-                        public void onResponse(@NonNull Call<UserResponse> call, @NonNull Response<UserResponse> response) {
-                            UserResponse userResponse = response.body();
+                        public void onResponse(@NonNull Call<LoginResponse> call, @NonNull Response<LoginResponse> response) {
+                            LoginResponse userResponse = response.body();
                             if (userResponse != null) {
                                 final UserDomain userDomain = new UserDomain(userResponse.getId(), Objects.requireNonNull(userResponse).getUsername(),
                                         userResponse.getFirstName(), userResponse.getLastName(),
@@ -63,7 +63,7 @@ public class UserIteractorImpl implements UserIteractor {
                         }
 
                         @Override
-                        public void onFailure(@NonNull Call<UserResponse> call, @NonNull Throwable t) {
+                        public void onFailure(@NonNull Call<LoginResponse> call, @NonNull Throwable t) {
 
                         }
                     });

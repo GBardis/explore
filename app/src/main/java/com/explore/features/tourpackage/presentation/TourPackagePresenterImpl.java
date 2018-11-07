@@ -41,10 +41,7 @@ public class TourPackagePresenterImpl implements TourPackagePresenter, TourPacka
                     tourPackageDomain.getName(),
                     tourPackageDomain.getRegion(),
                     tourPackageDomain.getRating(),
-                    tourPackageDomain.getPlaceId(),
-                    tourPackageDomain.getPlacePhoto()
-
-
+                    tourPackageDomain.getPlaceId()
             );
             tourPackageUIList.add(tourPackageUI);
         }

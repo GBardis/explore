@@ -1,6 +1,7 @@
 package com.explore.rest;
 
 import com.explore.features.user.domain.UserDomain;
+import com.explore.rest.responses.LoginResponse;
 import com.explore.rest.responses.TourPackageResponse;
 import com.explore.rest.responses.UserResponse;
 
@@ -14,8 +15,11 @@ import retrofit2.http.POST;
 public interface RestAPI {
 
     @POST("login")
-    Call<UserResponse> login(@Body UserDomain userDomain);
+    Call<LoginResponse> login(@Body UserDomain userDomain);
 
     @GET("tourPackages")
     Call<List<TourPackageResponse>> fetchTourPackages();
+
+    @GET("users")
+    Call<List<UserResponse>> fetchUsers();
 }
