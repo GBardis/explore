@@ -50,7 +50,7 @@ public class TourPackagesRvAdapter extends RecyclerView.Adapter<TourPackagesRvAd
     }
 
 
-    static class TourPackagesViewHolder extends RecyclerView.ViewHolder {
+    public static class TourPackagesViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.text_tourpackage_name)
         TextView mTourPackageName;
         @BindView(R.id.text_tourpackage_avgrating)
@@ -83,8 +83,7 @@ public class TourPackagesRvAdapter extends RecyclerView.Adapter<TourPackagesRvAd
         tourPackagesViewHolder.mTourPackageAvgRating.setText(String.valueOf(tourPackageUI.getAvgRating()));
         tourPackagesViewHolder.mTourPackageAvgRating.setTextColor(Color.parseColor(tourPackageUI.getRatingColor()));
 
-
-        tourPackagesViewHolder.mTourPackagePhoto.setImageBitmap(googlePlacesApiClient.getPhotos(tourPackageUI.getPlaceId()));
+        googlePlacesApiClient.getPhotos(tourPackageUI.getPlaceId(), tourPackagesViewHolder.mTourPackagePhoto);
 
         tourPackagesViewHolder.mTourPackageRatingImage.setImageResource(R.drawable.ic_star_rate);
 

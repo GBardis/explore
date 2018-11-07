@@ -3,6 +3,7 @@ package com.explore.base;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
+import android.widget.ImageView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -28,9 +29,8 @@ public class GooglePlacesApiClient implements GoogleApiClient.OnConnectionFailed
         mGeoDataClient = Places.getGeoDataClient(context, null);
     }
 
-    public Bitmap getPhotos(final String placeId) {
+    public Bitmap getPhotos(final String placeId, final ImageView mTourPackagePhoto) {
         final Task<PlacePhotoMetadataResponse> photoMetadataResponse = mGeoDataClient.getPlacePhotos(placeId);
-
         photoMetadataResponse.addOnCompleteListener(new OnCompleteListener<PlacePhotoMetadataResponse>() {
             @Override
             public void onComplete(@NonNull Task<PlacePhotoMetadataResponse> task) {
@@ -55,6 +55,7 @@ public class GooglePlacesApiClient implements GoogleApiClient.OnConnectionFailed
                             public void onComplete(@NonNull Task<PlacePhotoResponse> task) {
                                 PlacePhotoResponse photo = task.getResult();
                                 bitmap = Objects.requireNonNull(photo).getBitmap();
+                                mTourPackagePhoto.setImageBitmap(bitmap);
                             }
                         });
                     } catch (IllegalStateException ex) {
