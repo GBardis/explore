@@ -17,6 +17,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import timber.log.Timber;
 
 public class TourPackageInteractorImpl implements TourPackageInteractor {
     List<TourPackageDomain> tourPackageDomainList = new ArrayList<>();
@@ -37,10 +38,12 @@ public class TourPackageInteractorImpl implements TourPackageInteractor {
 
 
                 if (tourPackageDomainList.isEmpty()) {
+
                     Call<List<TourPackageResponse>> tourPackageResponseCall = RestClient.call().fetchTourPackages();
                     tourPackageResponseCall.enqueue(new Callback<List<TourPackageResponse>>() {
 
                         private void insertTourPackageListToDb(final List<TourPackageDomain> responseList) {
+                            Timber.tag("INTERACTOR_TOUR_PACKAGE").d("Inserting data into DB");
                             AsyncTask.execute(new Runnable() {
                                 @Override
                                 public void run() {
@@ -64,6 +67,7 @@ public class TourPackageInteractorImpl implements TourPackageInteractor {
                             }
 
                             insertTourPackageListToDb(tourPackageDomainList);
+                            Timber.tag("INTERACTOR_TOUR_PACKAGE").d("Serving from API!");
                             observableTourPackageList.changeDataset(tourPackageDomainList);
                         }
 
@@ -76,6 +80,7 @@ public class TourPackageInteractorImpl implements TourPackageInteractor {
                     AsyncTask.execute(new Runnable() {
                         @Override
                         public void run() {
+                            Timber.tag("INTERACTOR_TOUR_PACKAGE").d("Serving from Database!");
                             observableTourPackageList.changeDataset(tourPackageDomainList);
                         }
                     });

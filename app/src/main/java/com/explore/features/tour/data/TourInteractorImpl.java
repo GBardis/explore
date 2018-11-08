@@ -16,6 +16,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import timber.log.Timber;
 
 public class TourInteractorImpl implements TourInteractor {
 
@@ -41,6 +42,7 @@ public class TourInteractorImpl implements TourInteractor {
                     tourResponseCall.enqueue(new Callback<List<TourResponse>>() {
 
                         private void insertTourListToDb(final List<TourDomain> responseList) {
+                            Timber.tag("INTERACTOR_TOUR").d("Inserting data into DB");
                             AsyncTask.execute(new Runnable() {
                                 @Override
                                 public void run() {
@@ -66,6 +68,7 @@ public class TourInteractorImpl implements TourInteractor {
                                 ));
                             }
                             insertTourListToDb(tourDomainList);
+                            Timber.tag("INTERACTOR_TOUR").d("Serving from API!");
                             observableTourList.changeDataset(tourDomainList);
                         }
 
@@ -80,6 +83,7 @@ public class TourInteractorImpl implements TourInteractor {
                     AsyncTask.execute(new Runnable() {
                         @Override
                         public void run() {
+                            Timber.tag("INTERACTOR_TOUR").d("Serving from Database!");
                             observableTourList.changeDataset(tourDomainList);
                         }
                     });
