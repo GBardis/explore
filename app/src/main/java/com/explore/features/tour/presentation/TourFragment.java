@@ -62,6 +62,7 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
 
     Bundle bundle;
     com.explore.features.tourpackage.domain.TourPackageUI mParentArg;
+    com.explore.features.tourpackage.domain.TourPackageUI tourPackageUI;
 
     TourFragmentPagerAdapter tourFragmentPagerAdapter;
 
@@ -85,10 +86,11 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
             mParentArg = getArguments().getParcelable("TOUR_PACKAGE");
         }
 
-        bundle.putString("TOUR_PACKAGE_ID", mParentArg.getId());
+        bundle.putParcelable("TOUR_PACKAGE", mParentArg);
 
         mTourPresenter = new TourPresenterImpl(getActivity(), this);
-        mTourPresenter.getTourPackage(getActivity(), bundle.getString("TOUR_PACKAGE_ID"));
+        tourPackageUI = bundle.getParcelable("TOUR_PACKAGE");
+        mTourPresenter.getTourPackage(getActivity(), tourPackageUI.getId());
         tourFragmentPagerAdapter = new TourFragmentPagerAdapter(getChildFragmentManager(), getActivity(), bundle);
 
         tourTabLayout.setupWithViewPager(tourViewPager);
