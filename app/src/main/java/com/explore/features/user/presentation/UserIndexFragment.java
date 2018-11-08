@@ -65,6 +65,11 @@ public class UserIndexFragment extends Fragment implements UserView {
     }
 
     @Override
+    public void skpiLogin() {
+        
+    }
+
+    @Override
     public void showLoginError(String message) {
 
     }

@@ -23,6 +23,7 @@ import retrofit2.Response;
 public class UserIteractorImpl implements UserIteractor {
     private ObservableUserList observableUserList = new ObservableUserList();
     private List<UserDomain> userDomainList = new ArrayList<>();
+    private boolean isLoggedInUser = false;
 
     @Override
     public void getUsers(OnUserListFinishListener onUserListFinishListener) {
@@ -45,8 +46,8 @@ public class UserIteractorImpl implements UserIteractor {
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
-                UserDomain userDomain = userDao.findByUsername(userName);
-                userDomainList.add(userDomain);
+                userDomainList = userDao.findByUsername(userName);
+
                 if (userDomainList.isEmpty()) {
                     Call<UserResponse> call = RestClient.call().login(new UserDomain(userName, passWord));
                     call.enqueue(new Callback<UserResponse>() {
@@ -84,7 +85,16 @@ public class UserIteractorImpl implements UserIteractor {
     }
 
     @Override
-    public void findLoggedInUser() {
+    public void findLoggedInUser(final Context context, final OnfindLoggedInUserFinishListener onfindLoggedInUserFinishListener) {
+        AsyncTask.execute(new Runnable() {
+            final UserDao userDao = ExploreDatabase.getDatabase(context).userDao();
 
+            @Override
+            public void run() {
+                if (userDao.findLoggedInUser() != null) {
+                    onfindLoggedInUserFinishListener.onSuccess(isLoggedInUser);
+                }
+            }
+        });
     }
 }

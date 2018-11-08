@@ -17,7 +17,7 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
-public class UserPresenterImpl extends PresenterObserver implements UserPresenter, UserIteractor.OnUserListFinishListener {
+public class UserPresenterImpl extends PresenterObserver implements UserPresenter, UserIteractor.OnUserListFinishListener, UserIteractor.OnfindLoggedInUserFinishListener {
     @Getter
     @Setter
     UserView userView;
@@ -42,8 +42,8 @@ public class UserPresenterImpl extends PresenterObserver implements UserPresente
     }
 
     @Override
-    public void findLoggedInUser() {
-        getUserIteractor().findLoggedInUser();
+    public void findLoggedInUser(Context context) {
+        getUserIteractor().findLoggedInUser(context, this);
     }
 
     @Override
@@ -69,5 +69,10 @@ public class UserPresenterImpl extends PresenterObserver implements UserPresente
                     userDomain.getAddress(), userDomain.getAge()));
         }
         getUserView().showUserProfile(userUIList);
+    }
+
+    @Override
+    public void onSuccess(boolean isLoggedIn) {
+        getUserView().skpiLogin();
     }
 }

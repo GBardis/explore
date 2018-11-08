@@ -12,7 +12,11 @@ public interface UserIteractor {
 
     void getUser(PresenterObserver presenterObserver, String userName, String passWord, Context context);
 
-    void findLoggedInUser();
+    void findLoggedInUser(Context context, OnfindLoggedInUserFinishListener onfindLoggedInUserFinishListener);
+
+    interface OnfindLoggedInUserFinishListener {
+        void onSuccess(boolean isLoggedIn);
+    }
 
     interface OnUserListFinishListener {
         void onSuccess(List<UserDomain> userDomainList);

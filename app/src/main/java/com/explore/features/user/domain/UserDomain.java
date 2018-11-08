@@ -36,7 +36,7 @@ public class UserDomain {
     public int age;
     @Getter
     @Setter
-    public boolean loggedIn;
+    public boolean loggedIn = false;
 
     @Ignore
     public UserDomain(String username, String password) {

@@ -8,5 +8,5 @@ public interface UserPresenter {
 
     void getUser(String userEmail, String passWord, Context context);
 
-    void findLoggedInUser();
+    void findLoggedInUser(Context context);
 }
