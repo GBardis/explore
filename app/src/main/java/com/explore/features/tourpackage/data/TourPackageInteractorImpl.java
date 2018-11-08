@@ -87,13 +87,8 @@ public class TourPackageInteractorImpl implements TourPackageInteractor {
                         }
                     });
                 } else {
-                    AsyncTask.execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            Timber.tag("INTERACTOR_TOUR_PACKAGE").d("Serving from Database!");
-                            observableTourPackageList.changeDataset(tourPackageDomainList);
-                        }
-                    });
+                    Timber.tag("INTERACTOR_TOUR_PACKAGE").d("Serving from Database!");
+                    observableTourPackageList.changeDataset(tourPackageDomainList);
                 }
             }
         });

@@ -1,8 +1,6 @@
 package com.explore.features.tourpackage.presentation;
 
 import android.content.Context;
-import android.os.Handler;
-import android.os.Looper;
 
 import com.explore.features.tourpackage.PresenterObserver;
 import com.explore.features.tourpackage.data.TourPackageInteractorImpl;
@@ -54,12 +52,7 @@ public class TourPackagePresenterImpl extends PresenterObserver implements TourP
             );
             tourPackageUIList.add(tourPackageUI);
         }
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                getTourPackageView().showTourPackages(tourPackageUIList);
-            }
-        });
+        getTourPackageView().showTourPackages(tourPackageUIList);
 
     }
 

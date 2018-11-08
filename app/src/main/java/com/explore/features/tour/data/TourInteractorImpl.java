@@ -80,13 +80,8 @@ public class TourInteractorImpl implements TourInteractor {
 
 
                 } else {
-                    AsyncTask.execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            Timber.tag("INTERACTOR_TOUR").d("Serving from Database!");
-                            observableTourList.changeDataset(tourDomainList);
-                        }
-                    });
+                    Timber.tag("INTERACTOR_TOUR").d("Serving from Database!");
+                    observableTourList.changeDataset(tourDomainList);
 
                 }
             }

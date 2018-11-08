@@ -1,5 +1,8 @@
 package com.explore.features.tour.data;
 
+import android.os.Handler;
+import android.os.Looper;
+
 import java.util.ArrayList;
 
 public class TourObservable {
@@ -7,10 +10,16 @@ public class TourObservable {
 
     boolean changeFlag = false;
 
-    public void notifyObservers(Object o) {
+    public void notifyObservers(final Object o) {
         if (hasChanged()) {
-            for (TourObserver mo : tourObserverList) {
-                mo.updateToursList(this, o);
+            for (final TourObserver mo : tourObserverList) {
+                final TourObservable tourObservable = this;
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mo.updateToursList(tourObservable, o);
+                    }
+                });
             }
             clearChanged();
         }
