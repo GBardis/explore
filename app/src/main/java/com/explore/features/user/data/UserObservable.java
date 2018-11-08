@@ -1,24 +1,24 @@
-package com.explore.features.tourpackage.data;
+package com.explore.features.user.data;
 
 import android.os.Handler;
 import android.os.Looper;
 
 import java.util.ArrayList;
 
-public class TourPackageObservable {
-    private ArrayList<TourPackageObserver> tourPackageObserverList = new ArrayList<TourPackageObserver>();
+public class UserObservable {
+    private ArrayList<UserObserver> tourPackageObserverList = new ArrayList<UserObserver>();
 
     private boolean changeFlag = false;
 
     public void notifyObservers(final Object o) {
         if (hasChanged()) {
-            for (final TourPackageObserver mo : tourPackageObserverList) {
-                final TourPackageObservable tourPackageObservable = this;
+            for (final UserObserver mo : tourPackageObserverList) {
+                final UserObservable tourPackageObservable = this;
                 // run on UI thread
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
                     public void run() {
-                        mo.updateTourPackageList(tourPackageObservable, o);
+                        mo.updateUsersList(tourPackageObservable, o);
                     }
                 });
             }
@@ -27,11 +27,11 @@ public class TourPackageObservable {
     }
 
 
-    public void addObserver(TourPackageObserver o) {
+    public void addObserver(UserObserver o) {
         tourPackageObserverList.add(o);
     }
 
-    public void removeObserver(TourPackageObserver o) {
+    public void removeObserver(UserObserver o) {
         tourPackageObserverList.remove(o);
     }
 

@@ -6,11 +6,14 @@ import android.support.annotation.NonNull;
 
 import com.explore.base.ExploreApplication;
 import com.explore.base.ExploreDatabase;
+import com.explore.base.PresenterObserver;
 import com.explore.features.user.domain.UserDomain;
 import com.explore.features.user.domain.UserIteractor;
 import com.explore.rest.RestClient;
 import com.explore.rest.responses.UserResponse;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import retrofit2.Call;
@@ -18,6 +21,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class UserIteractorImpl implements UserIteractor {
+    private ObservableUserList observableUserList = new ObservableUserList();
+    private List<UserDomain> userDomainList = new ArrayList<>();
+    private boolean isLoggedInUser = false;
 
     @Override
     public void getUsers(OnUserListFinishListener onUserListFinishListener) {
@@ -32,37 +38,38 @@ public class UserIteractorImpl implements UserIteractor {
     }
 
     @Override
-    public void getUser(final OnUserFinishListener onUserFinishListener, final String userName, final String passWord, final Context context) {
+    public void getUser(PresenterObserver presenterObserver, final String userName, final String passWord, final Context context) {
+        final UserDao userDao = ExploreDatabase.getDatabase(context).userDao();
 
+        observableUserList.setUserDomainList(userDomainList);
+        observableUserList.addObserver(presenterObserver);
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
-                final UserDao userDao = ExploreDatabase.getDatabase(context).userDao();
-                UserDomain userDomain = userDao.findByUsername(userName);
-                if (userDomain == null) {
+                userDomainList = userDao.findByUsername(userName);
+
+                if (userDomainList.isEmpty()) {
                     Call<UserResponse> call = RestClient.call().login(new UserDomain(userName, passWord));
                     call.enqueue(new Callback<UserResponse>() {
                         @Override
                         public void onResponse(@NonNull Call<UserResponse> call, @NonNull Response<UserResponse> response) {
                             UserResponse userResponse = response.body();
-                            if (userResponse != null) {
-                                final UserDomain userDomain = new UserDomain(userResponse.getId(), Objects.requireNonNull(userResponse).getUsername(),
-                                        userResponse.getFirstName(), userResponse.getLastName(),
-                                        userResponse.getEmail(), userResponse.getAddress(),
-                                        userResponse.getAge());
 
-                                AsyncTask.execute(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        userDao.insertUser(userDomain);
+                            final UserDomain userDomain = new UserDomain(userResponse.getId(), Objects.requireNonNull(userResponse).getUsername(),
+                                    userResponse.getFirstName(), userResponse.getLastName(),
+                                    userResponse.getEmail(), userResponse.getAddress(),
+                                    userResponse.getAge(),
+                                    true);
+                            userDomainList.add(userDomain);
+                            AsyncTask.execute(new Runnable() {
+                                @Override
+                                public void run() {
+                                    userDao.insertUser(userDomain);
 
-                                    }
-                                });
-                                ExploreApplication.setCurrentUser(userDomain);
-                                onUserFinishListener.onSuccess(userDomain);
-                            } else {
-                                onUserFinishListener.onFailure();
-                            }
+                                }
+                            });
+                            ExploreApplication.setCurrentUser(userDomain);
+                            observableUserList.changeDataset(userDomainList);
                         }
 
                         @Override
@@ -71,11 +78,23 @@ public class UserIteractorImpl implements UserIteractor {
                         }
                     });
                 } else {
-                    ExploreApplication.setCurrentUser(userDomain);
-                    onUserFinishListener.onSuccess(userDomain);
+                    observableUserList.changeDataset(userDomainList);
                 }
             }
         });
+    }
 
+    @Override
+    public void findLoggedInUser(final Context context, final OnfindLoggedInUserFinishListener onfindLoggedInUserFinishListener) {
+        AsyncTask.execute(new Runnable() {
+            final UserDao userDao = ExploreDatabase.getDatabase(context).userDao();
+
+            @Override
+            public void run() {
+                if (userDao.findLoggedInUser() != null) {
+                    onfindLoggedInUserFinishListener.onSuccess(isLoggedInUser);
+                }
+            }
+        });
     }
 }

@@ -59,13 +59,19 @@ public class UserProfileFragment extends Fragment implements UserView {
     }
 
     @Override
-    public void showUserProfile(UserUI userUI) {
+    public void showUserProfile(List<UserUI> userUIList) {
+        UserUI userUI = userUIList.get(0);
         mTextViewUserName.setText(userUI.getUserName());
         mTextViewEmail.setText(userUI.getEmail());
         mTextViewUserName.setText(userUI.getUserName());
         mTextViewFirstName.setText(userUI.getFirstName());
         mTextViewLastName.setText(userUI.getLastName());
         mTextViewAddress.setText(userUI.getAddress());
+    }
+
+    @Override
+    public void skpiLogin() {
+
     }
 
     @Override

@@ -21,5 +21,8 @@ public abstract class UserDao {
     abstract List<UserDomain> getAllUsers();
 
     @Query("SELECT * FROM users WHERE username = :username")
-    abstract UserDomain findByUsername(String username);
+    abstract List<UserDomain> findByUsername(String username);
+
+    @Query("SELECT * FROM users WHERE loggedIn")
+    abstract UserDomain findLoggedInUser();
 }

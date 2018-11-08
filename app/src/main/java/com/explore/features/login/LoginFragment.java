@@ -4,6 +4,8 @@ package com.explore.features.login;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
@@ -58,6 +60,10 @@ public class LoginFragment extends Fragment implements UserView, IsToolbarSetter
         ((MainActivity) getActivity()).getSupportActionBar().hide();
         setToolbarTitle(getActivity(), loginFragmentTitle);
         userPresenter = new UserPresenterImpl(this);
+
+        //Check if user is already LoggedIn
+        userPresenter.findLoggedInUser(getActivity());
+
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,8 +104,8 @@ public class LoginFragment extends Fragment implements UserView, IsToolbarSetter
     }
 
     @Override
-    public void showUserProfile(UserUI userUI) {
-        getActivity().runOnUiThread(new Runnable() {
+    public void showUserProfile(List<UserUI> userUIList) {
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
                 ((MainActivity) getActivity()).getSupportActionBar().show();
@@ -107,6 +113,19 @@ public class LoginFragment extends Fragment implements UserView, IsToolbarSetter
                 tourPackageListener.transitionToTourPackage();
             }
         });
+    }
+
+    @Override
+    public void skpiLogin() {
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                ((MainActivity) getActivity()).getSupportActionBar().show();
+                TourPackageFragment.TourPackageListener tourPackageListener = (TourPackageFragment.TourPackageListener) getActivity();
+                tourPackageListener.transitionToTourPackage();
+            }
+        });
+
     }
 
     @Override

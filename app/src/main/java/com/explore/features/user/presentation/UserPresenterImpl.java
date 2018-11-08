@@ -2,7 +2,9 @@ package com.explore.features.user.presentation;
 
 import android.content.Context;
 
+import com.explore.base.PresenterObserver;
 import com.explore.features.user.data.UserIteractorImpl;
+import com.explore.features.user.data.UserObservable;
 import com.explore.features.user.domain.UserDomain;
 import com.explore.features.user.domain.UserIteractor;
 import com.explore.features.user.domain.UserPresenter;
@@ -15,7 +17,7 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
-public class UserPresenterImpl implements UserPresenter, UserIteractor.OnUserFinishListener, UserIteractor.OnUserListFinishListener {
+public class UserPresenterImpl extends PresenterObserver implements UserPresenter, UserIteractor.OnUserListFinishListener, UserIteractor.OnfindLoggedInUserFinishListener {
     @Getter
     @Setter
     UserView userView;
@@ -40,6 +42,11 @@ public class UserPresenterImpl implements UserPresenter, UserIteractor.OnUserFin
     }
 
     @Override
+    public void findLoggedInUser(Context context) {
+        getUserIteractor().findLoggedInUser(context, this);
+    }
+
+    @Override
     public void onSuccess(List<UserDomain> userDomainList) {
         List<UserUI> userUIList = new ArrayList();
         for (UserDomain userDomain : userDomainList) {
@@ -49,12 +56,23 @@ public class UserPresenterImpl implements UserPresenter, UserIteractor.OnUserFin
     }
 
     @Override
-    public void onSuccess(UserDomain userDomain) {
-        getUserView().showUserProfile(new UserUI(userDomain.getUsername(), userDomain.getFirstName(), userDomain.getLastName(), userDomain.getEmail(), userDomain.getAddress(), userDomain.getAge()));
+    public void onFailure() {
+
     }
 
     @Override
-    public void onFailure() {
-        getUserView().showLoginError("Wrong Username or PassWord");
+    public void updateUsersList(UserObservable userObservable, Object o) {
+        List<UserUI> userUIList = new ArrayList<>();
+        for (UserDomain userDomain : (List<UserDomain>) o) {
+            userUIList.add(new UserUI(userDomain.getUsername(), userDomain.getFirstName(),
+                    userDomain.getLastName(), userDomain.getEmail(),
+                    userDomain.getAddress(), userDomain.getAge()));
+        }
+        getUserView().showUserProfile(userUIList);
+    }
+
+    @Override
+    public void onSuccess(boolean isLoggedIn) {
+        getUserView().skpiLogin();
     }
 }

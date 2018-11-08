@@ -25,7 +25,7 @@ public class TourPackagePresenterImpl extends PresenterObserver implements TourP
     @Setter
     TourPackageInteractor tourPackageIteractor;
 
-    List<TourPackageUI> tourPackageUIList;
+    private List<TourPackageUI> tourPackageUIList;
 
     public TourPackagePresenterImpl(TourPackageView tourPackageView) {
         this.tourPackageView = tourPackageView;
@@ -54,8 +54,5 @@ public class TourPackagePresenterImpl extends PresenterObserver implements TourP
         }
         getTourPackageView().showTourPackages(tourPackageUIList);
 
-    }
-
-    public TourPackagePresenterImpl() {
     }
 }

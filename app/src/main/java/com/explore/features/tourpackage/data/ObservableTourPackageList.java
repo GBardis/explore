@@ -7,7 +7,7 @@ import java.util.List;
 
 public class ObservableTourPackageList extends TourPackageObservable {
 
-    List<TourPackageDomain> tourPackageDomainList = new ArrayList<>();
+    private List<TourPackageDomain> tourPackageDomainList = new ArrayList<>();
 
     public List<TourPackageDomain> getTourPackageDomainList() {
         return tourPackageDomainList;
@@ -18,7 +18,7 @@ public class ObservableTourPackageList extends TourPackageObservable {
     }
 
 
-    public void changeDataset(List<TourPackageDomain> tourPackageDomainList){
+    public void changeDataset(List<TourPackageDomain> tourPackageDomainList) {
         this.tourPackageDomainList = tourPackageDomainList;
         setChanged();
         notifyObservers(tourPackageDomainList);

@@ -60,8 +60,13 @@ public class UserIndexFragment extends Fragment implements UserView {
     }
 
     @Override
-    public void showUserProfile(UserUI userUI) {
+    public void showUserProfile(List<UserUI> userUIList) {
 
+    }
+
+    @Override
+    public void skpiLogin() {
+        
     }
 
     @Override
