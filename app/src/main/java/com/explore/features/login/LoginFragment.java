@@ -89,7 +89,7 @@ public class LoginFragment extends Fragment implements UserView, IsToolbarSetter
     }
 
     @Override
-    public void showUserProfile(UserUI userUI) {
+    public void showUserProfile(List<UserUI> userUIList) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {

@@ -62,8 +62,12 @@ public class UserPresenterImpl extends PresenterObserver implements UserPresente
 
     @Override
     public void updateUsersList(UserObservable userObservable, Object o) {
+        List<UserUI> userUIList = new ArrayList<>();
         for (UserDomain userDomain : (List<UserDomain>) o) {
-            getUserView().showUserProfile(new UserUI(userDomain.getUsername(), userDomain.getFirstName(), userDomain.getLastName(), userDomain.getEmail(), userDomain.getAddress(), userDomain.getAge()));
+            userUIList.add(new UserUI(userDomain.getUsername(), userDomain.getFirstName(),
+                    userDomain.getLastName(), userDomain.getEmail(),
+                    userDomain.getAddress(), userDomain.getAge()));
         }
+        getUserView().showUserProfile(userUIList);
     }
 }
