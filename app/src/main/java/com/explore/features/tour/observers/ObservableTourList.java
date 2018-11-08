@@ -1,4 +1,4 @@
-package com.explore.features.tour.Observers.TourObservers;
+package com.explore.features.tour.observers;
 
 import com.explore.features.tour.domain.TourDomain;
 

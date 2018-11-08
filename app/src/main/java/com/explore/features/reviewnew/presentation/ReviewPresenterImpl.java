@@ -3,11 +3,12 @@ package com.explore.features.reviewnew.presentation;
 import com.explore.features.reviewnew.data.ReviewInteractorImpl;
 import com.explore.features.reviewnew.domain.ReviewInteractor;
 import com.explore.features.reviewnew.domain.ReviewPresenter;
+import com.explore.features.tourpackage.PresenterObserver;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public class ReviewPresenterImpl implements ReviewPresenter, ReviewInteractor.OnReviewSubmitListener {
+public class ReviewPresenterImpl extends PresenterObserver implements ReviewPresenter, ReviewInteractor.OnReviewSubmitListener {
 
     @Getter
     @Setter

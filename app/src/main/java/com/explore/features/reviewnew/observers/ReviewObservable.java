@@ -1,4 +1,4 @@
-package com.explore.features.tour.Observers.ReviewObservers;
+package com.explore.features.reviewnew.observers;
 
 import android.os.Handler;
 import android.os.Looper;

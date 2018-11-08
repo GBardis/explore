@@ -4,7 +4,9 @@ import android.content.Context;
 
 import com.explore.features.reviewnew.data.ReviewInteractorImpl;
 import com.explore.features.reviewnew.domain.ReviewInteractor;
-import com.explore.features.tour.Observers.TourObservers.TourObservable;
+import com.explore.features.reviewnew.observers.ReviewObservable;
+import com.explore.features.tour.domain.ReviewUI;
+import com.explore.features.tour.observers.TourObservable;
 import com.explore.features.tour.data.TourInteractorImpl;
 import com.explore.features.tour.domain.TourDomain;
 import com.explore.features.tour.domain.TourInteractor;
@@ -55,8 +57,8 @@ public class TourPresenterImpl extends PresenterObserver implements TourPresente
     }
 
     @Override
-    public void getTourPackageReviews(String tourPackageId) {
-//        mReviewInteractor.getReviewList(this, tourPackageId);
+    public void getTourPackageReviews(Context context,String tourPackageId) {
+        mReviewInteractor.getReviewList(this, context,tourPackageId);
     }
 
     // TODO: implement observer pattern for review list
@@ -75,6 +77,12 @@ public class TourPresenterImpl extends PresenterObserver implements TourPresente
 //
 //        mTourView.showTourPackageReviewList(reviewUIArrayList);
 //    }
+
+    @Override
+    public void updateReviewsList(ReviewObservable reviewObservable,Object o ){
+        ArrayList<ReviewUI> reviewUIArrayList = new ArrayList<>();
+
+    }
 
 
     @Override

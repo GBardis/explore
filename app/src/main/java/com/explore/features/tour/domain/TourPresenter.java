@@ -8,6 +8,6 @@ public interface TourPresenter {
 
     void getTourList(Context context,String tourPackageId);
 
-    void getTourPackageReviews(String tourPackageId);
+    void getTourPackageReviews(Context context,String tourPackageId);
 
 }
