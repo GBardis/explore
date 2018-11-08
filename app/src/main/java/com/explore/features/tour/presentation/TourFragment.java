@@ -32,9 +32,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import lombok.Getter;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class TourFragment extends Fragment implements TourView, IsToolbarSetter {
 
     //@BindView(R.id.text_tour_tourpackage_name)
