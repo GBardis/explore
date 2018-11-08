@@ -1,4 +1,4 @@
-package com.explore.features.tour.data;
+package com.explore.features.tour.Observers.TourObservers;
 
 import com.explore.features.tour.domain.TourDomain;
 
@@ -17,7 +17,7 @@ public class ObservableTourList extends TourObservable {
     }
 
 
-    public void changeDataset(List<TourDomain> tourDomainList){
+    public void changeDataset(List<TourDomain> tourDomainList) {
         this.tourDomainList = tourDomainList;
         setChanged();
         notifyObservers(tourDomainList);

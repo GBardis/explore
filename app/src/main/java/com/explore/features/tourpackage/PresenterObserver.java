@@ -1,7 +1,7 @@
 package com.explore.features.tourpackage;
 
-import com.explore.features.tour.data.TourObservable;
-import com.explore.features.tour.data.TourObserver;
+import com.explore.features.tour.Observers.TourObservers.TourObservable;
+import com.explore.features.tour.Observers.TourObservers.TourObserver;
 import com.explore.features.tourpackage.data.TourPackageObservable;
 import com.explore.features.tourpackage.data.TourPackageObserver;
 

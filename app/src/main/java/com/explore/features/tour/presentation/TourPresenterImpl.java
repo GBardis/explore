@@ -4,8 +4,8 @@ import android.content.Context;
 
 import com.explore.features.reviewnew.data.ReviewInteractorImpl;
 import com.explore.features.reviewnew.domain.ReviewInteractor;
+import com.explore.features.tour.Observers.TourObservers.TourObservable;
 import com.explore.features.tour.data.TourInteractorImpl;
-import com.explore.features.tour.data.TourObservable;
 import com.explore.features.tour.domain.TourDomain;
 import com.explore.features.tour.domain.TourInteractor;
 import com.explore.features.tour.domain.TourPackageUI;

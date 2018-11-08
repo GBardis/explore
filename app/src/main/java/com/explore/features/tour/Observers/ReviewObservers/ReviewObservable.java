@@ -1,23 +1,23 @@
-package com.explore.features.tour.data;
+package com.explore.features.tour.Observers.ReviewObservers;
 
 import android.os.Handler;
 import android.os.Looper;
 
 import java.util.ArrayList;
 
-public class TourObservable {
-    ArrayList<TourObserver> tourObserverList = new ArrayList<TourObserver>();
+public class ReviewObservable {
+    ArrayList<ReviewObserver> reviewObserverList = new ArrayList<ReviewObserver>();
 
     boolean changeFlag = false;
 
     public void notifyObservers(final Object o) {
         if (hasChanged()) {
-            for (final TourObserver mo : tourObserverList) {
-                final TourObservable tourObservable = this;
+            for (final ReviewObserver mo : reviewObserverList) {
+                final ReviewObservable reviewObservable = this;
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
                     public void run() {
-                        mo.updateToursList(tourObservable, o);
+                        mo.updateReviewsList(reviewObservable, o);
                     }
                 });
             }
@@ -26,12 +26,12 @@ public class TourObservable {
     }
 
 
-    public void addObserver(TourObserver o) {
-        tourObserverList.add(o);
+    public void addObserver(ReviewObserver o) {
+        reviewObserverList.add(o);
     }
 
-    public void removeObserver(TourObserver o) {
-        tourObserverList.remove(o);
+    public void removeObserver(ReviewObserver o) {
+        reviewObserverList.remove(o);
     }
 
     public void setChanged() {
