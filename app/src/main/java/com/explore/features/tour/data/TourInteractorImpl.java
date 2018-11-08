@@ -4,9 +4,9 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import com.explore.base.ExploreDatabase;
+import com.explore.base.PresenterObserver;
 import com.explore.features.tour.domain.TourDomain;
 import com.explore.features.tour.domain.TourInteractor;
-import com.explore.features.tourpackage.PresenterObserver;
 import com.explore.rest.RestClient;
 import com.explore.rest.responses.TourResponse;
 

@@ -56,6 +56,8 @@ public class LoginFragment extends Fragment implements UserView, IsToolbarSetter
         ((MainActivity) getActivity()).getSupportActionBar().hide();
         setToolbarTitle(getActivity(), loginFragmentTitle);
         userPresenter = new UserPresenterImpl(this);
+        userPresenter.findLoggedInUser();
+
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

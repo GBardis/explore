@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 
 import com.explore.R;
 import com.explore.base.ExploreDatabase;
-import com.explore.features.tourpackage.PresenterObserver;
+import com.explore.base.PresenterObserver;
 import com.explore.features.tourpackage.domain.TourPackageDomain;
 import com.explore.features.tourpackage.domain.TourPackageInteractor;
 import com.explore.rest.GoogleClient;

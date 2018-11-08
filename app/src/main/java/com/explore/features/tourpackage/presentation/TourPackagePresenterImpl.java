@@ -2,7 +2,7 @@ package com.explore.features.tourpackage.presentation;
 
 import android.content.Context;
 
-import com.explore.features.tourpackage.PresenterObserver;
+import com.explore.base.PresenterObserver;
 import com.explore.features.tourpackage.data.TourPackageInteractorImpl;
 import com.explore.features.tourpackage.data.TourPackageObservable;
 import com.explore.features.tourpackage.domain.TourPackageDomain;
@@ -25,7 +25,7 @@ public class TourPackagePresenterImpl extends PresenterObserver implements TourP
     @Setter
     TourPackageInteractor tourPackageIteractor;
 
-    List<TourPackageUI> tourPackageUIList;
+    private List<TourPackageUI> tourPackageUIList;
 
     public TourPackagePresenterImpl(TourPackageView tourPackageView) {
         this.tourPackageView = tourPackageView;
@@ -54,8 +54,5 @@ public class TourPackagePresenterImpl extends PresenterObserver implements TourP
         }
         getTourPackageView().showTourPackages(tourPackageUIList);
 
-    }
-
-    public TourPackagePresenterImpl() {
     }
 }

@@ -2,7 +2,9 @@ package com.explore.features.user.presentation;
 
 import android.content.Context;
 
+import com.explore.base.PresenterObserver;
 import com.explore.features.user.data.UserIteractorImpl;
+import com.explore.features.user.data.UserObservable;
 import com.explore.features.user.domain.UserDomain;
 import com.explore.features.user.domain.UserIteractor;
 import com.explore.features.user.domain.UserPresenter;
@@ -15,7 +17,7 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
-public class UserPresenterImpl implements UserPresenter, UserIteractor.OnUserFinishListener, UserIteractor.OnUserListFinishListener {
+public class UserPresenterImpl extends PresenterObserver implements UserPresenter, UserIteractor.OnUserFinishListener, UserIteractor.OnUserListFinishListener {
     @Getter
     @Setter
     UserView userView;
@@ -40,6 +42,11 @@ public class UserPresenterImpl implements UserPresenter, UserIteractor.OnUserFin
     }
 
     @Override
+    public void findLoggedInUser() {
+        getUserIteractor().findLoggedInUser();
+    }
+
+    @Override
     public void onSuccess(List<UserDomain> userDomainList) {
         List<UserUI> userUIList = new ArrayList();
         for (UserDomain userDomain : userDomainList) {
@@ -56,5 +63,13 @@ public class UserPresenterImpl implements UserPresenter, UserIteractor.OnUserFin
     @Override
     public void onFailure() {
         getUserView().showLoginError("Wrong Username or PassWord");
+    }
+
+    @Override
+    public void updateUsersList(UserObservable userObservable, Object o) {
+        List<UserDomain> userDomainList;
+        userDomainList = (List<UserDomain>) o;
+        UserDomain userDomain = userDomainList.get(0);
+        getUserView().showUserProfile(new UserUI(userDomain.getUsername(), userDomain.getFirstName(), userDomain.getLastName(), userDomain.getEmail(), userDomain.getAddress(), userDomain.getAge()));
     }
 }
