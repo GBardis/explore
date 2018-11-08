@@ -6,7 +6,7 @@ import com.explore.base.PresenterObserver;
 
 import java.util.List;
 
-public interface UserIteractor {
+public interface UserInteractor {
 
     void getUsers(OnUserListFinishListener onUserListFinishListener);
 

@@ -3,10 +3,10 @@ package com.explore.features.user.presentation;
 import android.content.Context;
 
 import com.explore.base.PresenterObserver;
-import com.explore.features.user.data.UserIteractorImpl;
+import com.explore.features.user.data.UserInteractorImpl;
 import com.explore.features.user.data.UserObservable;
 import com.explore.features.user.domain.UserDomain;
-import com.explore.features.user.domain.UserIteractor;
+import com.explore.features.user.domain.UserInteractor;
 import com.explore.features.user.domain.UserPresenter;
 import com.explore.features.user.domain.UserUI;
 import com.explore.features.user.domain.UserView;
@@ -17,17 +17,17 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
-public class UserPresenterImpl extends PresenterObserver implements UserPresenter, UserIteractor.OnUserListFinishListener, UserIteractor.OnfindLoggedInUserFinishListener {
+public class UserPresenterImpl extends PresenterObserver implements UserPresenter, UserInteractor.OnUserListFinishListener, UserInteractor.OnfindLoggedInUserFinishListener {
     @Getter
     @Setter
     UserView userView;
     @Getter
     @Setter
-    UserIteractor userIteractor;
+    UserInteractor userIteractor;
 
     public UserPresenterImpl(UserView userView) {
         this.userView = userView;
-        this.userIteractor = new UserIteractorImpl();
+        this.userIteractor = new UserInteractorImpl();
     }
 
     @Override

@@ -8,7 +8,7 @@ import com.explore.base.ExploreApplication;
 import com.explore.base.ExploreDatabase;
 import com.explore.base.PresenterObserver;
 import com.explore.features.user.domain.UserDomain;
-import com.explore.features.user.domain.UserIteractor;
+import com.explore.features.user.domain.UserInteractor;
 import com.explore.rest.RestClient;
 import com.explore.rest.responses.UserResponse;
 
@@ -20,7 +20,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UserIteractorImpl implements UserIteractor {
+public class UserInteractorImpl implements UserInteractor {
     private ObservableUserList observableUserList = new ObservableUserList();
     private List<UserDomain> userDomainList = new ArrayList<>();
     private boolean isLoggedInUser = false;
@@ -91,7 +91,9 @@ public class UserIteractorImpl implements UserIteractor {
 
             @Override
             public void run() {
-                if (userDao.findLoggedInUser() != null) {
+                UserDomain userDomain = userDao.findLoggedInUser();
+                if (userDomain != null) {
+                    ExploreApplication.setCurrentUser(userDomain);
                     onfindLoggedInUserFinishListener.onSuccess(isLoggedInUser);
                 }
             }
