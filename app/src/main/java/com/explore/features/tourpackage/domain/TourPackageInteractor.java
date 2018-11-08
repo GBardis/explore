@@ -2,23 +2,11 @@ package com.explore.features.tourpackage.domain;
 
 import android.content.Context;
 
-import java.util.List;
+import com.explore.features.tourpackage.PresenterObserver;
 
 public interface TourPackageInteractor {
 
-    void getTourPackages(OnTourPackageListFinishListener onTourPackageListFinishListener, Context context);
+    void getTourPackages(PresenterObserver presenterObserver, Context context);
 
-    void getTourPackage(OnTourPackageFinishListener onTourPackageFinishListener, String tourPackageId);
-
-    interface OnTourPackageListFinishListener {
-        void onSuccess(List<TourPackageDomain> tourPackageDomainList);
-
-        void onFailure();
-    }
-
-    interface OnTourPackageFinishListener {
-        void onTourPackageSuccess(TourPackageDomain tourPackageDomain);
-
-        void onFailure();
-    }
+//    void getTourPackage(PresenterObserver presenterObserver, String tourPackageId);
 }

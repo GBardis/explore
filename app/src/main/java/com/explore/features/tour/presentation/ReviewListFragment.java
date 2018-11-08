@@ -52,7 +52,7 @@ public class ReviewListFragment extends Fragment implements TourView {
             mParentArg = getArguments().getString("TOUR_PACKAGE_ID");
         }
 
-        mTourPresenter = new TourPresenterImpl(this);
+        mTourPresenter = new TourPresenterImpl(getActivity(),this);
         mTourPresenter.getTourPackageReviews(mParentArg);
 
         mRecyclerView.setHasFixedSize(true);

@@ -1,15 +1,10 @@
 package com.explore.features.tour.domain;
 
+import android.content.Context;
 
-import java.util.ArrayList;
+import com.explore.features.tourpackage.PresenterObserver;
 
 public interface TourInteractor {
 
-    void getTourList(OnTourListFinishListener tourPackageFinishListener, String tourPackageId);
-
-    interface OnTourListFinishListener {
-        void onTourListSuccess(ArrayList<TourDomain> tourDomainArrayList);
-
-        void onError();
-    }
+    void getTourList(PresenterObserver presenterObserver, Context context, String tourPackageId);
 }

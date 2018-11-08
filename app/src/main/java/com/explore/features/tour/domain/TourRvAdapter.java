@@ -52,8 +52,8 @@ public class TourRvAdapter extends RecyclerView.Adapter<TourRvAdapter.TourViewHo
 
     @Override
     public void onBindViewHolder(@NonNull TourViewHolder tourViewHolder, int i) {
-        tourViewHolder.mTextViewName.setText(mTourUIDataset.get(i).getName());
-        tourViewHolder.mTextViewDescription.setText(mTourUIDataset.get(i).getName());
+        tourViewHolder.mTextViewName.setText(mTourUIDataset.get(i).getTitle());
+        tourViewHolder.mTextViewDescription.setText(mTourUIDataset.get(i).getDescription());
     }
 
     @Override

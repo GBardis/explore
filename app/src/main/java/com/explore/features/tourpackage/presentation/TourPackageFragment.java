@@ -16,7 +16,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.explore.MainActivity;
 import com.explore.R;
 import com.explore.features.IsToolbarSetter;
 import com.explore.features.tour.presentation.TourFragment;
@@ -72,20 +71,15 @@ public class TourPackageFragment extends Fragment implements TourPackageView, Is
 
     @Override
     public void showTourPackages(final List<TourPackageUI> tourPackageArrayList) {
-        getActivity().runOnUiThread(new Runnable() {
+        tourPackagesRvAdapter = new TourPackagesRvAdapter(tourPackageArrayList, new OnTourPackageClickListener() {
             @Override
-            public void run() {
-                tourPackagesRvAdapter = new TourPackagesRvAdapter(tourPackageArrayList, new OnTourPackageClickListener() {
-                    @Override
-                    public void onTourPackageClicked(TourPackageUI tourPackageUI) {
-                        bundle.putString("TOUR_PACKAGE_ID", tourPackageUI.getId());
-                        TourFragment.TourFragmentListener tourFragmentListener = (TourFragment.TourFragmentListener) getActivity();
-                        tourFragmentListener.transitionToTourFragment(bundle);
-                    }
-                }, getActivity());
-                tourPackageRv.setAdapter(tourPackagesRvAdapter);
+            public void onTourPackageClicked(TourPackageUI tourPackageUI) {
+                bundle.putString("TOUR_PACKAGE_ID", tourPackageUI.getId());
+                TourFragment.TourFragmentListener tourFragmentListener = (TourFragment.TourFragmentListener) getActivity();
+                tourFragmentListener.transitionToTourFragment(bundle);
             }
-        });
+        }, getActivity());
+        tourPackageRv.setAdapter(tourPackagesRvAdapter);
     }
 
     @Override
@@ -135,7 +129,7 @@ public class TourPackageFragment extends Fragment implements TourPackageView, Is
 
     @Override
     public void setToolbarTitle(Activity activity, String title) {
-        ((MainActivity) activity).setActivityToolbarTitle(title);
+        //((MainActivity) activity).setActivityToolbarTitle(title);
     }
 
     public interface TourPackageListener {

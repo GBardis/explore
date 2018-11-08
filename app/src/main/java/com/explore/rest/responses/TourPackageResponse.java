@@ -16,4 +16,7 @@ public class TourPackageResponse {
     @Getter
     @Setter
     private String id;
+    @Getter
+    @Setter
+    private String placeId;
 }
