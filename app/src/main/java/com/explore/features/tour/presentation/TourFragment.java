@@ -31,8 +31,6 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static android.widget.ImageView.ScaleType.CENTER_CROP;
-
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -91,7 +89,6 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
 
         bundle.putString("TOUR_PACKAGE_ID", mParentArg);
 
-        mImageViewTourPackagePhoto.setScaleType(CENTER_CROP);
         mTourPresenter = new TourPresenterImpl(getActivity(), this);
         mTourPresenter.getTourPackage(getActivity(), bundle.getString("TOUR_PACKAGE_ID"));
         tourFragmentPagerAdapter = new TourFragmentPagerAdapter(getChildFragmentManager(), getActivity(), bundle);

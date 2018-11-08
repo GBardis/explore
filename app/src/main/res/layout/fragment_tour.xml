@@ -11,9 +11,9 @@
     <ImageView
         android:id="@+id/image_tour_tourpackage_photo"
         tools:ignore="ContentDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="200dp"
-        android:scaleType="fitStart" />
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/text_tour_tourpackage_description"
@@ -59,10 +59,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom|end"
-        android:layout_marginEnd="2dp"
-        android:layout_marginBottom="401dp"
+        android:layout_margin="16dp"
         android:src="@drawable/ic_add_review"
-        app:layout_anchor="@id/image_tour_tourpackage_photo"
         app:layout_anchorGravity="right" />
 
 </RelativeLayout>
