@@ -1,6 +1,8 @@
 package com.explore;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -63,8 +65,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .commit();
     }
 
-    public void setActivityToolbarTitle(String title) {
-        Objects.requireNonNull(getSupportActionBar()).setTitle(title);
+    public void setActivityToolbarTitle(final String title) {
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                Objects.requireNonNull(getSupportActionBar()).setTitle(title);
+            }
+        });
     }
 
     @Override

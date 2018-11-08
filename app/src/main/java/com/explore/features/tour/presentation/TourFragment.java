@@ -3,8 +3,6 @@ package com.explore.features.tour.presentation;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -134,12 +132,7 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
     @Override
     public void setToolbarTitle(final Activity activity, final String title) {
         // https://stackoverflow.com/questions/12850143/android-basics-running-code-in-the-ui-thread
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                ((MainActivity) activity).setActivityToolbarTitle(title);
-            }
-        });
+        ((MainActivity) activity).setActivityToolbarTitle(title);
     }
 
     public interface TourFragmentListener {
