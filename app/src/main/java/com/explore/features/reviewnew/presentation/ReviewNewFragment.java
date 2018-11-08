@@ -57,7 +57,7 @@ public class ReviewNewFragment extends Fragment implements IsToolbarSetter, Revi
     @Getter
     ReviewPresenter reviewNewPresenter;
 
-    String mParentArg;
+    com.explore.features.tourpackage.domain.TourPackageUI mParentArg;
     Bundle bundle;
 
 
@@ -74,9 +74,9 @@ public class ReviewNewFragment extends Fragment implements IsToolbarSetter, Revi
         ButterKnife.bind(this, v);
 
         if (getArguments() != null) {
-            mParentArg = getArguments().getString("TOUR_PACKAGE_ID");
+            mParentArg = getArguments().getParcelable("TOUR_PACKAGE");
             bundle = new Bundle();
-            bundle.putString("TOUR_PACKAGE_ID", mParentArg);
+            bundle.putParcelable("TOUR_PACKAGE", mParentArg);
         }
 
         setToolbarTitle(getActivity(), reviewNewFragmentTitle);
@@ -137,7 +137,7 @@ public class ReviewNewFragment extends Fragment implements IsToolbarSetter, Revi
                     Toast.makeText(getActivity(), "Title and Message can't be blank", Toast.LENGTH_LONG).show();
                 } else {
                     // TODO: change this with normal username when it's active
-                    reviewNewPresenter.postReview(score, comment, "teamBlack", mParentArg);
+                    reviewNewPresenter.postReview(score, comment, "teamBlack", mParentArg.getId());
                     try {
 
 

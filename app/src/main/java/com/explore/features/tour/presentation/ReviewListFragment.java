@@ -34,7 +34,7 @@ public class ReviewListFragment extends Fragment implements TourView {
     @BindView(R.id.recycler_review_list)
     public RecyclerView mRecyclerView;
 
-    private String mParentArg;
+    private com.explore.features.tourpackage.domain.TourPackageUI mParentArg;
 
     public ReviewListFragment() {
         // Required empty public constructor
@@ -49,11 +49,11 @@ public class ReviewListFragment extends Fragment implements TourView {
         ButterKnife.bind(this, v);
 
         if (getArguments() != null) {
-            mParentArg = getArguments().getString("TOUR_PACKAGE_ID");
+            mParentArg = getArguments().getParcelable("TOUR_PACKAGE");
         }
 
         mTourPresenter = new TourPresenterImpl(getActivity(), this);
-        mTourPresenter.getTourPackageReviews(getActivity(), mParentArg);
+        mTourPresenter.getTourPackageReviews(getActivity(), mParentArg.getId());
 
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

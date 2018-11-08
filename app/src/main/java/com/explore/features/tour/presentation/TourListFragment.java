@@ -34,7 +34,7 @@ public class TourListFragment extends Fragment implements TourView {
     public RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    private String mParentArg;
+    private com.explore.features.tourpackage.domain.TourPackageUI mParentArg;
     Bundle bundle;
 
     public TourListFragment() {
@@ -52,13 +52,13 @@ public class TourListFragment extends Fragment implements TourView {
         bundle = new Bundle();
 
         if (getArguments() != null) {
-            mParentArg = getArguments().getString("TOUR_PACKAGE_ID");
+            mParentArg = getArguments().getParcelable("TOUR_PACKAGE");
         }
 
-        bundle.putString("TOUR_PACKAGE_ID", mParentArg);
+        bundle.putParcelable("TOUR_PACKAGE", mParentArg);
 
         mTourPresenter = new TourPresenterImpl(getActivity(), this);
-        mTourPresenter.getTourList(getActivity(), mParentArg);
+        mTourPresenter.getTourList(getActivity(), mParentArg.getId());
 
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
