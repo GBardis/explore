@@ -22,7 +22,7 @@ public class ReviewUI {
     @Setter
     private String username;
 
-    public ReviewUI(String id, String comment, int score, String username) {
+    public ReviewUI(String id, int score, String comment, String username) {
         this.id = id;
         this.comment = comment;
         this.score = score;

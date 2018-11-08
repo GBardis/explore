@@ -2,6 +2,7 @@ package com.explore.features.reviewnew.presentation;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
@@ -11,6 +12,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -31,8 +33,6 @@ import lombok.Getter;
 
 
 public class ReviewNewFragment extends Fragment implements IsToolbarSetter, ReviewNewView {
-    @BindView(R.id.textInput_reviewnew_title)
-    TextInputEditText textInputEditTextTitle;
 
     @BindView(R.id.ratingBar_reviewnew_rating)
     RatingBar mRatingBar;
@@ -73,16 +73,16 @@ public class ReviewNewFragment extends Fragment implements IsToolbarSetter, Revi
         View v = inflater.inflate(R.layout.fragment_review_new, container, false);
         ButterKnife.bind(this, v);
 
-        if (getArguments() != null){
+        if (getArguments() != null) {
             mParentArg = getArguments().getString("TOUR_PACKAGE_ID");
             bundle = new Bundle();
-            bundle.putString("TOUR_PACKAGE_ID",mParentArg);
+            bundle.putString("TOUR_PACKAGE_ID", mParentArg);
         }
 
         setToolbarTitle(getActivity(), reviewNewFragmentTitle);
 
         // Check if Title is not empty
-        textInputEditTextTitle.addTextChangedListener(new TextWatcher() {
+        mtextViewRatingDesc.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
 
@@ -90,10 +90,10 @@ public class ReviewNewFragment extends Fragment implements IsToolbarSetter, Revi
 
             @Override
             public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-                if (Objects.requireNonNull(textInputEditTextTitle.getText()).length() > 0) {
-                    textInputEditTextTitle.setError(null);
+                if (Objects.requireNonNull(mtextViewRatingDesc.getText()).length() > 0) {
+                    mtextViewRatingDesc.setError(null);
                 } else {
-                    textInputEditTextTitle.setError("Title can't be blank");
+                    mtextViewRatingDesc.setError("Review can't be blank");
                 }
             }
 
@@ -124,20 +124,28 @@ public class ReviewNewFragment extends Fragment implements IsToolbarSetter, Revi
             }
         });
 
-        reviewNewPresenter = new ReviewPresenterImpl(this);
+        reviewNewPresenter = new ReviewPresenterImpl(getActivity(), this);
 
         mButtonSubmitReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String title = textInputEditTextTitle.getText().toString();
-                float rating = mRatingBar.getRating();
-                String message = textInputEditTextReviewMessage.getText().toString();
+                int score = (int) mRatingBar.getRating();
+                String comment = textInputEditTextReviewMessage.getText().toString();
 
 
-                if (title.equals("") || message.equals("")) {
+                if (comment.equals("")) {
                     Toast.makeText(getActivity(), "Title and Message can't be blank", Toast.LENGTH_LONG).show();
                 } else {
-                    reviewNewPresenter.setReviewNew(title, rating, message);
+                    reviewNewPresenter.postReview(score, comment, "teamBlack", mParentArg);
+                    try {
+
+
+                        // Then just use the following:
+                        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                    } catch (Exception e) {
+                        // TODO: handle exception
+                    }
                 }
             }
         });
@@ -177,10 +185,11 @@ public class ReviewNewFragment extends Fragment implements IsToolbarSetter, Revi
     }
 
     @Override
-    public void afterSubmit() {
+    public void afterSubmit(String successToast) {
+        getFragmentManager().popBackStack();
         TourFragment.TourFragmentListener TourFragmentListener = (TourFragment.TourFragmentListener) getActivity();
         Objects.requireNonNull(TourFragmentListener).transitionToTourFragment(bundle);
-        Toast.makeText(getActivity(), "Thank you for reviewing our tour", Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), successToast, Toast.LENGTH_LONG).show();
     }
 
     public interface ReviewNewFragmentListener {

@@ -2,6 +2,7 @@ package com.explore.features.reviewnew.domain;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
@@ -42,6 +43,13 @@ public class ReviewDomain {
     public ReviewDomain(@NonNull String id, @NonNull String tourPackageId, String comment, int score, String username) {
         this.id = id;
         this.tourPackageId = tourPackageId;
+        this.comment = comment;
+        this.score = score;
+        this.username = username;
+    }
+
+    @Ignore
+    public ReviewDomain(int score, String comment, String username) {
         this.comment = comment;
         this.score = score;
         this.username = username;

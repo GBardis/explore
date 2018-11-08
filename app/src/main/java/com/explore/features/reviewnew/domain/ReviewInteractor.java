@@ -9,11 +9,11 @@ public interface ReviewInteractor {
 
     void getReviewList(PresenterObserver presenterObserver, Context context, String tourPackageId);
 
-    void setReviewNew(ReviewInteractor.OnReviewSubmitListener onReviewSubmitListener, ReviewNewUI reviewNewUI);
+    void postReview(ReviewInteractor.OnReviewSubmitListener onReviewSubmitListener, ReviewNewUI reviewNewUI, String tourPackageId);
 
     interface OnReviewSubmitListener {
 
-        void onSuccess();
+        void onSuccess(String successToast);
 
         void onFailure();
     }

@@ -38,7 +38,7 @@ public class ReviewInteractorImpl implements ReviewInteractor {
                 reviewDomainList = reviewDao.getReviews(tourPackageId);
 
 
-                if (reviewDomainList.isEmpty()) {
+                if (true) {
                     Call<List<ReviewResponse>> reviewResponseCall = RestClient.call().fetchReviews(tourPackageId);
                     reviewResponseCall.enqueue(new Callback<List<ReviewResponse>>() {
                         //
@@ -65,7 +65,7 @@ public class ReviewInteractorImpl implements ReviewInteractor {
                                         tourResponse.getUsername()
                                 ));
                             }
-                            insertReviewsListToDb(reviewDomainList);
+//                            insertReviewsListToDb(reviewDomainList);
                             Timber.tag("INTERACTOR_REVIEW").d("Serving from API!");
                             observableReviewList.changeDataset(reviewDomainList);
                         }
@@ -88,8 +88,19 @@ public class ReviewInteractorImpl implements ReviewInteractor {
     }
 
     @Override
-    public void setReviewNew(ReviewInteractor.OnReviewSubmitListener onReviewSubmitListener, ReviewNewUI reviewNewUI) {
-        //Database Call
-        onReviewSubmitListener.onSuccess();
+    public void postReview(final ReviewInteractor.OnReviewSubmitListener onReviewSubmitListener, ReviewNewUI reviewNewUI, String tourPackageId) {
+
+        Call<Void> call = RestClient.call().postReview(tourPackageId, new ReviewDomain(reviewNewUI.getScore(), reviewNewUI.getComment(), reviewNewUI.getUsername()));
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                onReviewSubmitListener.onSuccess("Your review is saved");
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Timber.tag("MY_EXCEPTION").d(t.toString());
+            }
+        });
     }
 }

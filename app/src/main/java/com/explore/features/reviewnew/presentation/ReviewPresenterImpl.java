@@ -1,5 +1,7 @@
 package com.explore.features.reviewnew.presentation;
 
+import android.content.Context;
+
 import com.explore.base.PresenterObserver;
 import com.explore.features.reviewnew.data.ReviewInteractorImpl;
 import com.explore.features.reviewnew.domain.ReviewInteractor;
@@ -12,19 +14,22 @@ public class ReviewPresenterImpl extends PresenterObserver implements ReviewPres
 
     @Getter
     @Setter
-    private ReviewNewView reviewNewView;
+    private ReviewNewView mReviewNewView;
     @Getter
     @Setter
-    private ReviewInteractor reviewInteractor;
+    private ReviewInteractor mReviewInteractor;
 
-    public ReviewPresenterImpl(ReviewNewView reviewNewView) {
-        this.reviewNewView = reviewNewView;
-        this.reviewInteractor = new ReviewInteractorImpl();
+    private Context context;
+
+    public ReviewPresenterImpl(Context context, ReviewNewView reviewNewView) {
+        this.mReviewNewView = reviewNewView;
+        this.mReviewInteractor = new ReviewInteractorImpl();
+        this.context = context;
     }
 
     @Override
-    public void onSuccess() {
-        reviewNewView.afterSubmit();
+    public void onSuccess(String successToast) {
+        mReviewNewView.afterSubmit(successToast);
     }
 
     @Override
@@ -33,7 +38,7 @@ public class ReviewPresenterImpl extends PresenterObserver implements ReviewPres
     }
 
     @Override
-    public void setReviewNew(String title, float rating, String message) {
-        getReviewInteractor().setReviewNew(this, new ReviewNewUI(title, message, rating));
+    public void postReview(int score, String comment, String username, String tourPackageId) {
+        mReviewInteractor.postReview(this, new ReviewNewUI(score, comment, username), tourPackageId);
     }
 }

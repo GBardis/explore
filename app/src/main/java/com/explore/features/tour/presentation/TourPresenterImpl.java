@@ -86,8 +86,8 @@ public class TourPresenterImpl extends PresenterObserver implements TourPresente
         for (ReviewDomain rvDomain : (List<ReviewDomain>) o) {
             reviewUIArrayList.add(new ReviewUI(
                     rvDomain.getId(),
-                    rvDomain.getComment(),
                     rvDomain.getScore(),
+                    rvDomain.getComment(),
                     rvDomain.getUsername()
             ));
         }

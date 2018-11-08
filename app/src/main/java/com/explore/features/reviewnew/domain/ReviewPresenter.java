@@ -2,5 +2,5 @@ package com.explore.features.reviewnew.domain;
 
 public interface ReviewPresenter {
 
-    void setReviewNew(String title, float rating, String message);
+    void postReview(int score, String comment, String username, String tourPackageId);
 }

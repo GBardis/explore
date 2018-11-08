@@ -1,5 +1,5 @@
 package com.explore.features.reviewnew.presentation;
 
 public interface ReviewNewView {
-    void afterSubmit();
+    void afterSubmit(String successToast);
 }
