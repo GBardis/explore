@@ -41,16 +41,16 @@ public class ReviewInteractorImpl implements ReviewInteractor {
                 if (reviewDomainList.isEmpty()) {
                     Call<List<ReviewResponse>> reviewResponseCall = RestClient.call().fetchReviews(tourPackageId);
                     reviewResponseCall.enqueue(new Callback<List<ReviewResponse>>() {
-//
-//                        private void insertReviewsListToDb(final List<ReviewDomain> responseList) {
-//                            Timber.tag("INTERACTOR_TOUR").d("Inserting data into DB");
-//                            AsyncTask.execute(new Runnable() {
-//                                @Override
-//                                public void run() {
-//                                    reviewDao.insertTours(responseList);
-//                                }
-//                            });
-//                        }
+                        //
+                        private void insertReviewsListToDb(final List<ReviewDomain> responseList) {
+                            Timber.tag("INTERACTOR_TOUR").d("Inserting data into DB");
+                            AsyncTask.execute(new Runnable() {
+                                @Override
+                                public void run() {
+                                    reviewDao.insertReviews(responseList);
+                                }
+                            });
+                        }
 
 
                         @Override
@@ -65,7 +65,7 @@ public class ReviewInteractorImpl implements ReviewInteractor {
                                         tourResponse.getUsername()
                                 ));
                             }
-//                            insertTourListToDb(tourDomainList);
+                            insertReviewsListToDb(reviewDomainList);
                             Timber.tag("INTERACTOR_REVIEW").d("Serving from API!");
                             observableReviewList.changeDataset(reviewDomainList);
                         }
