@@ -31,7 +31,7 @@ public class ReviewRvAdapter extends RecyclerView.Adapter<ReviewRvAdapter.Review
 
         public ReviewViewHolder(View v) {
             super(v);
-            ButterKnife.bind(this,v);
+            ButterKnife.bind(this, v);
         }
     }
 
@@ -43,15 +43,15 @@ public class ReviewRvAdapter extends RecyclerView.Adapter<ReviewRvAdapter.Review
     @Override
     public ReviewViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.tour_review_view_item,viewGroup,false);
+                .inflate(R.layout.tour_review_view_item, viewGroup, false);
 
         return new ReviewViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ReviewViewHolder reviewViewHolder, int i) {
-        reviewViewHolder.mTextViewReviewTitle.setText(mReviewUIDataset.get(i).getReviewTitle());
-        reviewViewHolder.mTextViewReviewText.setText(mReviewUIDataset.get(i).getReviewText());
+        reviewViewHolder.mTextViewReviewTitle.setText(mReviewUIDataset.get(i).getUsername());
+        reviewViewHolder.mTextViewReviewText.setText(mReviewUIDataset.get(i).getComment());
     }
 
     @Override

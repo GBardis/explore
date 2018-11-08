@@ -12,20 +12,20 @@ public class ReviewUI {
 
     @Setter
     @Getter
-    private String reviewTitle;
+    private String comment;
 
     @Setter
     @Getter
-    private double reviewScore;
+    private int score;
 
     @Getter
     @Setter
-    private String reviewText;
+    private String username;
 
-    public ReviewUI(String id, String reviewTitle, double reviewScore, String reviewText) {
+    public ReviewUI(String id, String comment, int score, String username) {
         this.id = id;
-        this.reviewTitle = reviewTitle;
-        this.reviewScore = reviewScore;
-        this.reviewText = reviewText;
+        this.comment = comment;
+        this.score = score;
+        this.username = username;
     }
 }

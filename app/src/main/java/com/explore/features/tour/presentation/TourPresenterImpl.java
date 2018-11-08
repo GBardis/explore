@@ -3,17 +3,18 @@ package com.explore.features.tour.presentation;
 import android.content.Context;
 
 import com.explore.features.reviewnew.data.ReviewInteractorImpl;
+import com.explore.features.reviewnew.domain.ReviewDomain;
 import com.explore.features.reviewnew.domain.ReviewInteractor;
 import com.explore.features.reviewnew.observers.ReviewObservable;
-import com.explore.features.tour.domain.ReviewUI;
-import com.explore.features.tour.observers.TourObservable;
 import com.explore.features.tour.data.TourInteractorImpl;
+import com.explore.features.tour.domain.ReviewUI;
 import com.explore.features.tour.domain.TourDomain;
 import com.explore.features.tour.domain.TourInteractor;
 import com.explore.features.tour.domain.TourPackageUI;
 import com.explore.features.tour.domain.TourPresenter;
 import com.explore.features.tour.domain.TourUI;
 import com.explore.features.tour.domain.TourView;
+import com.explore.features.tour.observers.TourObservable;
 import com.explore.features.tourpackage.PresenterObserver;
 import com.explore.features.tourpackage.data.TourPackageInteractorImpl;
 import com.explore.features.tourpackage.data.TourPackageObservable;
@@ -57,8 +58,8 @@ public class TourPresenterImpl extends PresenterObserver implements TourPresente
     }
 
     @Override
-    public void getTourPackageReviews(Context context,String tourPackageId) {
-        mReviewInteractor.getReviewList(this, context,tourPackageId);
+    public void getTourPackageReviews(Context context, String tourPackageId) {
+        mReviewInteractor.getReviewList(this, context, tourPackageId);
     }
 
     // TODO: implement observer pattern for review list
@@ -79,9 +80,19 @@ public class TourPresenterImpl extends PresenterObserver implements TourPresente
 //    }
 
     @Override
-    public void updateReviewsList(ReviewObservable reviewObservable,Object o ){
+    public void updateReviewsList(ReviewObservable reviewObservable, Object o) {
         ArrayList<ReviewUI> reviewUIArrayList = new ArrayList<>();
 
+        for (ReviewDomain rvDomain : (List<ReviewDomain>) o) {
+            reviewUIArrayList.add(new ReviewUI(
+                    rvDomain.getId(),
+                    rvDomain.getComment(),
+                    rvDomain.getScore(),
+                    rvDomain.getUsername()
+            ));
+        }
+
+        mTourView.showTourPackageReviewList(reviewUIArrayList);
     }
 
 

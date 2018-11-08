@@ -7,13 +7,10 @@ public class ReviewResponse {
 
     @Getter
     @Setter
-    private String id;
-    @Getter
-    @Setter
     private String comment;
     @Getter
     @Setter
-    private String score;
+    private int score;
     @Getter
     @Setter
     private String username;

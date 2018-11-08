@@ -1,6 +1,7 @@
 package com.explore.rest;
 
 import com.explore.features.user.domain.UserDomain;
+import com.explore.rest.responses.ReviewResponse;
 import com.explore.rest.responses.TourPackageResponse;
 import com.explore.rest.responses.TourResponse;
 import com.explore.rest.responses.UserResponse;
@@ -23,4 +24,7 @@ public interface RestAPI {
 
     @GET("tourPackages/{id}/tours")
     Call<List<TourResponse>> fetchTours(@Path("id") String tourPackageId);
+
+    @GET("tourPackages/{id}/reviews")
+    Call<List<ReviewResponse>> fetchReviews(@Path("id") String tourPackageId);
 }

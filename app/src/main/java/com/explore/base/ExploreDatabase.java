@@ -5,6 +5,8 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
+import com.explore.features.reviewnew.data.ReviewDao;
+import com.explore.features.reviewnew.domain.ReviewDomain;
 import com.explore.features.tour.data.TourDao;
 import com.explore.features.tour.domain.TourDomain;
 import com.explore.features.tourpackage.data.TourPackageDao;
@@ -12,7 +14,7 @@ import com.explore.features.tourpackage.domain.TourPackageDomain;
 import com.explore.features.user.data.UserDao;
 import com.explore.features.user.domain.UserDomain;
 
-@Database(entities = {UserDomain.class, TourPackageDomain.class,TourDomain.class}, version = 1, exportSchema = false)
+@Database(entities = {UserDomain.class, TourPackageDomain.class, TourDomain.class, ReviewDomain.class}, version = 1, exportSchema = false)
 abstract public class ExploreDatabase extends RoomDatabase {
 
     public abstract UserDao userDao();
@@ -20,6 +22,8 @@ abstract public class ExploreDatabase extends RoomDatabase {
     public abstract TourPackageDao tourPackageDao();
 
     public abstract TourDao tourDao();
+
+    public abstract ReviewDao reviewDao();
 
     static private ExploreDatabase INSTANCE;
 

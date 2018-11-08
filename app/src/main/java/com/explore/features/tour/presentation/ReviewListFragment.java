@@ -48,12 +48,12 @@ public class ReviewListFragment extends Fragment implements TourView {
         View v = inflater.inflate(R.layout.fragment_review_list, container, false);
         ButterKnife.bind(this, v);
 
-        if (getArguments() != null){
+        if (getArguments() != null) {
             mParentArg = getArguments().getString("TOUR_PACKAGE_ID");
         }
 
-        mTourPresenter = new TourPresenterImpl(getActivity(),this);
-        mTourPresenter.getTourPackageReviews(mParentArg);
+        mTourPresenter = new TourPresenterImpl(getActivity(), this);
+        mTourPresenter.getTourPackageReviews(getActivity(), mParentArg);
 
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
