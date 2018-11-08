@@ -136,6 +136,7 @@ public class ReviewNewFragment extends Fragment implements IsToolbarSetter, Revi
                 if (comment.equals("")) {
                     Toast.makeText(getActivity(), "Title and Message can't be blank", Toast.LENGTH_LONG).show();
                 } else {
+                    // TODO: change this with normal username when it's active
                     reviewNewPresenter.postReview(score, comment, "teamBlack", mParentArg);
                     try {
 
