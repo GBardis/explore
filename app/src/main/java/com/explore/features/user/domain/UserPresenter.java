@@ -7,4 +7,6 @@ public interface UserPresenter {
     void getUserList();
 
     void getUser(String userEmail, String passWord, Context context);
+
+    void findLoggedInUser(Context context);
 }

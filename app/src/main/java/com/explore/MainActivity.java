@@ -1,6 +1,8 @@
 package com.explore;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -10,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 
 import com.explore.features.login.LoginFragment;
 import com.explore.features.reviewnew.presentation.ReviewNewFragment;
@@ -21,6 +24,7 @@ import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         TourFragment.TourFragmentListener, ReviewNewFragment.ReviewNewFragmentListener,
@@ -36,6 +40,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+        if (BuildConfig.DEBUG) {
+            Timber.uprootAll();
+            Timber.plant(new Timber.DebugTree());
+        }
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
@@ -55,8 +65,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .commit();
     }
 
-    public void setActivityToolbarTitle(String title) {
-        Objects.requireNonNull(getSupportActionBar()).setTitle(title);
+    public void setActivityToolbarTitle(final String title) {
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                Objects.requireNonNull(getSupportActionBar()).setTitle(title);
+            }
+        });
     }
 
     @Override

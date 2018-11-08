@@ -27,4 +27,7 @@ public class TourPackageResponse {
     @SerializedName("id")
     @Expose
     public String id;
+    @Getter
+    @Setter
+    private String placeId;
 }

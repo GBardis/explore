@@ -89,9 +89,8 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
 
         bundle.putString("TOUR_PACKAGE_ID", mParentArg);
 
-
-        mTourPresenter = new TourPresenterImpl(this);
-        mTourPresenter.getTourPackage(bundle.getString("TOUR_PACKAGE_ID"));
+        mTourPresenter = new TourPresenterImpl(getActivity(), this);
+        mTourPresenter.getTourPackage(getActivity(), bundle.getString("TOUR_PACKAGE_ID"));
         tourFragmentPagerAdapter = new TourFragmentPagerAdapter(getChildFragmentManager(), getActivity(), bundle);
 
         tourTabLayout.setupWithViewPager(tourViewPager);
@@ -130,7 +129,8 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
     }
 
     @Override
-    public void setToolbarTitle(Activity activity, String title) {
+    public void setToolbarTitle(final Activity activity, final String title) {
+        // https://stackoverflow.com/questions/12850143/android-basics-running-code-in-the-ui-thread
         ((MainActivity) activity).setActivityToolbarTitle(title);
     }
 

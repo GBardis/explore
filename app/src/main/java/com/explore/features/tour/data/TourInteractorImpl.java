@@ -1,33 +1,91 @@
 package com.explore.features.tour.data;
 
+import android.content.Context;
+import android.os.AsyncTask;
+
+import com.explore.base.ExploreDatabase;
+import com.explore.base.PresenterObserver;
 import com.explore.features.tour.domain.TourDomain;
 import com.explore.features.tour.domain.TourInteractor;
+import com.explore.features.tour.observers.ObservableTourList;
+import com.explore.rest.RestClient;
+import com.explore.rest.responses.TourResponse;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import timber.log.Timber;
 
 public class TourInteractorImpl implements TourInteractor {
 
-    private ArrayList<TourDomain> mockTours() {
-        ArrayList<TourDomain> tourDomainArrayList = new ArrayList<>();
+    List<TourDomain> tourDomainList = new ArrayList<>();
+    ObservableTourList observableTourList = new ObservableTourList();
 
-        tourDomainArrayList.add(new TourDomain("1","Acropolis Museum",4.2,"description1"));
-        tourDomainArrayList.add(new TourDomain("2","Plaka",4.1,"description2"));
-        tourDomainArrayList.add(new TourDomain("3","Monastiraki",3,"description3"));
-        tourDomainArrayList.add(new TourDomain("4","Syntagma Square",2.5,"description4"));
-        tourDomainArrayList.add(new TourDomain("5","Propylaia",2,"description5"));
-        tourDomainArrayList.add(new TourDomain("6","Omonoia",4.4,"description6"));
-        tourDomainArrayList.add(new TourDomain("7","sad",4.4,"description6"));
-        tourDomainArrayList.add(new TourDomain("8","dsgsd",4.4,"description6"));
-        tourDomainArrayList.add(new TourDomain("9","sdfsdf",4.4,"description6"));
-        tourDomainArrayList.add(new TourDomain("10","asdasd",4.4,"description6"));
-        tourDomainArrayList.add(new TourDomain("11","hfjf",4.4,"description6"));
-        tourDomainArrayList.add(new TourDomain("12","dgsdg",4.4,"description6"));
-        tourDomainArrayList.add(new TourDomain("13","dfghdtg",4.4,"description6"));
-        return tourDomainArrayList;
-    }
 
     @Override
-    public void getTourList(OnTourListFinishListener tourListFinishListener,String tourPackageId) {
-        tourListFinishListener.onTourListSuccess(mockTours());
+    public void getTourList(PresenterObserver presenterObserver, Context context, final String tourPackageId) {
+        final TourDao tourDao = ExploreDatabase.getDatabase(context).tourDao();
+        observableTourList.setTourDomainList(tourDomainList);
+        observableTourList.addObserver(presenterObserver);
+
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+
+                tourDomainList = tourDao.getTours(tourPackageId);
+
+
+                if (tourDomainList.isEmpty()) {
+                    Call<List<TourResponse>> tourResponseCall = RestClient.call().fetchTours(tourPackageId);
+                    tourResponseCall.enqueue(new Callback<List<TourResponse>>() {
+
+                        private void insertTourListToDb(final List<TourDomain> responseList) {
+                            Timber.tag("INTERACTOR_TOUR").d("Inserting data into DB");
+                            AsyncTask.execute(new Runnable() {
+                                @Override
+                                public void run() {
+                                    tourDao.insertTours(responseList);
+                                }
+                            });
+                        }
+
+
+                        @Override
+                        public void onResponse(Call<List<TourResponse>> call, Response<List<TourResponse>> response) {
+                            List<TourResponse> tourResponseList = response.body();
+                            for (TourResponse tourResponse : tourResponseList) {
+                                tourDomainList.add(new TourDomain(
+                                        tourResponse.getId(),
+                                        tourResponse.getTitle(),
+                                        tourResponse.getDescription(),
+                                        tourResponse.getPrice(),
+                                        tourResponse.getDuration(),
+                                        tourResponse.getBullets(),
+                                        tourResponse.getKeywords(),
+                                        tourPackageId
+                                ));
+                            }
+                            insertTourListToDb(tourDomainList);
+                            Timber.tag("INTERACTOR_TOUR").d("Serving from API!");
+                            observableTourList.changeDataset(tourDomainList);
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<TourResponse>> call, Throwable t) {
+
+                        }
+                    });
+
+
+                } else {
+                    Timber.tag("INTERACTOR_TOUR").d("Serving from Database!");
+                    observableTourList.changeDataset(tourDomainList);
+
+                }
+            }
+        });
     }
 }

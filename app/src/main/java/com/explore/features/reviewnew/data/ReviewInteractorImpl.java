@@ -1,50 +1,95 @@
 package com.explore.features.reviewnew.data;
 
+import android.content.Context;
+import android.os.AsyncTask;
+
+import com.explore.base.ExploreDatabase;
+import com.explore.base.PresenterObserver;
 import com.explore.features.reviewnew.domain.ReviewDomain;
 import com.explore.features.reviewnew.domain.ReviewInteractor;
+import com.explore.features.reviewnew.observers.ObservableReviewList;
 import com.explore.features.reviewnew.presentation.ReviewNewUI;
+import com.explore.rest.RestClient;
+import com.explore.rest.responses.ReviewResponse;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import timber.log.Timber;
 
 public class ReviewInteractorImpl implements ReviewInteractor {
+    List<ReviewDomain> reviewDomainList = new ArrayList<>();
+    ObservableReviewList observableReviewList = new ObservableReviewList();
 
     @Override
-    public void getReviewList(OnReviewListFinishListener reviewListFinishListener, String tourPackageId) {
-        Timber.d("SERVING DATA FOR TOUR_PACKAGE ID:" + tourPackageId);
-        if (tourPackageId == "2") {
-            reviewListFinishListener.onReviewListSuccess(mockReviewsList());
-        }
+    public void getReviewList(PresenterObserver presenterObserver, Context context, final String tourPackageId) {
+        final ReviewDao reviewDao = ExploreDatabase.getDatabase(context).reviewDao();
+        observableReviewList.setReviewDomainList(reviewDomainList);
+        observableReviewList.addObserver(presenterObserver);
+
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+
+                reviewDomainList = reviewDao.getReviews(tourPackageId);
+
+
+                if (reviewDomainList.isEmpty()) {
+                    Call<List<ReviewResponse>> reviewResponseCall = RestClient.call().fetchReviews(tourPackageId);
+                    reviewResponseCall.enqueue(new Callback<List<ReviewResponse>>() {
+                        //
+                        private void insertReviewsListToDb(final List<ReviewDomain> responseList) {
+                            Timber.tag("INTERACTOR_TOUR").d("Inserting data into DB");
+                            AsyncTask.execute(new Runnable() {
+                                @Override
+                                public void run() {
+                                    reviewDao.insertReviews(responseList);
+                                }
+                            });
+                        }
+
+
+                        @Override
+                        public void onResponse(Call<List<ReviewResponse>> call, Response<List<ReviewResponse>> response) {
+                            List<ReviewResponse> reviewResponseList = response.body();
+                            for (ReviewResponse tourResponse : reviewResponseList) {
+                                reviewDomainList.add(new ReviewDomain(
+                                        UUID.randomUUID().toString(),
+                                        tourPackageId,
+                                        tourResponse.getComment(),
+                                        tourResponse.getScore(),
+                                        tourResponse.getUsername()
+                                ));
+                            }
+                            insertReviewsListToDb(reviewDomainList);
+                            Timber.tag("INTERACTOR_REVIEW").d("Serving from API!");
+                            observableReviewList.changeDataset(reviewDomainList);
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<ReviewResponse>> call, Throwable t) {
+
+                        }
+                    });
+
+
+                } else {
+                    Timber.tag("INTERACTOR_REVIEW").d("Serving from Database!");
+                    observableReviewList.changeDataset(reviewDomainList);
+
+                }
+            }
+        });
+
     }
 
     @Override
     public void setReviewNew(ReviewInteractor.OnReviewSubmitListener onReviewSubmitListener, ReviewNewUI reviewNewUI) {
-        ReviewDomain reviewDomain = new ReviewDomain("1", reviewNewUI.getTitle(),
-                reviewNewUI.getRating(), reviewNewUI.getReviewMessage());
-
         //Database Call
-
         onReviewSubmitListener.onSuccess();
-    }
-
-    private ArrayList<ReviewDomain> mockReviewsList() {
-        ArrayList<ReviewDomain> reviewDomainArrayList = new ArrayList<>();
-
-        reviewDomainArrayList.add(new ReviewDomain("1", "was nice", 4.5, "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."));
-        reviewDomainArrayList.add(new ReviewDomain("2", "bad", 1.5, "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."));
-        reviewDomainArrayList.add(new ReviewDomain("3", "good", 3.5, "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."));
-        reviewDomainArrayList.add(new ReviewDomain("4", "is nice", 3.0, "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."));
-        reviewDomainArrayList.add(new ReviewDomain("5", "you should go", 4.0, "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."));
-        reviewDomainArrayList.add(new ReviewDomain("6", "you shouldn't go", 2.0, "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."));
-        reviewDomainArrayList.add(new ReviewDomain("7", "bad", 1.0, "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."));
-        reviewDomainArrayList.add(new ReviewDomain("8", "the best", 5.0, "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."));
-        reviewDomainArrayList.add(new ReviewDomain("9", "don't go", 1.8, "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."));
-        reviewDomainArrayList.add(new ReviewDomain("10", "recommended", 4.0, "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."));
-        reviewDomainArrayList.add(new ReviewDomain("11", "i had fun", 4.0, "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."));
-        reviewDomainArrayList.add(new ReviewDomain("12", "was fun", 3.5, "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."));
-        reviewDomainArrayList.add(new ReviewDomain("13", "i wont go again", 1.0, "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."));
-
-        return reviewDomainArrayList;
     }
 }

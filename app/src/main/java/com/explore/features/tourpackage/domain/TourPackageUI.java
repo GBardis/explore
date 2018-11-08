@@ -26,13 +26,23 @@ public class TourPackageUI {
     @Setter
     private String placeId;
 
-    public TourPackageUI(String name, String region, Double avgRating, String placeId) {
+    public TourPackageUI(String id, String name, String region, Double avgRating, String placeId) {
+        this.id = id;
         this.name = name;
         this.region = region;
         this.ratingColor = findRatingColor(avgRating);
         this.regionColor = findRegionColor(region);
         this.avgRating = avgRating;
         this.placeId = placeId;
+    }
+
+    public TourPackageUI(String id, String name, String region, Double avgRating) {
+        this.id = id;
+        this.name = name;
+        this.region = region;
+        this.ratingColor = findRatingColor(avgRating);
+        this.regionColor = findRegionColor(region);
+        this.avgRating = avgRating;
     }
 
     private String findRatingColor(Double avgRating) {
