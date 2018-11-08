@@ -22,12 +22,15 @@ public class TourPackageDomain {
     @Getter
     @Setter
     public String region;
+    @Getter
+    @Setter
+    public String placeId;
 
-    public TourPackageDomain(@NonNull String id, String name, Double rating, String region) {
+    public TourPackageDomain(@NonNull String id, String name, Double rating, String region, String placeId) {
         this.id = id;
         this.name = name;
         this.rating = rating;
         this.region = region;
-
+        this.placeId = placeId;
     }
 }

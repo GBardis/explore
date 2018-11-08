@@ -1,6 +1,8 @@
 package com.explore.features.tourpackage.presentation;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 
 import com.explore.features.tourpackage.PresenterObserver;
 import com.explore.features.tourpackage.data.TourPackageInteractorImpl;
@@ -25,6 +27,8 @@ public class TourPackagePresenterImpl extends PresenterObserver implements TourP
     @Setter
     TourPackageInteractor tourPackageIteractor;
 
+    List<TourPackageUI> tourPackageUIList;
+
     public TourPackagePresenterImpl(TourPackageView tourPackageView) {
         this.tourPackageView = tourPackageView;
         this.tourPackageIteractor = new TourPackageInteractorImpl();
@@ -37,18 +41,26 @@ public class TourPackagePresenterImpl extends PresenterObserver implements TourP
 
 
     @Override
-    public void updateTourPackageList(TourPackageObservable tourPackageObservable, Object o) {
-        List<TourPackageUI> tourPackageUIList = new ArrayList<>();
+    public void updateTourPackageList(TourPackageObservable tourPackageObservable, final Object o) {
+
+        tourPackageUIList = new ArrayList<>();
         for (TourPackageDomain tourPackageDomain : (List<TourPackageDomain>) o) {
             TourPackageUI tourPackageUI = new TourPackageUI(
                     tourPackageDomain.getId(),
                     tourPackageDomain.getName(),
                     tourPackageDomain.getRegion(),
-                    tourPackageDomain.getRating()
+                    tourPackageDomain.getRating(),
+                    tourPackageDomain.getPlaceId()
             );
             tourPackageUIList.add(tourPackageUI);
         }
-        getTourPackageView().showTourPackages(tourPackageUIList);
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                getTourPackageView().showTourPackages(tourPackageUIList);
+            }
+        });
+
     }
 
     public TourPackagePresenterImpl() {
