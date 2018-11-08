@@ -2,6 +2,7 @@ package com.explore.features.tour.presentation;
 
 import android.content.Context;
 
+import com.explore.base.PresenterObserver;
 import com.explore.features.reviewnew.data.ReviewInteractorImpl;
 import com.explore.features.reviewnew.domain.ReviewDomain;
 import com.explore.features.reviewnew.domain.ReviewInteractor;
@@ -15,7 +16,6 @@ import com.explore.features.tour.domain.TourPresenter;
 import com.explore.features.tour.domain.TourUI;
 import com.explore.features.tour.domain.TourView;
 import com.explore.features.tour.observers.TourObservable;
-import com.explore.features.tourpackage.PresenterObserver;
 import com.explore.features.tourpackage.data.TourPackageInteractorImpl;
 import com.explore.features.tourpackage.data.TourPackageObservable;
 import com.explore.features.tourpackage.domain.TourPackageDomain;

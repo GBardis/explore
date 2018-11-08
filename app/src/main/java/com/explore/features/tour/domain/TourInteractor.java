@@ -2,7 +2,7 @@ package com.explore.features.tour.domain;
 
 import android.content.Context;
 
-import com.explore.features.tourpackage.PresenterObserver;
+import com.explore.base.PresenterObserver;
 
 public interface TourInteractor {
 

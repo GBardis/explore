@@ -2,10 +2,8 @@ package com.explore.features.reviewnew.domain;
 
 import android.content.Context;
 
+import com.explore.base.PresenterObserver;
 import com.explore.features.reviewnew.presentation.ReviewNewUI;
-import com.explore.features.tourpackage.PresenterObserver;
-
-import java.util.ArrayList;
 
 public interface ReviewInteractor {
 

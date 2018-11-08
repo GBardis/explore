@@ -1,4 +1,4 @@
-package com.explore.features.tourpackage;
+package com.explore.base;
 
 import com.explore.features.reviewnew.observers.ReviewObservable;
 import com.explore.features.reviewnew.observers.ReviewObserver;
@@ -19,7 +19,7 @@ public abstract class PresenterObserver implements TourPackageObserver, TourObse
     }
 
     @Override
-    public void updateReviewsList(ReviewObservable reviewObservable,Object o){
+    public void updateReviewsList(ReviewObservable reviewObservable, Object o) {
 
     }
 

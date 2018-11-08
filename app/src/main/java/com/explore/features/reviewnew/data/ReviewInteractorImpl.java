@@ -4,11 +4,11 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import com.explore.base.ExploreDatabase;
+import com.explore.base.PresenterObserver;
 import com.explore.features.reviewnew.domain.ReviewDomain;
 import com.explore.features.reviewnew.domain.ReviewInteractor;
 import com.explore.features.reviewnew.observers.ObservableReviewList;
 import com.explore.features.reviewnew.presentation.ReviewNewUI;
-import com.explore.features.tourpackage.PresenterObserver;
 import com.explore.rest.RestClient;
 import com.explore.rest.responses.ReviewResponse;
 

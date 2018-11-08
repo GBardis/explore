@@ -2,7 +2,7 @@ package com.explore.features.tourpackage.presentation;
 
 import android.content.Context;
 
-import com.explore.features.tourpackage.PresenterObserver;
+import com.explore.base.PresenterObserver;
 import com.explore.features.tourpackage.data.TourPackageInteractorImpl;
 import com.explore.features.tourpackage.data.TourPackageObservable;
 import com.explore.features.tourpackage.domain.TourPackageDomain;
