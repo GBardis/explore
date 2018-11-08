@@ -12,7 +12,7 @@ import com.explore.features.tourpackage.domain.TourPackageDomain;
 import com.explore.features.user.data.UserDao;
 import com.explore.features.user.domain.UserDomain;
 
-@Database(entities = {UserDomain.class, TourPackageDomain.class,TourDomain.class}, version = 1, exportSchema = false)
+@Database(entities = {UserDomain.class, TourPackageDomain.class, TourDomain.class}, version = 1, exportSchema = false)
 abstract public class ExploreDatabase extends RoomDatabase {
 
     public abstract UserDao userDao();
