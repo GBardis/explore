@@ -22,7 +22,6 @@ public interface RestAPI {
     @GET("tourPackages")
     Call<List<TourPackageResponse>> fetchTourPackages();
 
-
     @GET("users")
     Call<List<UserResponse>> fetchUsers();
 

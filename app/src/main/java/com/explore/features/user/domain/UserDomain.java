@@ -12,6 +12,7 @@ import lombok.Setter;
 public class UserDomain {
     @NonNull
     @PrimaryKey
+    @Getter
     public int userId;
     @Getter
     @Setter

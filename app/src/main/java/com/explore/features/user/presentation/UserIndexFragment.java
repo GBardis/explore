@@ -48,7 +48,7 @@ public class UserIndexFragment extends Fragment implements UserView {
                 DividerItemDecoration.VERTICAL));
 
         userPresenter = new UserPresenterImpl(this);
-        userPresenter.getUserList();
+        userPresenter.getUserList(getActivity());
         return v;
     }
 
@@ -60,13 +60,8 @@ public class UserIndexFragment extends Fragment implements UserView {
     }
 
     @Override
-    public void showUserProfile(List<UserUI> userUIList) {
-
-    }
-
-    @Override
     public void skpiLogin() {
-        
+
     }
 
     @Override

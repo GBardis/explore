@@ -6,8 +6,6 @@ public interface UserView {
 
     void showUserList(List<UserUI> userUIList);
 
-    void showUserProfile(List<UserUI> userUIList);
-
     void skpiLogin();
 
     void showLoginError(String message);

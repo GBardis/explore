@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface UserInteractor {
 
-    void getUsers(OnUserListFinishListener onUserListFinishListener);
+    void getUsers(PresenterObserver presenterObserver, Context context);
 
     void getUser(PresenterObserver presenterObserver, String userName, String passWord, Context context);
 

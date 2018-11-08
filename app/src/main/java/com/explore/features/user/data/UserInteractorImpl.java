@@ -25,16 +25,50 @@ public class UserInteractorImpl implements UserInteractor {
     private List<UserDomain> userDomainList = new ArrayList<>();
     private boolean isLoggedInUser = false;
 
+
     @Override
-    public void getUsers(OnUserListFinishListener onUserListFinishListener) {
-//        List<UserDomain> userDomainList = new ArrayList<>();
-//        userDomainList.add(new UserDomain("George12", "George", "Bardis", "email@email.com", "galatsi", 25));
-//        userDomainList.add(new UserDomain("Giannhs32", "Giannhs", "Bardis", "email@email.com", "galatsi", 35));
-//        userDomainList.add(new UserDomain("Makis324", "Makis", "Bardis", "email@email.com", "galatsi", 15));
-//        userDomainList.add(new UserDomain("Stauros345", "Stauros", "Bardis", "email@email.com", "galatsi", 25));
-//        userDomainList.add(new UserDomain("Spuros345", "Spuros", "Bardis", "email@email.com", "galatsi", 25));
-//        userDomainList.add(new UserDomain("Nikos3", "Nikos", "Bardis", "email@email.com", "galatsi", 25));
-//        onUserListFinishListener.onSuccess(userDomainList);
+    public void getUsers(PresenterObserver presenterObserver, Context context) {
+        final UserDao userDao = ExploreDatabase.getDatabase(context).userDao();
+        observableUserList.setUserDomainList(userDomainList);
+        observableUserList.addObserver(presenterObserver);
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                userDomainList = userDao.getAllUsers();
+                if (userDomainList.size() <= 1) {
+                    userDomainList.clear();
+                    Call<List<UserResponse>> call = RestClient.call().fetchUsers();
+                    call.enqueue(new Callback<List<UserResponse>>() {
+                        @Override
+                        public void onResponse(@NonNull Call<List<UserResponse>> call, @NonNull Response<List<UserResponse>> response) {
+                            List<UserResponse> userResponseList = response.body();
+                            for (UserResponse userResponse : userResponseList) {
+                                userDomainList.add(new UserDomain(userResponse.getId(),
+                                        Objects.requireNonNull(userResponse).getUsername(),
+                                        userResponse.getFirstName(), userResponse.getLastName(),
+                                        userResponse.getEmail(), userResponse.getAddress(),
+                                        userResponse.getAge(),
+                                        true));
+                            }
+                            AsyncTask.execute(new Runnable() {
+                                @Override
+                                public void run() {
+                                    userDao.updateUsers(userDomainList, ExploreApplication.getCurrentUser().getUserId());
+                                }
+                            });
+                            observableUserList.changeDataset(userDomainList);
+                        }
+
+                        @Override
+                        public void onFailure(@NonNull Call<List<UserResponse>> call, @NonNull Throwable t) {
+
+                        }
+                    });
+                } else {
+                    observableUserList.changeDataset(userDomainList);
+                }
+            }
+        });
     }
 
     @Override

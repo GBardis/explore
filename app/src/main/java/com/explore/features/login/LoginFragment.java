@@ -100,11 +100,6 @@ public class LoginFragment extends Fragment implements UserView, IsToolbarSetter
 
     @Override
     public void showUserList(List<UserUI> userUIList) {
-
-    }
-
-    @Override
-    public void showUserProfile(List<UserUI> userUIList) {
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
