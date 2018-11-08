@@ -111,7 +111,7 @@ public class LoginFragment extends Fragment implements UserView, IsToolbarSetter
     }
 
     @Override
-    public void skpiLogin() {
+    public void skipLogin() {
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {

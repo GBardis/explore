@@ -60,7 +60,7 @@ public class UserIndexFragment extends Fragment implements UserView {
     }
 
     @Override
-    public void skpiLogin() {
+    public void skipLogin() {
 
     }
 

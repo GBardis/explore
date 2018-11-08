@@ -66,9 +66,10 @@ public class UserProfileFragment extends Fragment implements UserView {
     }
 
     @Override
-    public void skpiLogin() {
+    public void skipLogin() {
 
     }
+
 
     @Override
     public void showLoginError(String message) {

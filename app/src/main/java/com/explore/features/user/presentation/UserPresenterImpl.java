@@ -73,6 +73,6 @@ public class UserPresenterImpl extends PresenterObserver implements UserPresente
 
     @Override
     public void onSuccess(boolean isLoggedIn) {
-        getUserView().skpiLogin();
+        getUserView().skipLogin();
     }
 }
