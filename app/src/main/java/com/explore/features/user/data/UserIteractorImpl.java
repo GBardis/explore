@@ -81,51 +81,6 @@ public class UserIteractorImpl implements UserIteractor {
                 }
             }
         });
-
-//        AsyncTask.execute(new Runnable() {
-//            @Override
-//            public void run() {
-//                final UserDao userDao = ExploreDatabase.getDatabase(context).userDao();
-//                UserDomain userDomain = userDao.findByUsername(userName);
-//                if (userDomain == null) {
-//                    Call<UserResponse> call = RestClient.call().login(new UserDomain(userName, passWord));
-//                    call.enqueue(new Callback<UserResponse>() {
-//                        @Override
-//                        public void onResponse(@NonNull Call<UserResponse> call, @NonNull Response<UserResponse> response) {
-//                            UserResponse userResponse = response.body();
-//                            if (userResponse != null) {
-//                                final UserDomain userDomain = new UserDomain(userResponse.getId(), Objects.requireNonNull(userResponse).getUsername(),
-//                                        userResponse.getFirstName(), userResponse.getLastName(),
-//                                        userResponse.getEmail(), userResponse.getAddress(),
-//                                        userResponse.getAge(),
-//                                        true);
-//
-//                                AsyncTask.execute(new Runnable() {
-//                                    @Override
-//                                    public void run() {
-//                                        userDao.insertUser(userDomain);
-//
-//                                    }
-//                                });
-//                                ExploreApplication.setCurrentUser(userDomain);
-//                                onUserFinishListener.onSuccess(userDomain);
-//                            } else {
-//                                onUserFinishListener.onFailure();
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onFailure(@NonNull Call<UserResponse> call, @NonNull Throwable t) {
-//
-//                        }
-//                    });
-//                } else {
-//                    ExploreApplication.setCurrentUser(userDomain);
-//                    onUserFinishListener.onSuccess(userDomain);
-//                }
-//            }
-//        });
-
     }
 
     @Override
