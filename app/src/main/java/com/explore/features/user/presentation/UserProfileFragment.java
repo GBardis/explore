@@ -59,7 +59,8 @@ public class UserProfileFragment extends Fragment implements UserView {
     }
 
     @Override
-    public void showUserProfile(UserUI userUI) {
+    public void showUserProfile(List<UserUI> userUIList) {
+        UserUI userUI = userUIList.get(0);
         mTextViewUserName.setText(userUI.getUserName());
         mTextViewEmail.setText(userUI.getEmail());
         mTextViewUserName.setText(userUI.getUserName());

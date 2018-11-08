@@ -58,6 +58,12 @@ public class LoginFragment extends Fragment implements UserView, IsToolbarSetter
         userPresenter = new UserPresenterImpl(this);
         userPresenter.findLoggedInUser();
 
+        if (true) {
+            ((MainActivity) getActivity()).getSupportActionBar().show();
+            TourPackageFragment.TourPackageListener tourPackageListener = (TourPackageFragment.TourPackageListener) getActivity();
+            tourPackageListener.transitionToTourPackage();
+        }
+
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
