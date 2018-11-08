@@ -1,7 +1,6 @@
 package com.explore.rest;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.widget.ImageView;
 
@@ -21,7 +20,6 @@ import java.util.Random;
 
 public class GooglePlacesApiClient implements GoogleApiClient.OnConnectionFailedListener {
     private GeoDataClient mGeoDataClient;
-    private Bitmap bitmap;
     private PlacePhotoMetadataBuffer photoMetadataBuffer;
 
     public GooglePlacesApiClient(Context context) {
@@ -29,7 +27,7 @@ public class GooglePlacesApiClient implements GoogleApiClient.OnConnectionFailed
         mGeoDataClient = Places.getGeoDataClient(context, null);
     }
 
-    public Bitmap getPhotos(final String placeId, final ImageView mTourPackagePhoto) {
+    public void getPhotos(final String placeId, final ImageView mTourPackagePhoto) {
         final Task<PlacePhotoMetadataResponse> photoMetadataResponse = mGeoDataClient.getPlacePhotos(placeId);
         photoMetadataResponse.addOnCompleteListener(new OnCompleteListener<PlacePhotoMetadataResponse>() {
             @Override
@@ -65,7 +63,6 @@ public class GooglePlacesApiClient implements GoogleApiClient.OnConnectionFailed
                 }
             }
         });
-        return bitmap;
     }
 
     @Override

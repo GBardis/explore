@@ -23,12 +23,17 @@ public interface RestAPI {
     @GET("tourPackages")
     Call<List<TourPackageResponse>> fetchTourPackages();
 
+    @GET("users")
+    Call<List<UserResponse>> fetchUsers();
+
     @GET("tourPackages/{id}/tours")
     Call<List<TourResponse>> fetchTours(@Path("id") String tourPackageId);
 
     @GET("tourPackages/{id}/reviews")
     Call<List<ReviewResponse>> fetchReviews(@Path("id") String tourPackageId);
 
+
     @POST("tourPackages/{id}/reviews")
     Call<Void> postReview(@Path("id") String tourPackageId, @Body ReviewDomain reviewDomain);
+
 }

@@ -75,7 +75,7 @@ public class TourPackageFragment extends Fragment implements TourPackageView, Is
         tourPackagesRvAdapter = new TourPackagesRvAdapter(tourPackageArrayList, new OnTourPackageClickListener() {
             @Override
             public void onTourPackageClicked(TourPackageUI tourPackageUI) {
-                bundle.putString("TOUR_PACKAGE_ID", tourPackageUI.getId());
+                bundle.putParcelable("TOUR_PACKAGE", tourPackageUI);
                 TourFragment.TourFragmentListener tourFragmentListener = (TourFragment.TourFragmentListener) getActivity();
                 tourFragmentListener.transitionToTourFragment(bundle);
             }

@@ -56,11 +56,6 @@ public class UserProfileFragment extends Fragment implements UserView {
 
     @Override
     public void showUserList(List<UserUI> userUIList) {
-
-    }
-
-    @Override
-    public void showUserProfile(List<UserUI> userUIList) {
         UserUI userUI = userUIList.get(0);
         mTextViewUserName.setText(userUI.getUserName());
         mTextViewEmail.setText(userUI.getEmail());
@@ -71,9 +66,10 @@ public class UserProfileFragment extends Fragment implements UserView {
     }
 
     @Override
-    public void skpiLogin() {
+    public void skipLogin() {
 
     }
+
 
     @Override
     public void showLoginError(String message) {

@@ -1,9 +1,12 @@
 package com.explore.features.tourpackage.domain;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import lombok.Getter;
 import lombok.Setter;
 
-public class TourPackageUI {
+public class TourPackageUI implements Parcelable {
     @Getter
     @Setter
     private String id;
@@ -49,7 +52,7 @@ public class TourPackageUI {
         if (avgRating < 2) {
             // RED
             return "#FF0000";
-        } else if (avgRating > 2 || avgRating <= 3) {
+        } else if (avgRating > 2 && avgRating <= 3) {
             // YELLOW
             return "#E3FF28";
         } else {
@@ -60,5 +63,15 @@ public class TourPackageUI {
 
     private String findRegionColor(String region) {
         return TourPackageRegion.getRegionColorValue(region);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+
     }
 }

@@ -31,8 +31,8 @@ public class UserPresenterImpl extends PresenterObserver implements UserPresente
     }
 
     @Override
-    public void getUserList() {
-        getUserIteractor().getUsers(this);
+    public void getUserList(Context context) {
+        getUserIteractor().getUsers(this, context);
 
     }
 
@@ -68,11 +68,11 @@ public class UserPresenterImpl extends PresenterObserver implements UserPresente
                     userDomain.getLastName(), userDomain.getEmail(),
                     userDomain.getAddress(), userDomain.getAge()));
         }
-        getUserView().showUserProfile(userUIList);
+        getUserView().showUserList(userUIList);
     }
 
     @Override
     public void onSuccess(boolean isLoggedIn) {
-        getUserView().skpiLogin();
+        getUserView().skipLogin();
     }
 }
