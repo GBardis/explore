@@ -17,7 +17,7 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
-public class UserPresenterImpl extends PresenterObserver implements UserPresenter, UserIteractor.OnUserFinishListener, UserIteractor.OnUserListFinishListener {
+public class UserPresenterImpl extends PresenterObserver implements UserPresenter, UserIteractor.OnUserListFinishListener {
     @Getter
     @Setter
     UserView userView;
@@ -56,20 +56,14 @@ public class UserPresenterImpl extends PresenterObserver implements UserPresente
     }
 
     @Override
-    public void onSuccess(UserDomain userDomain) {
-        getUserView().showUserProfile(new UserUI(userDomain.getUsername(), userDomain.getFirstName(), userDomain.getLastName(), userDomain.getEmail(), userDomain.getAddress(), userDomain.getAge()));
-    }
-
-    @Override
     public void onFailure() {
-        getUserView().showLoginError("Wrong Username or PassWord");
+
     }
 
     @Override
     public void updateUsersList(UserObservable userObservable, Object o) {
-        List<UserDomain> userDomainList;
-        userDomainList = (List<UserDomain>) o;
-        UserDomain userDomain = userDomainList.get(0);
-        getUserView().showUserProfile(new UserUI(userDomain.getUsername(), userDomain.getFirstName(), userDomain.getLastName(), userDomain.getEmail(), userDomain.getAddress(), userDomain.getAge()));
+        for (UserDomain userDomain : (List<UserDomain>) o) {
+            getUserView().showUserProfile(new UserUI(userDomain.getUsername(), userDomain.getFirstName(), userDomain.getLastName(), userDomain.getEmail(), userDomain.getAddress(), userDomain.getAge()));
+        }
     }
 }

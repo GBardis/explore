@@ -19,10 +19,4 @@ public interface UserIteractor {
 
         void onFailure();
     }
-
-    interface OnUserFinishListener {
-        void onSuccess(UserDomain userDomain);
-
-        void onFailure();
-    }
 }
