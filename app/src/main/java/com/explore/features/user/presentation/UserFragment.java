@@ -13,7 +13,9 @@ import android.view.ViewGroup;
 
 import com.explore.MainActivity;
 import com.explore.R;
+import com.explore.base.ExploreApplication;
 import com.explore.features.IsToolbarSetter;
+import com.explore.features.user.domain.UserDomain;
 
 import butterknife.BindString;
 import butterknife.BindView;
@@ -49,6 +51,7 @@ public class UserFragment extends Fragment implements IsToolbarSetter {
 
         // Give the TabLayout the ViewPager
         tabLayout.setupWithViewPager(viewPager);
+        UserDomain currentUser = ExploreApplication.getCurrentUser();
         return v;
     }
 

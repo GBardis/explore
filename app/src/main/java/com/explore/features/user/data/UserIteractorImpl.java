@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
+import com.explore.base.ExploreApplication;
 import com.explore.base.ExploreDatabase;
 import com.explore.features.user.domain.UserDomain;
 import com.explore.features.user.domain.UserIteractor;
@@ -54,8 +55,10 @@ public class UserIteractorImpl implements UserIteractor {
                                     @Override
                                     public void run() {
                                         userDao.insertUser(userDomain);
+
                                     }
                                 });
+                                ExploreApplication.setCurrentUser(userDomain);
                                 onUserFinishListener.onSuccess(userDomain);
                             } else {
                                 onUserFinishListener.onFailure();
@@ -68,6 +71,7 @@ public class UserIteractorImpl implements UserIteractor {
                         }
                     });
                 } else {
+                    ExploreApplication.setCurrentUser(userDomain);
                     onUserFinishListener.onSuccess(userDomain);
                 }
             }
