@@ -24,12 +24,13 @@ import com.explore.features.tour.domain.TourPackageUI;
 import com.explore.features.tour.domain.TourPresenter;
 import com.explore.features.tour.domain.TourUI;
 import com.explore.features.tour.domain.TourView;
-import com.squareup.picasso.Picasso;
+import com.explore.rest.GooglePlacesApiClient;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import lombok.Getter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,11 +60,11 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
     @BindView(R.id.image_tour_tourpackage_photo)
     ImageView mImageViewTourPackagePhoto;
 
-    private Fragment mCurrentFragment;
-    private TourPackageUI mTourPackageUI;
+    @Getter
+    private GooglePlacesApiClient googlePlacesApiClient;
 
     Bundle bundle;
-    String mParentArg;
+    com.explore.features.tourpackage.domain.TourPackageUI mParentArg;
 
     TourFragmentPagerAdapter tourFragmentPagerAdapter;
 
@@ -84,10 +85,10 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
         bundle = new Bundle();
 
         if (getArguments() != null) {
-            mParentArg = getArguments().getString("TOUR_PACKAGE_ID");
+            mParentArg = getArguments().getParcelable("TOUR_PACKAGE");
         }
 
-        bundle.putString("TOUR_PACKAGE_ID", mParentArg);
+        bundle.putString("TOUR_PACKAGE_ID", mParentArg.getId());
 
         mTourPresenter = new TourPresenterImpl(getActivity(), this);
         mTourPresenter.getTourPackage(getActivity(), bundle.getString("TOUR_PACKAGE_ID"));
@@ -104,18 +105,15 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
             }
         });
 
-
-        Picasso.get().load("https://www.interrail.eu/content/dam/mastheads/oia%20-%20greece%20-%20masthead.jpg")
-                .resize(0, 500)
-                .into(mImageViewTourPackagePhoto);
         return v;
     }
 
     @Override
     public void showTourPackage(TourPackageUI tourPackageUI) {
         setToolbarTitle(getActivity(), tourPackageUI.getName());
-
         mTextViewDescription.setText(tourPackageUI.getName());
+        googlePlacesApiClient = new GooglePlacesApiClient(getActivity());
+        googlePlacesApiClient.getPhotos(mParentArg.getPlaceId(), mImageViewTourPackagePhoto);
     }
 
     @Override

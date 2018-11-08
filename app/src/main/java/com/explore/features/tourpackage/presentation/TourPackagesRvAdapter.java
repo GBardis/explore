@@ -39,6 +39,7 @@ public class TourPackagesRvAdapter extends RecyclerView.Adapter<TourPackagesRvAd
     @Getter
     @Setter
     private Context context;
+    @Getter
     private GooglePlacesApiClient googlePlacesApiClient;
 
     TourPackagesRvAdapter(List<TourPackageUI> tourPackageList, OnTourPackageClickListener onTourPackageClickListener, Context context) {
@@ -83,15 +84,13 @@ public class TourPackagesRvAdapter extends RecyclerView.Adapter<TourPackagesRvAd
         tourPackagesViewHolder.mTourPackageAvgRating.setText(String.valueOf(tourPackageUI.getAvgRating()));
         tourPackagesViewHolder.mTourPackageAvgRating.setTextColor(Color.parseColor(tourPackageUI.getRatingColor()));
 
-        googlePlacesApiClient.getPhotos(tourPackageUI.getPlaceId(), tourPackagesViewHolder.mTourPackagePhoto);
+        getGooglePlacesApiClient().getPhotos(tourPackageUI.getPlaceId(), tourPackagesViewHolder.mTourPackagePhoto);
 
         tourPackagesViewHolder.mTourPackageRatingImage.setImageResource(R.drawable.ic_star_rate);
 
         tourPackagesViewHolder.mLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                TourFragment.TourFragmentListener tourFragmentListener = (TourFragment.TourFragmentListener) context;
-//                tourFragmentListener.transitionToTourFragment(bundle);
                 onTourPackageClickListener.onTourPackageClicked(tourPackageUI);
             }
         });
