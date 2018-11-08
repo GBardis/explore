@@ -119,7 +119,7 @@ public class TourPackageFragment extends Fragment implements TourPackageView, Is
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        //noinspection SimplifiableIfStatementka
         if (id == R.id.menu_action_search) {
             return true;
         }
