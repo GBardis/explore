@@ -45,16 +45,6 @@ public class TourPackageInteractorImpl implements TourPackageInteractor {
                     Call<List<TourPackageResponse>> tourPackageResponseCall = RestClient.call().fetchTourPackages();
                     tourPackageResponseCall.enqueue(new Callback<List<TourPackageResponse>>() {
 
-                        private void insertTourPackageListToDb(final List<TourPackageDomain> responseList) {
-                            Timber.tag("INTERACTOR_TOUR_PACKAGE").d("Inserting data into DB");
-                            AsyncTask.execute(new Runnable() {
-                                @Override
-                                public void run() {
-                                    tourPackageDao.insertTourPackages(responseList);
-                                }
-                            });
-                        }
-
                         @Override
                         public void onResponse(@NonNull Call<List<TourPackageResponse>> call, @NonNull final Response<List<TourPackageResponse>> response) {
                             AsyncTask.execute(new Runnable() {
@@ -75,6 +65,7 @@ public class TourPackageInteractorImpl implements TourPackageInteractor {
                                     }
 
                                     tourPackageDao.updateTourPackages(tourPackageDomainList);
+
                                     Timber.tag("INTERACTOR_TOUR_PACKAGE").d("Serving from API!");
                                     observableTourPackageList.changeDataset(tourPackageDomainList);
                                 }
