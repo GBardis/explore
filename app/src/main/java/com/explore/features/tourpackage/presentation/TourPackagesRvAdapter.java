@@ -56,6 +56,8 @@ public class TourPackagesRvAdapter extends RecyclerView.Adapter<TourPackagesRvAd
         TextView mTourPackageName;
         @BindView(R.id.text_tourpackage_avgrating)
         TextView mTourPackageAvgRating;
+        @BindView(R.id.text_tourpackage_region)
+        TextView mTourPackageRegion;
         @BindView(R.id.tourpackage_root)
         LinearLayout mLinearLayout;
         @BindView(R.id.image_tourpackage_photo)
@@ -83,6 +85,8 @@ public class TourPackagesRvAdapter extends RecyclerView.Adapter<TourPackagesRvAd
         tourPackagesViewHolder.mTourPackageName.setText(tourPackageUI.getName());
         tourPackagesViewHolder.mTourPackageAvgRating.setText(String.valueOf(tourPackageUI.getAvgRating()));
         tourPackagesViewHolder.mTourPackageAvgRating.setTextColor(Color.parseColor(tourPackageUI.getRatingColor()));
+        tourPackagesViewHolder.mTourPackageRegion.setText(tourPackageUI.getRegion());
+        tourPackagesViewHolder.mTourPackageRegion.setTextColor(Color.parseColor(tourPackageUI.getRegionColor()));
 
         getGooglePlacesApiClient().tourPackageHasImage(tourPackageUI, tourPackagesViewHolder.mTourPackagePhoto,context);
 

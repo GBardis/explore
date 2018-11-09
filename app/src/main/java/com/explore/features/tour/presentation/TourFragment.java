@@ -2,6 +2,7 @@ package com.explore.features.tour.presentation;
 
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -41,6 +42,11 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
 
     @BindView(R.id.text_tour_tourpackage_description)
     TextView mTextViewDescription;
+    @BindView(R.id.text_tour_tourpackage_area)
+    TextView mTextViewDArea;
+    @BindView(R.id.text_tour_tourpackage_rating)
+    TextView mTextViewDRating;
+
 
 //    @BindView(R.id.text_tour_tourpackage_rating)
 //    TextView mTextViewTourPackageRating;
@@ -111,6 +117,12 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
     public void showTourPackage(TourPackageUI tourPackageUI) {
         setToolbarTitle(getActivity(), tourPackageUI.getName());
         mTextViewDescription.setText(tourPackageUI.getName());
+
+        mTextViewDArea.setText(tourPackageUI.getArea());
+        mTextViewDArea.setTextColor(Color.parseColor(tourPackageUI.getRegionColor()));
+
+        mTextViewDRating.setText(String.valueOf(tourPackageUI.getRating()));
+        mTextViewDRating.setTextColor(Color.parseColor(tourPackageUI.getRatingColor()));
         googlePlacesApiClient = new GooglePlacesApiClient(getActivity());
         googlePlacesApiClient.tourPackageHasImage(mParentArg, mImageViewTourPackagePhoto, getActivity());
     }
