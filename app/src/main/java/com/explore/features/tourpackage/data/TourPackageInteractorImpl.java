@@ -42,7 +42,7 @@ public class TourPackageInteractorImpl implements TourPackageInteractor {
 
                 if (tourPackageDomainList.isEmpty() || userRefresh == true) {
                     tourPackageDomainList.clear();
-                    
+
 
                     Call<List<TourPackageResponse>> tourPackageResponseCall = RestClient.call().fetchTourPackages();
                     tourPackageResponseCall.enqueue(new Callback<List<TourPackageResponse>>() {
@@ -61,7 +61,7 @@ public class TourPackageInteractorImpl implements TourPackageInteractor {
                             AsyncTask.execute(new Runnable() {
                                 @Override
                                 public void run() {
-                                    tourPackageDao.nuke();
+                                    tourPackageDao.deleteAllTourPackages();
                                     tourPackageDomainList = tourPackageDao.getTourPackages();
                                 }
                             });
@@ -89,8 +89,10 @@ public class TourPackageInteractorImpl implements TourPackageInteractor {
                                     if (userRefresh == true) {
                                         emptyDb();
                                     }
-                                    int i = 9;
+
                                     insertTourPackageListToDb(tourPackageDomainList);
+                                    tourPackageDao.updateTourPackages(tourPackageDomainList);
+
                                     Timber.tag("INTERACTOR_TOUR_PACKAGE").d("Serving from API!");
                                     observableTourPackageList.changeDataset(tourPackageDomainList);
                                 }
