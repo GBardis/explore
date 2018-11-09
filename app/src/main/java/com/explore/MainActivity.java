@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @BindView(R.id.nav_view)
     NavigationView navigationView;
 
+    LoginFragment loginFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,9 +61,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         navigationView.setNavigationItemSelectedListener(this);
 
+        loginFragment = new LoginFragment();
+
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.main_fragment_container, new LoginFragment())
+                .add(R.id.main_fragment_container, loginFragment)
                 .commit();
     }
 
@@ -92,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .beginTransaction()
                 .addToBackStack(null)
                 .replace(R.id.main_fragment_container, new TourPackageFragment())
+                .remove(loginFragment)
                 .commit();
     }
 
