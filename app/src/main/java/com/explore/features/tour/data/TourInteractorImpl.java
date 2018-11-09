@@ -47,7 +47,7 @@ public class TourInteractorImpl implements TourInteractor {
                             AsyncTask.execute(new Runnable() {
                                 @Override
                                 public void run() {
-                                    tourDao.insertTours(responseList);
+                                    tourDao.updateTours(responseList);
                                 }
                             });
                         }
