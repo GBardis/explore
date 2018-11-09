@@ -61,7 +61,7 @@ public class TourPackageFragment extends Fragment implements TourPackageView, Is
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_tour_package, container, false);
         ButterKnife.bind(this, v);
-        mSwipeRefreshLayout = v.findViewById(R.id.tour_package_swipe_container);
+        mSwipeRefreshLayout = v.findViewById(R.id.swiperefresh_tour_package_list);
 
 
         bundle = new Bundle();

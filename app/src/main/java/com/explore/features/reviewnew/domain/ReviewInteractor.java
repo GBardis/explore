@@ -7,7 +7,7 @@ import com.explore.features.reviewnew.presentation.ReviewNewUI;
 
 public interface ReviewInteractor {
 
-    void getReviewList(PresenterObserver presenterObserver, Context context, String tourPackageId);
+    void getReviewList(PresenterObserver presenterObserver, Context context, String tourPackageId, boolean userRefresh);
 
     void postReview(ReviewInteractor.OnReviewSubmitListener onReviewSubmitListener, ReviewNewUI reviewNewUI, String tourPackageId);
 

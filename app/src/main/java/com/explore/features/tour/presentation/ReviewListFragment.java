@@ -4,6 +4,7 @@ package com.explore.features.tour.presentation;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -36,6 +37,8 @@ public class ReviewListFragment extends Fragment implements TourView {
 
     private com.explore.features.tourpackage.domain.TourPackageUI mParentArg;
 
+    SwipeRefreshLayout mSwipeRefreshLayout;
+
     public ReviewListFragment() {
         // Required empty public constructor
     }
@@ -52,14 +55,22 @@ public class ReviewListFragment extends Fragment implements TourView {
             mParentArg = getArguments().getParcelable("TOUR_PACKAGE");
         }
 
+        mSwipeRefreshLayout = v.findViewById(R.id.swiperefresh_tour_review_list);
+
         mTourPresenter = new TourPresenterImpl(getActivity(), this);
-        mTourPresenter.getTourPackageReviews(getActivity(), mParentArg.getId());
+        mTourPresenter.getTourPackageReviews(getActivity(), mParentArg.getId(), false);
 
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(),
                 DividerItemDecoration.VERTICAL));
 
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mTourPresenter.getTourPackageReviews(getActivity(), mParentArg.getId(), true);
+            }
+        });
         return v;
     }
 
@@ -75,6 +86,7 @@ public class ReviewListFragment extends Fragment implements TourView {
 
     @Override
     public void showTourPackageReviewList(ArrayList<ReviewUI> reviewUIArrayList) {
+        mSwipeRefreshLayout.setRefreshing(false);
         mRecyclerView.setAdapter(new ReviewRvAdapter(reviewUIArrayList));
     }
 

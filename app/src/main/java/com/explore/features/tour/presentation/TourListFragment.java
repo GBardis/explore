@@ -3,6 +3,7 @@ package com.explore.features.tour.presentation;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -37,6 +38,8 @@ public class TourListFragment extends Fragment implements TourView {
     private com.explore.features.tourpackage.domain.TourPackageUI mParentArg;
     Bundle bundle;
 
+    SwipeRefreshLayout mSwipeRefreshLayout;
+
     public TourListFragment() {
         // Required empty public constructor
     }
@@ -51,6 +54,9 @@ public class TourListFragment extends Fragment implements TourView {
 
         bundle = new Bundle();
 
+        mSwipeRefreshLayout = v.findViewById(R.id.swiperefresh_tour_list);
+
+
         if (getArguments() != null) {
             mParentArg = getArguments().getParcelable("TOUR_PACKAGE");
         }
@@ -58,12 +64,20 @@ public class TourListFragment extends Fragment implements TourView {
         bundle.putParcelable("TOUR_PACKAGE", mParentArg);
 
         mTourPresenter = new TourPresenterImpl(getActivity(), this);
-        mTourPresenter.getTourList(getActivity(), mParentArg.getId());
+        mTourPresenter.getTourList(getActivity(), mParentArg.getId(), false);
 
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(),
                 DividerItemDecoration.VERTICAL));
+
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mTourPresenter.getTourList(getActivity(), mParentArg.getId(), true);
+            }
+        });
 
         return v;
     }
@@ -76,6 +90,7 @@ public class TourListFragment extends Fragment implements TourView {
 
     @Override
     public void showTourList(ArrayList<TourUI> tourUIArrayList) {
+        mSwipeRefreshLayout.setRefreshing(false);
         mRecyclerView.setAdapter(new TourRvAdapter(tourUIArrayList));
     }
 
@@ -83,6 +98,5 @@ public class TourListFragment extends Fragment implements TourView {
     public void showTourPackageReviewList(ArrayList<ReviewUI> reviewUIArrayList) {
 
     }
-
 
 }

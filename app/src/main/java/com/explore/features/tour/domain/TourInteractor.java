@@ -6,5 +6,5 @@ import com.explore.base.PresenterObserver;
 
 public interface TourInteractor {
 
-    void getTourList(PresenterObserver presenterObserver, Context context, String tourPackageId);
+    void getTourList(PresenterObserver presenterObserver, Context context, String tourPackageId, boolean userRefresh);
 }

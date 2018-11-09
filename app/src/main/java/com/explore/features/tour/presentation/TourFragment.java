@@ -27,6 +27,7 @@ import com.explore.features.tour.domain.TourView;
 import com.explore.rest.GooglePlacesApiClient;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,8 +58,11 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
     @BindView(R.id.image_tour_tourpackage_photo)
     ImageView mImageViewTourPackagePhoto;
 
+    public static List<String> loaderList = new ArrayList<>();
+
     @Getter
     private GooglePlacesApiClient googlePlacesApiClient;
+
 
     Bundle bundle;
     com.explore.features.tourpackage.domain.TourPackageUI mParentArg;
@@ -76,7 +80,7 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_tour, container, false);
+        final View v = inflater.inflate(R.layout.fragment_tour, container, false);
         ButterKnife.bind(this, v);
 
         // TODO: maybe refactor to sync with parent bundle
@@ -90,7 +94,7 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
 
         mTourPresenter = new TourPresenterImpl(getActivity(), this);
         tourPackageUI = bundle.getParcelable("TOUR_PACKAGE");
-        mTourPresenter.getTourPackage(getActivity(), tourPackageUI.getId());
+        mTourPresenter.getTourPackage(getActivity(), tourPackageUI.getId(), false);
         tourFragmentPagerAdapter = new TourFragmentPagerAdapter(getChildFragmentManager(), getActivity(), bundle);
 
         tourTabLayout.setupWithViewPager(tourViewPager);
@@ -115,6 +119,7 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
         googlePlacesApiClient.getPhotos(mParentArg.getPlaceId(), mImageViewTourPackagePhoto);
     }
 
+
     @Override
     public void showTourList(ArrayList<TourUI> tourUIArrayList) {
 
@@ -130,6 +135,7 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
         // https://stackoverflow.com/questions/12850143/android-basics-running-code-in-the-ui-thread
         ((MainActivity) activity).setActivityToolbarTitle(title);
     }
+
 
     public interface TourFragmentListener {
         void transitionToTourFragment(Bundle bundle);

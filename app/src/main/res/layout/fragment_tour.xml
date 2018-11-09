@@ -8,12 +8,14 @@
     android:orientation="vertical"
     tools:context=".features.tour.presentation.TourFragment">
 
+
     <ImageView
         android:id="@+id/image_tour_tourpackage_photo"
         tools:ignore="ContentDescription"
         android:layout_width="match_parent"
         android:layout_height="180dp"
         android:scaleType="centerCrop" />
+
 
     <TextView
         android:id="@+id/text_tour_tourpackage_description"
@@ -40,6 +42,7 @@
         android:layout_below="@id/text_tour_tourpackage_description"
         app:tabMode="fixed" />
 
+
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager_tour_fragment"
         android:layout_width="match_parent"
@@ -63,5 +66,5 @@
         android:src="@drawable/ic_add_review"
         app:layout_anchorGravity="right" />
 
-</RelativeLayout>
 
+</RelativeLayout>

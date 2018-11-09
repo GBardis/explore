@@ -18,6 +18,7 @@ public class ReviewObservable {
                     @Override
                     public void run() {
                         mo.updateReviewsList(reviewObservable, o);
+                        reviewObserverList.remove(mo);
                     }
                 });
             }

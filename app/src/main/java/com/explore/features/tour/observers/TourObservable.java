@@ -18,6 +18,7 @@ public class TourObservable {
                     @Override
                     public void run() {
                         mo.updateToursList(tourObservable, o);
+                        tourObserverList.remove(mo);
                     }
                 });
             }

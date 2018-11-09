@@ -21,7 +21,7 @@ public abstract class TourDao {
     abstract void deleteAllTours();
 
     @Transaction
-    void updateTours(List<TourDomain> tourDomainList) {
+    void updateToursDb(List<TourDomain> tourDomainList) {
         deleteAllTours();
         insertTours(tourDomainList);
     }

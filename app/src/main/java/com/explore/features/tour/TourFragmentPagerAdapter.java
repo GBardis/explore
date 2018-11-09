@@ -20,8 +20,6 @@ public class TourFragmentPagerAdapter extends FragmentPagerAdapter {
     private String mTourPackageId;
     SparseArray<Fragment> registeredFragments = new SparseArray<>();
 
-    // TODO: Create constructor to accept arguments for TourPackage id
-
     public TourFragmentPagerAdapter(FragmentManager fm, Context context, Bundle parentBundle) {
         super(fm);
         this.mContext = context;

@@ -47,37 +47,20 @@ public class TourPresenterImpl extends PresenterObserver implements TourPresente
     }
 
     @Override
-    public void getTourPackage(Context context, String tourPackageId) {
+    public void getTourPackage(Context context, String tourPackageId, boolean userRefresh) {
         this.mTourPackageId = tourPackageId;
-        mTourPackageInteractor.getTourPackages(this, context, false);
+        mTourPackageInteractor.getTourPackages(this, context, userRefresh);
     }
 
     @Override
-    public void getTourList(Context context, String tourPackageId) {
-        mTourInteractor.getTourList(this, context, tourPackageId);
+    public void getTourList(Context context, String tourPackageId, boolean userRefresh) {
+        mTourInteractor.getTourList(this, context, tourPackageId, userRefresh);
     }
 
     @Override
-    public void getTourPackageReviews(Context context, String tourPackageId) {
-        mReviewInteractor.getReviewList(this, context, tourPackageId);
+    public void getTourPackageReviews(Context context, String tourPackageId, boolean userRefresh) {
+        mReviewInteractor.getReviewList(this, context, tourPackageId, userRefresh);
     }
-
-    // TODO: implement observer pattern for review list
-//    @Override
-//    public void onReviewListSuccess(ArrayList<ReviewDomain> reviewDomainArrayList) {
-//        ArrayList<ReviewUI> reviewUIArrayList = new ArrayList<>();
-//
-//        for (ReviewDomain reviewDomain : reviewDomainArrayList) {
-//            reviewUIArrayList.add(
-//                    new ReviewUI(
-//                            reviewDomain.getId(),
-//                            reviewDomain.getReviewTitle(),
-//                            reviewDomain.getReviewScore(),
-//                            reviewDomain.getReviewText()));
-//        }
-//
-//        mTourView.showTourPackageReviewList(reviewUIArrayList);
-//    }
 
     @Override
     public void updateReviewsList(ReviewObservable reviewObservable, Object o) {
