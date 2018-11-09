@@ -11,10 +11,10 @@ import android.widget.TextView;
 
 import com.explore.R;
 import com.explore.features.tour.domain.ReviewUI;
-import com.explore.features.tour.domain.TourPackageUI;
 import com.explore.features.tour.domain.TourPresenter;
 import com.explore.features.tour.domain.TourUI;
 import com.explore.features.tour.domain.TourView;
+import com.explore.features.tourpackage.domain.TourPackageUI;
 
 import java.util.ArrayList;
 
@@ -33,6 +33,8 @@ public class TourPackageDescriptionFragment extends Fragment implements TourView
 
     private String mParentArg;
 
+    TourPackageUI tourPackageUI;
+
     public TourPackageDescriptionFragment() {
         // Required empty public constructor
     }
@@ -45,8 +47,12 @@ public class TourPackageDescriptionFragment extends Fragment implements TourView
         View v = inflater.inflate(R.layout.fragment_tour_package_description, container, false);
         ButterKnife.bind(this, v);
 
-        mTourPresenter = new TourPresenterImpl(getActivity(),this);
-//        mTourPresenter.getTourPackage(mParentArg);
+        if (getArguments() != null) {
+            tourPackageUI = getArguments().getParcelable("TOUR_PACKAGE");
+        }
+
+
+        showTourPackageLocal(tourPackageUI);
 
         return v;
     }
@@ -55,9 +61,13 @@ public class TourPackageDescriptionFragment extends Fragment implements TourView
         textViewTourDescription.setText(description);
     }
 
-    @Override
-    public void showTourPackage(TourPackageUI tourPackageUI) {
+    public void showTourPackageLocal(TourPackageUI tourPackageUI) {
         textViewTourDescription.setText(tourPackageUI.getName());
+    }
+
+    @Override
+    public void showTourPackage(com.explore.features.tour.domain.TourPackageUI tourPackageUI) {
+
     }
 
     @Override
