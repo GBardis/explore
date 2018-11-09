@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -36,6 +37,8 @@ public class TourPackageFragment extends Fragment implements TourPackageView, Is
     String tourPackageFragmentTitle;
     @BindView(R.id.tourpackage_rv)
     RecyclerView tourPackageRv;
+    @BindView(R.id.tour_package_swipe_container);
+    SwipeRefreshLayout mSwipeRefreshLayout;
     TourPackagePresenter tourPackagePresenter;
     TourPackagesRvAdapter tourPackagesRvAdapter;
     Bundle bundle;
@@ -58,7 +61,7 @@ public class TourPackageFragment extends Fragment implements TourPackageView, Is
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_tour_package, container, false);
         ButterKnife.bind(this, v);
-
+//        mSwipeRefreshLayout = v.findViewById(R.id.tour_package_swipe_container);
         bundle = new Bundle();
 
         setToolbarTitle(getActivity(), tourPackageFragmentTitle);
