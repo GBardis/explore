@@ -2,6 +2,7 @@ package com.explore.features.tour.data;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 
 import com.explore.base.ExploreDatabase;
 import com.explore.base.PresenterObserver;
@@ -13,6 +14,7 @@ import com.explore.rest.responses.TourResponse;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,9 +23,8 @@ import timber.log.Timber;
 
 public class TourInteractorImpl implements TourInteractor {
 
-    List<TourDomain> tourDomainList = new ArrayList<>();
-    ObservableTourList observableTourList = new ObservableTourList();
-
+    private List<TourDomain> tourDomainList = new ArrayList<>();
+    private ObservableTourList observableTourList = new ObservableTourList();
 
     @Override
     public void getTourList(PresenterObserver presenterObserver, Context context, final String tourPackageId, final boolean userRefresh) {
@@ -34,9 +35,7 @@ public class TourInteractorImpl implements TourInteractor {
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
-
                 tourDomainList = tourDao.getTours(tourPackageId);
-
 
                 if (tourDomainList.isEmpty() || userRefresh == true) {
                     tourDomainList.clear();
@@ -50,15 +49,15 @@ public class TourInteractorImpl implements TourInteractor {
                                 @Override
                                 public void run() {
                                     tourDao.updateToursDb(tourDomainList);
+
                                 }
                             });
-
                         }
 
                         @Override
-                        public void onResponse(Call<List<TourResponse>> call, Response<List<TourResponse>> response) {
+                        public void onResponse(@NonNull Call<List<TourResponse>> call, @NonNull Response<List<TourResponse>> response) {
                             List<TourResponse> tourResponseList = response.body();
-                            for (TourResponse tourResponse : tourResponseList) {
+                            for (TourResponse tourResponse : Objects.requireNonNull(tourResponseList)) {
                                 tourDomainList.add(new TourDomain(
                                         tourResponse.getId(),
                                         tourResponse.getTitle(),
@@ -76,11 +75,10 @@ public class TourInteractorImpl implements TourInteractor {
                         }
 
                         @Override
-                        public void onFailure(Call<List<TourResponse>> call, Throwable t) {
+                        public void onFailure(@NonNull Call<List<TourResponse>> call, @NonNull Throwable t) {
 
                         }
                     });
-
 
                 } else {
                     Timber.tag("INTERACTOR_TOUR").d("Serving from Database!");

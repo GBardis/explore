@@ -25,6 +25,24 @@
         android:layout_marginStart="2dp"
         android:layout_marginTop="2dp" />
 
+    <TextView
+        android:id="@+id/text_tour_tourpackage_area"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/image_tour_tourpackage_photo"
+        android:layout_toEndOf="@+id/text_tour_tourpackage_description"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="2dp" />
+
+    <TextView
+        android:id="@+id/text_tour_tourpackage_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/image_tour_tourpackage_photo"
+        android:layout_toEndOf="@+id/text_tour_tourpackage_area"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="2dp" />
+
     <!--<TextView-->
     <!--android:id="@+id/text_tour_tourpackage_rating"-->
     <!--android:layout_width="wrap_content"-->

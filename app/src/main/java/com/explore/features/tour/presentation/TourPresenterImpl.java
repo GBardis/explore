@@ -90,7 +90,8 @@ public class TourPresenterImpl extends PresenterObserver implements TourPresente
         }
 
         mTourView.showTourPackage(
-                new TourPackageUI(tourPackageDomain.getName(),
+                new TourPackageUI(
+                        tourPackageDomain.getName(),
                         tourPackageDomain.getRegion(),
                         tourPackageDomain.getRating()));
     }

@@ -40,31 +40,11 @@ public class TourPackageInteractorImpl implements TourPackageInteractor {
             public void run() {
                 tourPackageDomainList = tourPackageDao.getTourPackages();
 
-                if (tourPackageDomainList.isEmpty() || userRefresh == true) {
+                if (tourPackageDomainList.isEmpty() || userRefresh) {
                     tourPackageDomainList.clear();
-
 
                     Call<List<TourPackageResponse>> tourPackageResponseCall = RestClient.call().fetchTourPackages();
                     tourPackageResponseCall.enqueue(new Callback<List<TourPackageResponse>>() {
-
-                        private void insertTourPackageListToDb(final List<TourPackageDomain> responseList) {
-                            Timber.tag("INTERACTOR_TOUR_PACKAGE").d("Inserting data into DB");
-                            AsyncTask.execute(new Runnable() {
-                                @Override
-                                public void run() {
-                                    tourPackageDao.insertTourPackages(responseList);
-                                }
-                            });
-                        }
-
-                        private void updateDb(final List<TourPackageDomain> responseList) {
-                            AsyncTask.execute(new Runnable() {
-                                @Override
-                                public void run() {
-                                    tourPackageDao.updateTourPackagesDb(responseList);
-                                }
-                            });
-                        }
 
                         @Override
                         public void onResponse(@NonNull Call<List<TourPackageResponse>> call, @NonNull final Response<List<TourPackageResponse>> response) {
@@ -73,7 +53,7 @@ public class TourPackageInteractorImpl implements TourPackageInteractor {
                                 public void run() {
                                     List<TourPackageResponse> tourPackageResponseList = response.body();
 
-                                    for (TourPackageResponse tourPackageResponse : tourPackageResponseList) {
+                                    for (TourPackageResponse tourPackageResponse : Objects.requireNonNull(tourPackageResponseList)) {
 
                                         placeID = getTourPackagePlaceId(tourPackageResponse.getRegion(), context);
                                         tourPackageDomainList.add(new TourPackageDomain(
@@ -85,7 +65,7 @@ public class TourPackageInteractorImpl implements TourPackageInteractor {
                                         ));
                                     }
 
-                                    updateDb(tourPackageDomainList);
+                                    tourPackageDao.updateTourPackagesDb(tourPackageDomainList);
 
                                     Timber.tag("INTERACTOR_TOUR_PACKAGE").d("Serving from API!");
                                     observableTourPackageList.changeDataset(tourPackageDomainList);
@@ -109,7 +89,7 @@ public class TourPackageInteractorImpl implements TourPackageInteractor {
     String getTourPackagePlaceId(String placeName, Context context) {
         Response<GoogleMapApi> result;
         List<GooglePlaceID> candidates;
-        String placeId = "";
+
         if (placeName.equals("Aeagean")) {
             placeName = "Aegean Islands";
         }
@@ -117,10 +97,10 @@ public class TourPackageInteractorImpl implements TourPackageInteractor {
         try {
             result = googleMapApiCall.execute();
             candidates = Objects.requireNonNull(result.body()).candidates;
-            placeId = candidates.get(0).placeId;
+            placeID = candidates.get(0).placeId;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return placeId;
+        return placeID;
     }
 }

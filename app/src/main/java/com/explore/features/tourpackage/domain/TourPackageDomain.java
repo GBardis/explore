@@ -1,6 +1,8 @@
 package com.explore.features.tourpackage.domain;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
@@ -25,6 +27,10 @@ public class TourPackageDomain {
     @Getter
     @Setter
     public String placeId;
+    @Getter
+    @Setter
+    @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
+    public byte[] image;
 
     public TourPackageDomain(@NonNull String id, String name, Double rating, String region, String placeId) {
         this.id = id;
@@ -33,4 +39,13 @@ public class TourPackageDomain {
         this.region = region;
         this.placeId = placeId;
     }
+//    @Ignore
+//    public TourPackageDomain(@NonNull String id, String name, Double rating, String region, String placeId, byte[] image) {
+//        this.id = id;
+//        this.name = name;
+//        this.rating = rating;
+//        this.region = region;
+//        this.placeId = placeId;
+//        this.image = image;
+//    }
 }
