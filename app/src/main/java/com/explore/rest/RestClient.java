@@ -28,13 +28,13 @@ public class RestClient {
                 .build();
 
 
-        final Retrofit retrorift = new Retrofit.Builder()
+        final Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://explore-greece.herokuapp.com/")
                 .client(mOkHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        API = retrorift.create(RestAPI.class);
+        API = retrofit.create(RestAPI.class);
 
     }
 }

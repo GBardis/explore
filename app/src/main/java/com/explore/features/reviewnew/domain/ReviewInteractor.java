@@ -1,25 +1,19 @@
 package com.explore.features.reviewnew.domain;
 
-import com.explore.features.reviewnew.presentation.ReviewNewUI;
+import android.content.Context;
 
-import java.util.ArrayList;
+import com.explore.base.PresenterObserver;
+import com.explore.features.reviewnew.presentation.ReviewNewUI;
 
 public interface ReviewInteractor {
 
-    void getReviewList(OnReviewListFinishListener reviewListFinishListener, String tourPackageId);
+    void getReviewList(PresenterObserver presenterObserver, Context context, String tourPackageId);
 
-    void setReviewNew(ReviewInteractor.OnReviewSubmitListener onReviewSubmitListener, ReviewNewUI reviewNewUI);
+    void postReview(ReviewInteractor.OnReviewSubmitListener onReviewSubmitListener, ReviewNewUI reviewNewUI, String tourPackageId);
 
     interface OnReviewSubmitListener {
 
-        void onSuccess();
-
-        void onFailure();
-    }
-
-    interface OnReviewListFinishListener {
-
-        void onReviewListSuccess(ArrayList<ReviewDomain> reviewDomainArrayList);
+        void onSuccess(String successToast);
 
         void onFailure();
     }

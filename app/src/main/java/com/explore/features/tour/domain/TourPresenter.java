@@ -1,16 +1,13 @@
 package com.explore.features.tour.domain;
 
-import com.explore.data.db.model.Tour;
-import com.explore.data.db.model.TourPackage;
-
-import java.util.ArrayList;
+import android.content.Context;
 
 public interface TourPresenter {
 
-    void getTourPackage(String tourPackageId);
+    void getTourPackage(Context context,String tourPackageId);
 
-    void getTourList(String tourPackageId);
+    void getTourList(Context context,String tourPackageId);
 
-    void getTourPackageReviews(String tourPackageId);
+    void getTourPackageReviews(Context context,String tourPackageId);
 
 }

@@ -14,10 +14,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.explore.R;
-import com.explore.features.tour.presentation.TourFragment;
 import com.explore.features.tourpackage.domain.OnTourPackageClickListener;
 import com.explore.features.tourpackage.domain.TourPackageUI;
-import com.squareup.picasso.Picasso;
+import com.explore.rest.GooglePlacesApiClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,17 +39,19 @@ public class TourPackagesRvAdapter extends RecyclerView.Adapter<TourPackagesRvAd
     @Getter
     @Setter
     private Context context;
-
+    @Getter
+    private GooglePlacesApiClient googlePlacesApiClient;
 
     TourPackagesRvAdapter(List<TourPackageUI> tourPackageList, OnTourPackageClickListener onTourPackageClickListener, Context context) {
         this.tourPackageList = tourPackageList;
         this.onTourPackageClickListener = onTourPackageClickListener;
         this.context = context;
         this.tourPackageUIFilteredList = tourPackageList;
+        this.googlePlacesApiClient = new GooglePlacesApiClient(context);
     }
 
 
-    static class TourPackagesViewHolder extends RecyclerView.ViewHolder {
+    public static class TourPackagesViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.text_tourpackage_name)
         TextView mTourPackageName;
         @BindView(R.id.text_tourpackage_avgrating)
@@ -82,15 +83,14 @@ public class TourPackagesRvAdapter extends RecyclerView.Adapter<TourPackagesRvAd
         tourPackagesViewHolder.mTourPackageName.setText(tourPackageUI.getName());
         tourPackagesViewHolder.mTourPackageAvgRating.setText(String.valueOf(tourPackageUI.getAvgRating()));
         tourPackagesViewHolder.mTourPackageAvgRating.setTextColor(Color.parseColor(tourPackageUI.getRatingColor()));
-        Picasso.get().load("https://www.interrail.eu/content/dam/mastheads/oia%20-%20greece%20-%20masthead.jpg")
-                .into(tourPackagesViewHolder.mTourPackagePhoto);
+
+        getGooglePlacesApiClient().getPhotos(tourPackageUI.getPlaceId(), tourPackagesViewHolder.mTourPackagePhoto);
+
         tourPackagesViewHolder.mTourPackageRatingImage.setImageResource(R.drawable.ic_star_rate);
 
         tourPackagesViewHolder.mLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                TourFragment.TourFragmentListener tourFragmentListener = (TourFragment.TourFragmentListener) context;
-//                tourFragmentListener.transitionToTourFragment(bundle);
                 onTourPackageClickListener.onTourPackageClicked(tourPackageUI);
             }
         });

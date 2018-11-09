@@ -4,7 +4,9 @@ import android.content.Context;
 
 public interface UserPresenter {
 
-    void getUserList();
+    void getUserList(Context context);
 
     void getUser(String userEmail, String passWord, Context context);
+
+    void findLoggedInUser(Context context);
 }

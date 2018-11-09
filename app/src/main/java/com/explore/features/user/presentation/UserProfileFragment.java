@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.explore.R;
+import com.explore.base.ExploreApplication;
+import com.explore.features.user.domain.UserDomain;
 import com.explore.features.user.domain.UserUI;
 import com.explore.features.user.domain.UserView;
 
@@ -34,8 +36,6 @@ public class UserProfileFragment extends Fragment implements UserView {
     @BindView(R.id.text_profile_fragment_address)
     TextView mTextViewAddress;
 
-    String userName = "teamBlack";
-    String passWord = "theBlacksw0rd";
 
     public UserProfileFragment() {
         // Required empty public constructor
@@ -49,17 +49,14 @@ public class UserProfileFragment extends Fragment implements UserView {
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
         ButterKnife.bind(this, v);
         UserPresenterImpl userPresenter = new UserPresenterImpl(this);
-        userPresenter.getUser(userName, passWord, getActivity());
+        UserDomain userDomain = ExploreApplication.getCurrentUser();
+        userPresenter.getUser(userDomain.getUsername(), userDomain.getPassword(), getActivity());
         return v;
     }
 
     @Override
     public void showUserList(List<UserUI> userUIList) {
-
-    }
-
-    @Override
-    public void showUserProfile(UserUI userUI) {
+        UserUI userUI = userUIList.get(0);
         mTextViewUserName.setText(userUI.getUserName());
         mTextViewEmail.setText(userUI.getEmail());
         mTextViewUserName.setText(userUI.getUserName());
@@ -67,6 +64,12 @@ public class UserProfileFragment extends Fragment implements UserView {
         mTextViewLastName.setText(userUI.getLastName());
         mTextViewAddress.setText(userUI.getAddress());
     }
+
+    @Override
+    public void skipLogin() {
+
+    }
+
 
     @Override
     public void showLoginError(String message) {

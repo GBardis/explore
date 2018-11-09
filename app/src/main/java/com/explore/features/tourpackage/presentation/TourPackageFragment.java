@@ -71,14 +71,13 @@ public class TourPackageFragment extends Fragment implements TourPackageView, Is
     }
 
     @Override
-    public void showTourPackages(List<TourPackageUI> tourPackageArrayList) {
+    public void showTourPackages(final List<TourPackageUI> tourPackageArrayList) {
         tourPackagesRvAdapter = new TourPackagesRvAdapter(tourPackageArrayList, new OnTourPackageClickListener() {
             @Override
             public void onTourPackageClicked(TourPackageUI tourPackageUI) {
-                bundle.putString("TOUR_PACKAGE_ID", tourPackageUI.getId());
+                bundle.putParcelable("TOUR_PACKAGE", tourPackageUI);
                 TourFragment.TourFragmentListener tourFragmentListener = (TourFragment.TourFragmentListener) getActivity();
                 tourFragmentListener.transitionToTourFragment(bundle);
-
             }
         }, getActivity());
         tourPackageRv.setAdapter(tourPackagesRvAdapter);
@@ -121,7 +120,7 @@ public class TourPackageFragment extends Fragment implements TourPackageView, Is
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        //noinspection SimplifiableIfStatementka
         if (id == R.id.menu_action_search) {
             return true;
         }

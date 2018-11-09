@@ -1,4 +1,4 @@
-package com.explore.data.rest;
+package com.explore.rest;
 
 import java.util.concurrent.TimeUnit;
 
@@ -7,14 +7,15 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class RestClient {
-    private static RestAPI API;
+public class GoogleClient {
+
+    private static GoogleApi API;
 
     static {
         setupRestClient();
     }
 
-    public static RestAPI call() {
+    public static GoogleApi call() {
         return API;
     }
 
@@ -27,14 +28,13 @@ public class RestClient {
                 .build();
 
 
-        final Retrofit retrorift = new Retrofit.Builder()
-                .baseUrl("http://akazoo.com/services/Test/TestMobileService.svc/")
+        final Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://maps.googleapis.com/maps/api/")
                 .client(mOkHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        API = retrorift.create(RestAPI.class);
+        API = retrofit.create(GoogleApi.class);
 
     }
 }
-

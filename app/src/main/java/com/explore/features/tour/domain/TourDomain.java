@@ -1,31 +1,58 @@
 package com.explore.features.tour.domain;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
+import com.explore.features.tourpackage.domain.TourPackageDomain;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public class TourDomain{
+import static android.arch.persistence.room.ForeignKey.CASCADE;
+
+@Entity(tableName = "tours")
+public class TourDomain {
+
     @Getter
     @PrimaryKey
-    private final String id;
+    @NonNull
+    public final int id;
+    @Getter
+    @NonNull
+    @ForeignKey(entity = TourPackageDomain.class,
+            parentColumns = "id",
+            childColumns = "tourPackageId",
+            onDelete = CASCADE)
+    public String tourPackageId;
     @Getter
     @Setter
-    private String name;
+    public String title;
     @Getter
     @Setter
-    private double rating;
+    public String description;
     @Getter
     @Setter
-    private String descTextSize;
+    public int price;
     @Getter
     @Setter
-    private String description;
+    public String duration;
+    @Getter
+    @Setter
+    public String bullets;
+    @Getter
+    @Setter
+    public String keywords;
 
-    public TourDomain(String id, String name, double rating, String description) {
+    public TourDomain(@NonNull int id, String title, String description, int price, String duration, String bullets, String keywords, String tourPackageId) {
         this.id = id;
-        this.name = name;
-        this.rating = rating;
+        this.title = title;
         this.description = description;
+        this.price = price;
+        this.duration = duration;
+        this.bullets = bullets;
+        this.keywords = keywords;
+        this.tourPackageId = tourPackageId;
     }
 }

@@ -34,7 +34,8 @@ public class TourListFragment extends Fragment implements TourView {
     public RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    private String mParentArg;
+    private com.explore.features.tourpackage.domain.TourPackageUI mParentArg;
+    Bundle bundle;
 
     public TourListFragment() {
         // Required empty public constructor
@@ -48,8 +49,16 @@ public class TourListFragment extends Fragment implements TourView {
         View v = inflater.inflate(R.layout.fragment_tour_list, container, false);
         ButterKnife.bind(this, v);
 
-        mTourPresenter = new TourPresenterImpl(this);
-        mTourPresenter.getTourList(mParentArg);
+        bundle = new Bundle();
+
+        if (getArguments() != null) {
+            mParentArg = getArguments().getParcelable("TOUR_PACKAGE");
+        }
+
+        bundle.putParcelable("TOUR_PACKAGE", mParentArg);
+
+        mTourPresenter = new TourPresenterImpl(getActivity(), this);
+        mTourPresenter.getTourList(getActivity(), mParentArg.getId());
 
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

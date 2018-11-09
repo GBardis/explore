@@ -24,16 +24,14 @@ import com.explore.features.tour.domain.TourPackageUI;
 import com.explore.features.tour.domain.TourPresenter;
 import com.explore.features.tour.domain.TourUI;
 import com.explore.features.tour.domain.TourView;
-import com.squareup.picasso.Picasso;
+import com.explore.rest.GooglePlacesApiClient;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import lombok.Getter;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class TourFragment extends Fragment implements TourView, IsToolbarSetter {
 
     //@BindView(R.id.text_tour_tourpackage_name)
@@ -59,11 +57,12 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
     @BindView(R.id.image_tour_tourpackage_photo)
     ImageView mImageViewTourPackagePhoto;
 
-    private Fragment mCurrentFragment;
-    private TourPackageUI mTourPackageUI;
+    @Getter
+    private GooglePlacesApiClient googlePlacesApiClient;
 
     Bundle bundle;
-    String mParentArg;
+    com.explore.features.tourpackage.domain.TourPackageUI mParentArg;
+    com.explore.features.tourpackage.domain.TourPackageUI tourPackageUI;
 
     TourFragmentPagerAdapter tourFragmentPagerAdapter;
 
@@ -84,14 +83,14 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
         bundle = new Bundle();
 
         if (getArguments() != null) {
-            mParentArg = getArguments().getString("TOUR_PACKAGE_ID");
+            mParentArg = getArguments().getParcelable("TOUR_PACKAGE");
         }
 
-        bundle.putString("TOUR_PACKAGE_ID", mParentArg);
+        bundle.putParcelable("TOUR_PACKAGE", mParentArg);
 
-
-        mTourPresenter = new TourPresenterImpl(this);
-        mTourPresenter.getTourPackage(bundle.getString("TOUR_PACKAGE_ID"));
+        mTourPresenter = new TourPresenterImpl(getActivity(), this);
+        tourPackageUI = bundle.getParcelable("TOUR_PACKAGE");
+        mTourPresenter.getTourPackage(getActivity(), tourPackageUI.getId());
         tourFragmentPagerAdapter = new TourFragmentPagerAdapter(getChildFragmentManager(), getActivity(), bundle);
 
         tourTabLayout.setupWithViewPager(tourViewPager);
@@ -105,18 +104,15 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
             }
         });
 
-
-        Picasso.get().load("https://www.interrail.eu/content/dam/mastheads/oia%20-%20greece%20-%20masthead.jpg")
-                .resize(0, 500)
-                .into(mImageViewTourPackagePhoto);
         return v;
     }
 
     @Override
     public void showTourPackage(TourPackageUI tourPackageUI) {
         setToolbarTitle(getActivity(), tourPackageUI.getName());
-
         mTextViewDescription.setText(tourPackageUI.getName());
+        googlePlacesApiClient = new GooglePlacesApiClient(getActivity());
+        googlePlacesApiClient.getPhotos(mParentArg.getPlaceId(), mImageViewTourPackagePhoto);
     }
 
     @Override
@@ -130,7 +126,8 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
     }
 
     @Override
-    public void setToolbarTitle(Activity activity, String title) {
+    public void setToolbarTitle(final Activity activity, final String title) {
+        // https://stackoverflow.com/questions/12850143/android-basics-running-code-in-the-ui-thread
         ((MainActivity) activity).setActivityToolbarTitle(title);
     }
 

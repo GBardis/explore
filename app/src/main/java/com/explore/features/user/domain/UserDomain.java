@@ -12,6 +12,7 @@ import lombok.Setter;
 public class UserDomain {
     @NonNull
     @PrimaryKey
+    @Getter
     public int userId;
     @Getter
     @Setter
@@ -34,6 +35,9 @@ public class UserDomain {
     @Getter
     @Setter
     public int age;
+    @Getter
+    @Setter
+    public boolean loggedIn = false;
 
     @Ignore
     public UserDomain(String username, String password) {
@@ -41,7 +45,7 @@ public class UserDomain {
         this.username = username;
     }
 
-    public UserDomain(int userId, String username, String firstName, String lastName, String email, String address, int age) {
+    public UserDomain(int userId, String username, String firstName, String lastName, String email, String address, int age, boolean loggedIn) {
         this.userId = userId;
         this.username = username;
         this.firstName = firstName;
@@ -49,5 +53,6 @@ public class UserDomain {
         this.email = email;
         this.address = address;
         this.age = age;
+        this.loggedIn = loggedIn;
     }
 }

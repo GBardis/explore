@@ -6,20 +6,31 @@ import lombok.Setter;
 public class ReviewNewUI {
     @Getter
     @Setter
-    private String title;
+    private String id;
+
+    @Setter
+    @Getter
+    private String comment;
+
+    @Setter
+    @Getter
+    private int score;
 
     @Getter
     @Setter
-    private String reviewMessage;
+    private String username;
 
-    @Getter
-    @Setter
-    private float rating;
+    public ReviewNewUI(String id, int score, String comment, String username) {
+        this.id = id;
+        this.comment = comment;
+        this.score = score;
+        this.username = username;
+    }
 
-    public ReviewNewUI(String title, String reviewMessage, float rating) {
-        this.title = title;
-        this.reviewMessage = reviewMessage;
-        this.rating = rating;
+    public ReviewNewUI(int score, String comment, String username) {
+        this.comment = comment;
+        this.score = score;
+        this.username = username;
     }
 }
 

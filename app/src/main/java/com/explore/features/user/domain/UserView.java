@@ -6,7 +6,7 @@ public interface UserView {
 
     void showUserList(List<UserUI> userUIList);
 
-    void showUserProfile(UserUI userUI);
+    void skipLogin();
 
     void showLoginError(String message);
 }

@@ -1,6 +1,8 @@
 package com.explore;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -10,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 
 import com.explore.features.login.LoginFragment;
 import com.explore.features.reviewnew.presentation.ReviewNewFragment;
@@ -21,6 +24,7 @@ import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         TourFragment.TourFragmentListener, ReviewNewFragment.ReviewNewFragmentListener,
@@ -33,9 +37,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @BindView(R.id.nav_view)
     NavigationView navigationView;
 
+    LoginFragment loginFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+        if (BuildConfig.DEBUG) {
+            Timber.uprootAll();
+            Timber.plant(new Timber.DebugTree());
+        }
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
@@ -49,24 +61,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         navigationView.setNavigationItemSelectedListener(this);
 
-
-        // add image to nav drawer header
-//        View header = navigationView.getHeaderView(0);
-//        ImageView imageView = header.findViewById(R.id.nav_drawer_image);
-//        Picasso.get().load("https://cache-graphicslib.viator.com/graphicslib/thumbs360x240/2916/SITours/city-sightseeing-barcelona-hop-on-hop-off-tour-in-barcelona-534067.jpg")
-//                .resize(100, 100)
-//                .centerCrop()
-//                .into(imageView);
-//
+        loginFragment = new LoginFragment();
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.main_fragment_container, new LoginFragment())
+                .add(R.id.main_fragment_container, loginFragment)
                 .commit();
     }
 
-    public void setActivityToolbarTitle(String title) {
-        Objects.requireNonNull(getSupportActionBar()).setTitle(title);
+    public void setActivityToolbarTitle(final String title) {
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                Objects.requireNonNull(getSupportActionBar()).setTitle(title);
+            }
+        });
     }
 
     @Override
@@ -87,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .beginTransaction()
                 .addToBackStack(null)
                 .replace(R.id.main_fragment_container, new TourPackageFragment())
+                .remove(loginFragment)
                 .commit();
     }
 
