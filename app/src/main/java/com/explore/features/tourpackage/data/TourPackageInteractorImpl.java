@@ -74,7 +74,7 @@ public class TourPackageInteractorImpl implements TourPackageInteractor {
                                         ));
                                     }
 
-                                    insertTourPackageListToDb(tourPackageDomainList);
+                                    tourPackageDao.updateTourPackages(tourPackageDomainList);
                                     Timber.tag("INTERACTOR_TOUR_PACKAGE").d("Serving from API!");
                                     observableTourPackageList.changeDataset(tourPackageDomainList);
                                 }
