@@ -84,7 +84,7 @@ public class TourPackagesRvAdapter extends RecyclerView.Adapter<TourPackagesRvAd
         tourPackagesViewHolder.mTourPackageAvgRating.setText(String.valueOf(tourPackageUI.getAvgRating()));
         tourPackagesViewHolder.mTourPackageAvgRating.setTextColor(Color.parseColor(tourPackageUI.getRatingColor()));
 
-        getGooglePlacesApiClient().getPhotos(tourPackageUI.getPlaceId(), tourPackagesViewHolder.mTourPackagePhoto);
+        getGooglePlacesApiClient().tourPackageHasImage(tourPackageUI, tourPackagesViewHolder.mTourPackagePhoto,context);
 
         tourPackagesViewHolder.mTourPackageRatingImage.setImageResource(R.drawable.ic_star_rate);
 

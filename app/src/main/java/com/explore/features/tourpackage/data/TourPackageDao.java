@@ -4,6 +4,7 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Transaction;
+import android.arch.persistence.room.Update;
 
 import com.explore.features.tourpackage.domain.TourPackageDomain;
 
@@ -20,6 +21,12 @@ public abstract class TourPackageDao {
 
     @Query("DELETE FROM tourPackages")
     abstract void deleteAllTourPackages();
+
+    @Query("UPDATE tourPackages SET image=:image WHERE id = :id")
+    public abstract void updateTourPackages(byte[] image, String id);
+
+    @Query("SELECT image FROM tourPackages WHERE id=:id")
+    public abstract byte[] getTourPackageImage(String id);
 
     @Transaction
     void updateTourPackagesDb(List<TourPackageDomain> tourPackageDomainList) {

@@ -112,7 +112,7 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
         setToolbarTitle(getActivity(), tourPackageUI.getName());
         mTextViewDescription.setText(tourPackageUI.getName());
         googlePlacesApiClient = new GooglePlacesApiClient(getActivity());
-        googlePlacesApiClient.getPhotos(mParentArg.getPlaceId(), mImageViewTourPackagePhoto);
+        googlePlacesApiClient.tourPackageHasImage(mParentArg, mImageViewTourPackagePhoto, getActivity());
     }
 
     @Override
