@@ -29,6 +29,9 @@ public class ReviewRvAdapter extends RecyclerView.Adapter<ReviewRvAdapter.Review
         @BindView(R.id.recycler_item_review_text)
         public TextView mTextViewReviewText;
 
+        @BindView(R.id.recycler_item_review_score)
+        public TextView mTextViewScoreText;
+
         public ReviewViewHolder(View v) {
             super(v);
             ButterKnife.bind(this, v);
@@ -52,6 +55,7 @@ public class ReviewRvAdapter extends RecyclerView.Adapter<ReviewRvAdapter.Review
     public void onBindViewHolder(@NonNull ReviewViewHolder reviewViewHolder, int i) {
         reviewViewHolder.mTextViewReviewTitle.setText(mReviewUIDataset.get(i).getUsername());
         reviewViewHolder.mTextViewReviewText.setText(mReviewUIDataset.get(i).getComment());
+        reviewViewHolder.mTextViewScoreText.setText(String.valueOf(mReviewUIDataset.get(i).getScore()));
     }
 
     @Override

@@ -18,7 +18,7 @@
         app:layout_constraintBottom_toTopOf="@+id/recycler_item_review_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="@tools:sample/full_names" />
+        tools:text="" />
 
     <TextView
         android:id="@+id/recycler_item_review_text"
@@ -47,5 +47,5 @@
         app:layout_constraintStart_toEndOf="@+id/recycler_item_review_title"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        tools:text="@tools:sample/date/hhmm" />
+        tools:text="" />
 </android.support.constraint.ConstraintLayout>
