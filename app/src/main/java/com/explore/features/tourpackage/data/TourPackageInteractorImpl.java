@@ -57,12 +57,11 @@ public class TourPackageInteractorImpl implements TourPackageInteractor {
                             });
                         }
 
-                        private void emptyDb() {
+                        private void updateDb(final List<TourPackageDomain> responseList) {
                             AsyncTask.execute(new Runnable() {
                                 @Override
                                 public void run() {
-                                    tourPackageDao.deleteAllTourPackages();
-                                    tourPackageDomainList = tourPackageDao.getTourPackages();
+                                    tourPackageDao.updateTourPackagesDb(tourPackageDomainList);
                                 }
                             });
                         }
@@ -87,11 +86,11 @@ public class TourPackageInteractorImpl implements TourPackageInteractor {
                                     }
 
                                     if (userRefresh == true) {
-                                        emptyDb();
+                                        updateDb(tourPackageDomainList);
+                                    } else {
+                                        insertTourPackageListToDb(tourPackageDomainList);
                                     }
 
-                                    insertTourPackageListToDb(tourPackageDomainList);
-                                    tourPackageDao.updateTourPackages(tourPackageDomainList);
 
                                     Timber.tag("INTERACTOR_TOUR_PACKAGE").d("Serving from API!");
                                     observableTourPackageList.changeDataset(tourPackageDomainList);

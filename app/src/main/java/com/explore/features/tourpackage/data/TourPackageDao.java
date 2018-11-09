@@ -22,7 +22,7 @@ public abstract class TourPackageDao {
     abstract void deleteAllTourPackages();
 
     @Transaction
-    void updateTourPackages(List<TourPackageDomain> tourPackageDomainList) {
+    void updateTourPackagesDb(List<TourPackageDomain> tourPackageDomainList) {
         deleteAllTourPackages();
         insertTourPackages(tourPackageDomainList);
     }
