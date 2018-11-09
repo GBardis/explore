@@ -16,4 +16,7 @@ public abstract class TourPackageDao {
 
     @Query("SELECT * FROM tourPackages")
     abstract List<TourPackageDomain> getTourPackages();
+
+    @Query("DELETE FROM tourPackages")
+    abstract void nuke();
 }

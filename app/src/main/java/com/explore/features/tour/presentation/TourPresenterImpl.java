@@ -49,7 +49,7 @@ public class TourPresenterImpl extends PresenterObserver implements TourPresente
     @Override
     public void getTourPackage(Context context, String tourPackageId) {
         this.mTourPackageId = tourPackageId;
-        mTourPackageInteractor.getTourPackages(this, context);
+        mTourPackageInteractor.getTourPackages(this, context, false);
     }
 
     @Override

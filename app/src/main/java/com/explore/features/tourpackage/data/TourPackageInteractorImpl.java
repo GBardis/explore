@@ -30,7 +30,7 @@ public class TourPackageInteractorImpl implements TourPackageInteractor {
     private String placeID;
 
     @Override
-    public void getTourPackages(PresenterObserver presenterObserver, final Context context) {
+    public void getTourPackages(PresenterObserver presenterObserver, final Context context, final boolean userRefresh) {
         final TourPackageDao tourPackageDao = ExploreDatabase.getDatabase(context).tourPackageDao();
         observableTourPackageList.setTourPackageDomainList(tourPackageDomainList);
         observableTourPackageList.addObserver(presenterObserver);
@@ -40,7 +40,9 @@ public class TourPackageInteractorImpl implements TourPackageInteractor {
             public void run() {
                 tourPackageDomainList = tourPackageDao.getTourPackages();
 
-                if (tourPackageDomainList.isEmpty()) {
+                if (tourPackageDomainList.isEmpty() || userRefresh == true) {
+                    tourPackageDomainList.clear();
+                    
 
                     Call<List<TourPackageResponse>> tourPackageResponseCall = RestClient.call().fetchTourPackages();
                     tourPackageResponseCall.enqueue(new Callback<List<TourPackageResponse>>() {
@@ -51,6 +53,16 @@ public class TourPackageInteractorImpl implements TourPackageInteractor {
                                 @Override
                                 public void run() {
                                     tourPackageDao.insertTourPackages(responseList);
+                                }
+                            });
+                        }
+
+                        private void emptyDb() {
+                            AsyncTask.execute(new Runnable() {
+                                @Override
+                                public void run() {
+                                    tourPackageDao.nuke();
+                                    tourPackageDomainList = tourPackageDao.getTourPackages();
                                 }
                             });
                         }
@@ -74,6 +86,10 @@ public class TourPackageInteractorImpl implements TourPackageInteractor {
                                         ));
                                     }
 
+                                    if (userRefresh == true) {
+                                        emptyDb();
+                                    }
+                                    int i = 9;
                                     insertTourPackageListToDb(tourPackageDomainList);
                                     Timber.tag("INTERACTOR_TOUR_PACKAGE").d("Serving from API!");
                                     observableTourPackageList.changeDataset(tourPackageDomainList);

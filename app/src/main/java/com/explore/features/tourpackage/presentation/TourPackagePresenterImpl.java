@@ -33,8 +33,8 @@ public class TourPackagePresenterImpl extends PresenterObserver implements TourP
     }
 
     @Override
-    public void getTourPackages(Context context) {
-        getTourPackageIteractor().getTourPackages(this, context);
+    public void getTourPackages(Context context, boolean userRefresh) {
+        getTourPackageIteractor().getTourPackages(this, context, userRefresh);
     }
 
 

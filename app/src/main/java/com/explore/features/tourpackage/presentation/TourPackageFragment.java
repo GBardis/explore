@@ -37,7 +37,7 @@ public class TourPackageFragment extends Fragment implements TourPackageView, Is
     String tourPackageFragmentTitle;
     @BindView(R.id.tourpackage_rv)
     RecyclerView tourPackageRv;
-//    @BindView(R.id.tour_package_swipe_container);
+    //    @BindView(R.id.tour_package_swipe_container);
     SwipeRefreshLayout mSwipeRefreshLayout;
     TourPackagePresenter tourPackagePresenter;
     TourPackagesRvAdapter tourPackagesRvAdapter;
@@ -62,12 +62,6 @@ public class TourPackageFragment extends Fragment implements TourPackageView, Is
         View v = inflater.inflate(R.layout.fragment_tour_package, container, false);
         ButterKnife.bind(this, v);
         mSwipeRefreshLayout = v.findViewById(R.id.tour_package_swipe_container);
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-
-            }
-        });
 
 
         bundle = new Bundle();
@@ -77,12 +71,21 @@ public class TourPackageFragment extends Fragment implements TourPackageView, Is
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         tourPackageRv.setLayoutManager(layoutManager);
         tourPackagePresenter = new TourPackagePresenterImpl(this);
-        tourPackagePresenter.getTourPackages(getActivity());
+        tourPackagePresenter.getTourPackages(getActivity(), false);
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                tourPackagePresenter.getTourPackages(getActivity(), true);
+            }
+        });
+
         return v;
     }
 
     @Override
     public void showTourPackages(final List<TourPackageUI> tourPackageArrayList) {
+        mSwipeRefreshLayout.setRefreshing(false);
         tourPackagesRvAdapter = new TourPackagesRvAdapter(tourPackageArrayList, new OnTourPackageClickListener() {
             @Override
             public void onTourPackageClicked(TourPackageUI tourPackageUI) {
