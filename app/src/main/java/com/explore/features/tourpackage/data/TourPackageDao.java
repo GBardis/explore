@@ -23,7 +23,7 @@ public abstract class TourPackageDao {
     abstract void deleteAllTourPackages();
 
     @Query("UPDATE tourPackages SET image=:image WHERE id = :id")
-    public abstract void updateTourPackages(byte[] image, String id);
+    public abstract void updateTourPackageImage(byte[] image, String id);
 
     @Query("SELECT image FROM tourPackages WHERE id=:id")
     public abstract byte[] getTourPackageImage(String id);

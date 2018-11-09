@@ -85,13 +85,13 @@ public class GooglePlacesApiClient implements GoogleApiClient.OnConnectionFailed
                 if (image == null) {
                     getPhotos(tourPackageUI,mTourPackagePhoto,context);
                 }else {
-                    setBitmap(image, mTourPackagePhoto);
+                    setBitmapToRVItem(image, mTourPackagePhoto);
                 }
             }
         });
     }
 
-    private void setBitmap(final byte[] image,final ImageView mTourPackagePhoto) {
+    private void setBitmapToRVItem(final byte[] image,final ImageView mTourPackagePhoto) {
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
@@ -106,10 +106,9 @@ public class GooglePlacesApiClient implements GoogleApiClient.OnConnectionFailed
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
-                tourPackageDao.updateTourPackages(convertBitmapToByteArray(bitmap), id);
+                tourPackageDao.updateTourPackageImage(convertBitmapToByteArray(bitmap), id);
             }
         });
-
     }
 
     private byte[] convertBitmapToByteArray(Bitmap bitmap) {
