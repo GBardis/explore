@@ -37,7 +37,7 @@ public class TourPackageFragment extends Fragment implements TourPackageView, Is
     String tourPackageFragmentTitle;
     @BindView(R.id.tourpackage_rv)
     RecyclerView tourPackageRv;
-    @BindView(R.id.tour_package_swipe_container);
+//    @BindView(R.id.tour_package_swipe_container);
     SwipeRefreshLayout mSwipeRefreshLayout;
     TourPackagePresenter tourPackagePresenter;
     TourPackagesRvAdapter tourPackagesRvAdapter;
@@ -61,7 +61,15 @@ public class TourPackageFragment extends Fragment implements TourPackageView, Is
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_tour_package, container, false);
         ButterKnife.bind(this, v);
-//        mSwipeRefreshLayout = v.findViewById(R.id.tour_package_swipe_container);
+        mSwipeRefreshLayout = v.findViewById(R.id.tour_package_swipe_container);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+            }
+        });
+
+
         bundle = new Bundle();
 
         setToolbarTitle(getActivity(), tourPackageFragmentTitle);
