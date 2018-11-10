@@ -25,7 +25,7 @@ public abstract class UserDao {
     abstract List<UserDomain> findByUsername(String username);
 
     @Query("SELECT * FROM users WHERE loggedIn")
-    abstract UserDomain findLoggedInUser();
+    public abstract UserDomain findLoggedInUser();
 
     @Query("DELETE FROM users WHERE userId=:userId")
     abstract void deleteUser(int userId);

@@ -14,7 +14,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
-import com.explore.features.login.LoginFragment;
 import com.explore.features.reviewnew.presentation.ReviewNewFragment;
 import com.explore.features.tour.presentation.TourFragment;
 import com.explore.features.tourpackage.presentation.TourPackageFragment;
@@ -36,8 +35,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout drawer;
     @BindView(R.id.nav_view)
     NavigationView navigationView;
-
-    LoginFragment loginFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,11 +58,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         navigationView.setNavigationItemSelectedListener(this);
 
-        loginFragment = new LoginFragment();
-
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.main_fragment_container, loginFragment)
+                .add(R.id.main_fragment_container, new TourPackageFragment())
                 .commit();
     }
 
@@ -96,7 +91,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .beginTransaction()
                 .addToBackStack(null)
                 .replace(R.id.main_fragment_container, new TourPackageFragment())
-                .remove(loginFragment)
                 .commit();
     }
 
