@@ -17,6 +17,9 @@ import butterknife.ButterKnife;
 public class TourRvAdapter extends RecyclerView.Adapter<TourRvAdapter.TourViewHolder> {
     private ArrayList<TourUI> mTourUIDataset;
 
+    private int mExpandedPosition = -1;
+    int previousExpandedPosition;
+
     public TourRvAdapter() {
     }
 
@@ -51,9 +54,27 @@ public class TourRvAdapter extends RecyclerView.Adapter<TourRvAdapter.TourViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TourViewHolder tourViewHolder, int i) {
-        tourViewHolder.mTextViewName.setText(mTourUIDataset.get(i).getTitle());
-        tourViewHolder.mTextViewDescription.setText(mTourUIDataset.get(i).getDescription());
+    public void onBindViewHolder(@NonNull TourViewHolder tourViewHolder,final int position) {
+        tourViewHolder.mTextViewName.setText(mTourUIDataset.get(position).getTitle());
+//        tourViewHolder.mTextViewDescription.setText(mTourUIDataset.get(position).getShortDescription());
+
+        final boolean isExpanded = position==mExpandedPosition;
+//        tourViewHolder.mTextViewDescription.setVisibility(isExpanded?View.VISIBLE:View.GONE);
+        tourViewHolder.mTextViewDescription.setText(!isExpanded?mTourUIDataset.get(position).getShortDescription():mTourUIDataset.get(position).getDescription());
+        tourViewHolder.itemView.setActivated(isExpanded);
+
+        if (isExpanded)
+            previousExpandedPosition = position;
+
+        tourViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mExpandedPosition = isExpanded ? -1:position;
+                notifyItemChanged(previousExpandedPosition);
+                notifyItemChanged(position);
+            }
+        });
+
     }
 
     @Override

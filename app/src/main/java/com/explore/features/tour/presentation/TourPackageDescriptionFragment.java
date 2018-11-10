@@ -1,6 +1,7 @@
 package com.explore.features.tour.presentation;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -26,8 +27,15 @@ import butterknife.ButterKnife;
  */
 public class TourPackageDescriptionFragment extends Fragment implements TourView {
 
-    @BindView(R.id.text_tour_description)
-    TextView textViewTourDescription;
+    @BindView(R.id.text_tour_tourpackage_description)
+    TextView mTextViewDescription;
+    @BindView(R.id.text_tour_tourpackage_area)
+    TextView mTextViewDArea;
+    @BindView(R.id.text_tour_tourpackage_rating)
+    TextView mTextViewDRating;
+
+//    @BindView(R.id.text_tour_tourpackage_rating)
+//    TextView mTextViewTourPackageRating;
 
     private TourPresenter mTourPresenter;
 
@@ -47,6 +55,12 @@ public class TourPackageDescriptionFragment extends Fragment implements TourView
         View v = inflater.inflate(R.layout.fragment_tour_package_description, container, false);
         ButterKnife.bind(this, v);
 
+
+        if (getArguments() != null) {
+            tourPackageUI = getArguments().getParcelable("TOUR_PACKAGE");
+        }
+
+
         if (getArguments() != null) {
             tourPackageUI = getArguments().getParcelable("TOUR_PACKAGE");
         }
@@ -58,11 +72,16 @@ public class TourPackageDescriptionFragment extends Fragment implements TourView
     }
 
     public void setDescription(String description) {
-        textViewTourDescription.setText(description);
+        mTextViewDescription.setText(description);
     }
 
     public void showTourPackageLocal(TourPackageUI tourPackageUI) {
-        textViewTourDescription.setText(tourPackageUI.getName());
+        mTextViewDescription.setText(tourPackageUI.getName());
+        mTextViewDArea.setText(tourPackageUI.getRegion());
+        mTextViewDArea.setTextColor(Color.parseColor(tourPackageUI.getRegionColor()));
+
+        mTextViewDRating.setText(String.valueOf(tourPackageUI.getAvgRating()));
+        mTextViewDRating.setTextColor(Color.parseColor(tourPackageUI.getRatingColor()));
     }
 
     @Override

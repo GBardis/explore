@@ -22,6 +22,14 @@ public class ReviewUI {
     @Setter
     private String username;
 
+    public String getShortComment() {
+        if (comment.length() > 30){
+            return comment.substring(0,29)+"...";
+        } else {
+            return comment;
+        }
+    }
+
     public ReviewUI(String id, int score, String comment, String username) {
         this.id = id;
         this.comment = comment;

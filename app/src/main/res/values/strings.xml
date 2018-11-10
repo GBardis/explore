@@ -43,4 +43,7 @@
     <string name="user_fragment_title">Profile / Users</string>
     <string name="tourpackage_fragment_title">Tour Package</string>
     <string name="Google_api_key">AIzaSyBbDEqUxFrTYXE7CMX4JFbJjhqUcrk--Kw</string>
+    <string name="label_tourpackage_description">Description:</string>
+    <string name="label_tourpackage_region">Region:</string>
+    <string name="label_tourpackage_rating">Rating:</string>
 </resources>

@@ -1,17 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tour_fragment_description"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".features.tour.presentation.TourPackageDescriptionFragment"
-    android:id="@+id/tour_fragment_description">
+    tools:context=".features.tour.presentation.TourPackageDescriptionFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:id="@+id/text_tour_description"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text=""
-        android:padding="20dp" />
+        android:id="@+id/text_tour_tourpackage_description_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textSize="18sp"
+        android:text="@string/label_tourpackage_description" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/text_tour_tourpackage_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/text_tour_tourpackage_description_label"
+        android:padding="10dp"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/text_tour_tourpackage_area_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="@string/label_tourpackage_region"
+        android:textSize="18sp"
+        android:layout_below="@id/text_tour_tourpackage_description_label"/>
+
+    <TextView
+        android:id="@+id/text_tour_tourpackage_area"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_tour_tourpackage_description"
+        android:layout_toEndOf="@+id/text_tour_tourpackage_area_label"
+        android:textSize="18sp"
+        android:padding="10dp" />
+
+    <TextView
+        android:id="@+id/text_tour_tourpackage_rating_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="@string/label_tourpackage_rating"
+        android:textSize="18sp"
+        android:layout_below="@+id/text_tour_tourpackage_area_label"/>
+
+    <TextView
+        android:id="@+id/text_tour_tourpackage_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_tour_tourpackage_area"
+        android:layout_toEndOf="@id/text_tour_tourpackage_rating_label"
+        android:textSize="18sp"
+        android:padding="10dp" />
+
+</RelativeLayout>

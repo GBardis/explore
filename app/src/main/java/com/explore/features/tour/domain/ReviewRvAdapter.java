@@ -18,6 +18,9 @@ public class ReviewRvAdapter extends RecyclerView.Adapter<ReviewRvAdapter.Review
 
     private ArrayList<ReviewUI> mReviewUIDataset;
 
+    private int mExpandedPosition = -1;
+    int previousExpandedPosition;
+
     public ReviewRvAdapter() {
     }
 
@@ -52,10 +55,28 @@ public class ReviewRvAdapter extends RecyclerView.Adapter<ReviewRvAdapter.Review
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ReviewViewHolder reviewViewHolder, int i) {
-        reviewViewHolder.mTextViewReviewTitle.setText(mReviewUIDataset.get(i).getUsername());
-        reviewViewHolder.mTextViewReviewText.setText(mReviewUIDataset.get(i).getComment());
-        reviewViewHolder.mTextViewScoreText.setText(String.valueOf(mReviewUIDataset.get(i).getScore()));
+    public void onBindViewHolder(@NonNull ReviewViewHolder reviewViewHolder,final int position) {
+        reviewViewHolder.mTextViewReviewTitle.setText(mReviewUIDataset.get(position).getUsername());
+        reviewViewHolder.mTextViewScoreText.setText(String.valueOf(mReviewUIDataset.get(position).getScore()));
+
+        final boolean isExpanded = position==mExpandedPosition;
+//        tourViewHolder.mTextViewDescription.setVisibility(isExpanded?View.VISIBLE:View.GONE);
+        reviewViewHolder.mTextViewReviewText.setText(!isExpanded?mReviewUIDataset.get(position).getShortComment():mReviewUIDataset.get(position).getComment());
+        reviewViewHolder.itemView.setActivated(isExpanded);
+
+        if (isExpanded)
+            previousExpandedPosition = position;
+
+        reviewViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mExpandedPosition = isExpanded ? -1:position;
+                notifyItemChanged(previousExpandedPosition);
+                notifyItemChanged(position);
+            }
+        });
+
+
     }
 
     @Override

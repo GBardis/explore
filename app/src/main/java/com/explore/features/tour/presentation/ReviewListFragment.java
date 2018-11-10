@@ -32,7 +32,7 @@ public class ReviewListFragment extends Fragment implements TourView {
 
     private TourPresenter mTourPresenter;
 
-    @BindView(R.id.recycler_review_list)
+    @BindView(R.id.recycler_review_list_item)
     public RecyclerView mRecyclerView;
 
     private com.explore.features.tourpackage.domain.TourPackageUI mParentArg;

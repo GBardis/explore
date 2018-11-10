@@ -41,17 +41,6 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
 
     private TourPresenter mTourPresenter;
 
-    @BindView(R.id.text_tour_tourpackage_description)
-    TextView mTextViewDescription;
-    @BindView(R.id.text_tour_tourpackage_area)
-    TextView mTextViewDArea;
-    @BindView(R.id.text_tour_tourpackage_rating)
-    TextView mTextViewDRating;
-
-
-//    @BindView(R.id.text_tour_tourpackage_rating)
-//    TextView mTextViewTourPackageRating;
-
     @BindView(R.id.tab_tour_fragment)
     TabLayout tourTabLayout;
 
@@ -120,13 +109,7 @@ public class TourFragment extends Fragment implements TourView, IsToolbarSetter 
     @Override
     public void showTourPackage(TourPackageUI tourPackageUI) {
         setToolbarTitle(getActivity(), tourPackageUI.getName());
-        mTextViewDescription.setText(tourPackageUI.getName());
 
-        mTextViewDArea.setText(tourPackageUI.getArea());
-        mTextViewDArea.setTextColor(Color.parseColor(tourPackageUI.getRegionColor()));
-
-        mTextViewDRating.setText(String.valueOf(tourPackageUI.getRating()));
-        mTextViewDRating.setTextColor(Color.parseColor(tourPackageUI.getRatingColor()));
         googlePlacesApiClient = new GooglePlacesApiClient(getActivity());
         googlePlacesApiClient.tourPackageHasImage(mParentArg, mImageViewTourPackagePhoto, getActivity());
     }
