@@ -55,8 +55,7 @@ public class SplashScreen extends AppCompatActivity {
                 UserDomain userDomain = userDao.findLoggedInUser();
                 if (userDomain != null) {
                     ExploreApplication.setCurrentUser(userDomain);
-                    Intent i = new Intent(SplashScreen.this, MainActivity.class);
-                    startActivity(i);
+                    startActivity(new Intent(SplashScreen.this, MainActivity.class));
                 } else {
                     getSupportFragmentManager()
                             .beginTransaction()
